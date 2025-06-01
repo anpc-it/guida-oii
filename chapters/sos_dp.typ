@@ -1,6 +1,6 @@
-#import "@preview/showybox:2.0.4": showybox
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
+#import "../util.typ": *
 #show: codly-init.with()
 
 #codly(languages: codly-languages)
@@ -8,11 +8,11 @@
 = Sum over Subsets DP
 
 Consideriamo il seguente problema.
-#showybox([
-Sono dati $M <= 10^6$ interi a $N = 20$ bit. Ci chiediamo, per ogni elemento $x$, il numero di elementi $y$ tali che $x | y = x$.
-
-#link("https://cses.fi/problemset/task/1654") (Bit Problem)
-])
+#problem("Bit Problem", url: "https://cses.fi/problemset/task/1654", lbl: "bit-problem",
+[
+  Sono dati $M <= 10^6$ interi a $N = 20$ bit. Ci chiediamo, per ogni elemento $x$, il numero di elementi $y$ tali che $x | y = x$.
+]
+)
 
 
 Osserviamo che vale $x | y = x <==> y subset.eq x$, con $x$, $y$ visti come insiemi delle posizioni dei bit $1$.
