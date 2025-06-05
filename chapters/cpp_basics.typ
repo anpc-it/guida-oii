@@ -10,10 +10,10 @@
 = Concetti di base di programmazione in C++
 
 Hai capito come risolvere il problema! Cioè sapresti come redigere una lista di istruzioni a prova di idiota che permetta a chiunque di risolvere non uno, ma tutti i possibili casi di input.
-Purtroppo lo staff delle Olimpiadi di Informatica non è pagato abbastanza per leggere la lista che hai scarabocchiato su carta e giudicarne la correttezza, per questo, ma anche perché non siamo le Olimpiadi della Matematica#footnote[La partecipazione alle quali ci sentiamo di consigliare.] e a noi i risultati piace averli subito, la lista non la scrivete per noi ma per le macchine.
+Purtroppo lo staff delle Olimpiadi di Informatica non è pagato abbastanza per leggere la lista che hai scarabocchiato su carta e giudicarne la correttezza, per questo, ma anche perché non siamo alle Olimpiadi della Matematica#footnote[La partecipazione alle quali ci sentiamo di consigliare.] e a voi i risultati piace averli subito, la lista non la scrivete per noi ma per le macchine.
 
 Noi vi consigliamo di scrivere il vostro codice in C++ per almeno due buoni motivi:
-+ la sua Standard Template Library offre una vasta collezione di strutture dati e algoritmi adatti all'utilizzo come scatole nere. Inoltre C++ è un linguaggio molto efficiente e permette, a chi lo desidera, un controllo a basso livello della memoria per eventuali ulteriori ottimizzazioni;
++ la sua Standard Template Library offre una vasta collezione di strutture dati e algoritmi adatti all'utilizzo come scatole nere. Inoltre C++ è un linguaggio molto efficiente e permette, a chi lo desidera, un controllo a basso livello della memoria per eventuali ulteriori ottimizzazioni;
 + è l'unico linguaggio ammesso alle OII.
 
 Un file C++ ha l'aspetto che segue.
