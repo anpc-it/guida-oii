@@ -1,4 +1,6 @@
 #let config(doc) = {
+  set text(lang: "it", region: "IT")
+
   context {
       if "html_mode" in sys.inputs and target() != "paged" {
         // Workaround broken math in HTML export mode.
