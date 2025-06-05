@@ -59,34 +59,36 @@ Purtroppo nel nostro caso $cal(O)(3^N)$ è ancora troppo lento. Abbiamo bisogno 
 
 Si procede calcolando le somme prefisse prima per riga, poi per colonna sulla nuova griglia che contiene le somme prefisse di ogni riga. Ci si può convincere che alla fine in ogni cella $(i,j)$ si trova la risposta. Provare per credere, riportiamo un esempio su una griglia $4 times 5$.
   
+#local(number-format: none)[
 #grid(
-  columns: (1fr, 1fr, 1fr),
-  gutter: 1em,
-  [
+	columns: (1fr, 1fr, 1fr),
+	gutter: 1em,
+	[
 ```
 0  2  0  0
 0  0  3  0
 7  5  0  1
 0  0  0  1
 ```
-  ],
-  [
+	],
+	[
 ```
 0  2  2  2
 0  0  3  3
 7 12 12 13
 0  0  0  1
 ```
-  ],
-  [
+	],
+	[
 ```
 0  2  2  2
 0  2  5  5
 7 14 17 18
 7 14 17 19
 ```
-  ]
+	]
 )
+]
 
 *Esercizio:* (scollegato) Esprimere la somma di un generico rettangolo di vertici opposti $(i_1,j_1), (i_2, j_2)$ nella griglia iniziale come somma/differenza di elementi della griglia finale.
 

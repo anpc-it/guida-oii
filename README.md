@@ -1,7 +1,7 @@
 # Guida alle Olimpiadi di Informatica
 
 ## Task
-- [ ] Pagina titolo
+- [x] Pagina titolo
 - [ ] Configurazione
     - [ ] 
 
