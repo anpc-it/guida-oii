@@ -1,5 +1,6 @@
 #let config(doc) = {
   set text(lang: "it", region: "IT")
+  set par(justify: true)
   set smartquote(alternative: true)
 
   context {
