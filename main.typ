@@ -5,7 +5,7 @@
   title: "Guida alle Olimpiadi di Informatica",
   author: ("M. Arcari", "L. Ferrari", "F. Vercellesi", "L. Versari"),
 )
-#let affiliation = "Associazione NazionaleHello World"
+#let affiliation = "Associazione Nazionale Programmazione Competitiva"
 
 #set page(margin: 2cm)
 #align(center + horizon)[
