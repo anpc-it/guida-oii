@@ -9,6 +9,7 @@
     top,
     dy: -1.7em,
     block(
+      radius: 0.3em,
       stroke: 1pt + black,
       fill: white,
       inset: 0.5em,
@@ -24,7 +25,7 @@
       stroke: 0.1pt
     ) + v(-0.7em) + text(size: 0.8em, "Prova il problema online: " + link(url)) + v(-0.3em);
   }
-  block(radius: 1em, stroke: 1pt + black, inset: 1em, width: 100%, above: 1.5em,
+  block(radius: 0.3em, stroke: 1pt + black, inset: 1em, width: 100%, above: 1.5em,
       body,
   )
 };
