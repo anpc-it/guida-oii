@@ -14,7 +14,7 @@ Analizziamo ad esempio la seguente situazione:
 [
     Ci servono $C$ soldi per comprare il gelato e $N$ nostri amici sono disposti a prestarcene un po'. 
     L'$i$-esimo amico ci può prestare al massimo $P_i$ soldi.
-    Qual'è il minimo numero di amici a cui dobbiamo chiedere in prestito dei soldi per poter prendere il gelato?
+    Qual è il minimo numero di amici a cui dobbiamo chiedere in prestito dei soldi per poter prendere il gelato?
 ])
 
 È un problema abbastanza semplice di cui sappiamo delineare intuitivamente una strategia risolutiva: chiedo ogni volta all'amico che mi dà più soldi finché non arrivo ad avere $C$ soldi. 
