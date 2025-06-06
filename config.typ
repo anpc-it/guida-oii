@@ -1,5 +1,6 @@
 #let config(doc) = {
   set text(lang: "it", region: "IT")
+  set smartquote(alternative: true)
 
   context {
       if "html_mode" in sys.inputs and target() != "paged" {
