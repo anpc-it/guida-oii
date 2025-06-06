@@ -22,4 +22,5 @@
 #outline(depth: 1)
 #include "chapters/cpp_basics.typ"
 #include "chapters/competitive_cpp.typ"
+#include "chapters/greedy.typ"
 #include "chapters/sos_dp.typ"

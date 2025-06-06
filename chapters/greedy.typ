@@ -7,11 +7,14 @@
 
 = Problemi greedy
 
-Come suggerisce il nome, nei problemi che vedremo tra poco la strategia vincente è agire come un avaro che in ogni momento prende per sé quanti più soldi possibile. Analizziamo ad esempio la seguente situazione:
+Come suggerisce il nome, nei problemi che vedremo tra poco la strategia vincente è agire come un avaro che in ogni momento prende per sé quanti più soldi possibile. 
+Analizziamo ad esempio la seguente situazione:
 
 #problem("Gelati costosi", url: "https://training.olinfo.it/task/pre-egoi-gelato", lbl: "gelati-costosi",
 [
-    Ci servono $C$ soldi per comprare il gelato e $N$ nostri amici sono disposti a prestarcene un po'. L'$i$-esimo amico ci può prestare al massimo $P_i$ soldi. Qual'è il minimo numero di amici a cui dobbiamo chiedere in prestito dei soldi?
+    Ci servono $C$ soldi per comprare il gelato e $N$ nostri amici sono disposti a prestarcene un po'. 
+    L'$i$-esimo amico ci può prestare al massimo $P_i$ soldi.
+    Qual'è il minimo numero di amici a cui dobbiamo chiedere in prestito dei soldi per poter prendere il gelato?
 ])
 
 È un problema abbastanza semplice di cui sappiamo delineare intuitivamente una strategia risolutiva: chiedo ogni volta all'amico che mi dà più soldi finché non arrivo ad avere $C$ soldi. 
@@ -35,18 +38,27 @@ int presta(int N, int C, vector<int> P) {
 }
 ```
 
-La lezione che ne traiamo è che - in certi problemi - ad una scelta _localmente ottima_ formulata nel modo corretto, in questo caso, chiedere ogni volta all'amico che ci dà più soldi, ci conduce ad una soluzione _globalmente ottima_ che per questo problema corrisponde a minimizzare il numero di amici a cui chiedere.
+La lezione che ne traiamo è che - in certi problemi - ad una scelta _localmente ottima_ formulata nel modo corretto, in questo caso chiedere ogni volta all'amico che ci dà più soldi, corrisponde una soluzione _globalmente ottima_ che per questo problema significa minimizzare il numero di amici a cui chiedere.
 
-Il miglior metro per capire se in un problema si possa applicare un approccio greedy è l'esperienza. Vediamo quindi un altro problema.
+Un possibile criterio che ci suggerisce che il problema si possa risolvere in modo greedy è che le scelte che facciamo siano indipendenti tra loro. 
+In questo caso chiedere ad un amico non pone vincoli sugli amici ai quali potremo chiedere successivamente.
+
+Il miglior metro per capire se in un problema si possa applicare un approccio greedy è però l'esperienza. 
+Vediamo quindi un altro problema.
 
 #problem("Viaggio in taxi", url: "https://training.olinfo.it/task/ois_taxi", lbl: "viaggio-in-taxi", 
 [
-    Dobbiamo passare per $N$ città in fila (numerate da $0$ a $N - 1$), equidistanti tra loro, ed arrivare alla fine nella città numero $N$. Nella città $i$ è presente un taxi che ci può portare alla città successiva $i + 1$ ad un costo di $C_i$ soldi. Arrivati alla città successiva, se non siamo arrivati alla città $N$, possiamo scegliere se proseguire prendendo il taxi presente in quella città per $C_(i + 1)$ soldi o rimanere sullo stesso taxi, che però aumenterà di $1$ soldo il suo prezzo per ogni città successiva alla propria città di partenza.
+    Dobbiamo passare per $N$ città in fila (numerate da $0$ a $N - 1$), equidistanti tra loro, ed arrivare alla fine nella città numero $N$. 
+    Nella città $i$ è presente un taxi che ci può portare alla città successiva $i + 1$ ad un costo di $C_i$ soldi. 
+    Arrivati alla città successiva, se non siamo arrivati alla città $N$, possiamo scegliere se proseguire prendendo il taxi presente in quella città per $C_(i + 1)$ soldi o rimanere sullo stesso taxi, che però aumenterà di $1$ soldo il suo prezzo per ogni città successiva alla propria città di partenza.
 ])
 
-Facendo un esempio per capire meglio il testo, se nella prima città il taxi costa $3$ soldi, possiamo pagare $3$ per prenderlo e andare alla seconda città. Se nella seconda città il taxi costa $5$ possiamo scegliere se prendere quel taxi pagando $5$ o rimanere sul nostro taxi pagando questa volta $4$. Se rimaniamo sul nostro taxi alla stazione successiva pagheremo $5$ e così via.
+Facendo un esempio per capire meglio il testo, se nella prima città il taxi costa $3$ soldi, possiamo pagare $3$ per prenderlo e andare alla seconda città. 
+Se nella seconda città il taxi costa $5$ possiamo scegliere se prendere quel taxi pagando $5$ o rimanere sul nostro taxi pagando questa volta $4$. 
+Se rimaniamo sul nostro taxi alla stazione successiva pagheremo $5$ e così via.
 
-Anche in questo problema la strategia intuitiva di prendere sempre il taxi che ci costa meno funziona perché in ogni caso entrambi aumenterebbero il loro prezzo di $1$ soldo a ogni stazione successiva. Quindi se il taxi $A$ costa meno del taxi $B$ in una certa città, costerà di meno anche in tutte le successive. 
+Anche in questo problema la strategia intuitiva di prendere sempre il taxi che ci costa meno funziona perché in ogni caso entrambi aumenterebbero il loro prezzo di $1$ soldo a ogni stazione successiva. 
+Quindi se il taxi $A$ costa meno del taxi $B$ in una certa città, costerà di meno anche in tutte le successive. 
 
 #codly(
 	header: [*Soluzione $cal(O)(N)$*],
