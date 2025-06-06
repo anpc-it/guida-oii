@@ -79,4 +79,56 @@ int viaggia(int N, vector<int> C) {
 }
 ```
 
+Consideriamo ora questo problema:
 
+#problem("Mozzarelle di bufala", url: "https://training.olinfo.it/task/oii_bufale", lbl: "mozzarelle-di-bufala", 
+[
+    Ci sono $N$ mozzarelle ($N$ è un numero pari). 
+    Alla $i$-esima mozzarella Monica dà il voto $M_i$ e Paola il voto $P_i$. 
+    Dobbiamo dividere le mozzarelle in due gruppi da $N/2$ ciscuno in modo da massimizzare la somma dei voti nel rispettivo gruppo, cioè la somma dei voti che Monica dà alle sue $N/2$ mozzarelle + i voti che Paola dà alle altre $N/2$ mozzarelle.
+])
+
+In questo caso il primo approccio greedy che viene in mente potrebbe essere quello di ordinare le mozzarelle per uno dei due voti - diciamo quello di Monica - per poi assegnare le prime $N/2$ a Monica e le restanti a Paola. 
+
+Questa strategia non funziona perché non stiamo tenendo conto di entrambi i voti: supponiamo di avere solo 2 mozzarelle; la prima  vale $10$ per Monica e $9$ per Paola e la seconda vale $8$ per Monica e $2$ per Paola. 
+Seguendo la precedente strategia finiremmo per assegnare la prima a Monica ottenendo somma $12$ quando è ottimale il contrario, riuscendo ad ottenere somma $17$.
+
+Da questa osservazione ci potrebbe venire in mente di dividere le mozzarelle in base a quanto cambia assegnarla a Monica al posto che Paola. 
+Una mozzarella che vale $10$ per la prima e $9$ per la seconda è meno rilevante di una che vale $8$ per la prima e $2$ per la seconda. 
+
+Per fare ciò ordiniamo le mozzarelle per la differenza tra il voto che dà Monica e quello che dà Paola. 
+
+Diciamo che $D_i = M_i - P_i$, allora le mozzarelle con $D_i$ alto sono  più buone per Monica che per Paola e viceversa, se $D_i$ è piccolo sarà più conveniente darle a Paola.
+
+#codly(
+	header: [*Soluzione $cal(O)(N log N)$*],
+)
+
+```cpp
+long long solve(int N, int* M, int* P) {
+    vector<pair<int, int>> D(N);
+    for (int i = 0; i < N; i++) {
+        D[i] = {M[i] - P[i], i};
+    }
+    sort(D.begin(), D.end());
+
+    long long somma = 0;
+    for (int i = 0; i < N; i++) {
+        int idx = D[i].second;
+        if (i < N / 2) {
+            somma += P[idx];
+        } else {
+            somma += M[idx];
+        }
+    }
+    return somma;
+}
+```
+
+*Note sull'implementazione:*
+
+- $D$ contiene anche l'indice cui la differenza si riferisce in modo da poter risalire alla mozzarella una volta ordinate le differenze.
+
+- $D$ è ordinato in ordine crescente quindi le prime mozzarelle saranno quelle con $D_i$  più basso, da assegnare a Paola. 
+
+- Sarebbe possibile risolvere il problema in tempo lineare trovando la $N/2$-esima differenza con l'algoritmo `nth-element` della STL per trovare il valore della differenza secondo cui dividere le mozzarelle. Questa soluzione è lasciata come esercizio. 
