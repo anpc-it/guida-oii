@@ -27,7 +27,7 @@ Questa strategia si rivela essere quella ottimale! Di seguito l'implementazione:
 
 ```cpp
 int presta(int N, int C, vector<int> P) {
-    sort(P.begin(), P.end());
+    sort(begin(P), end(P));
     int risposta = 0;
     while (C > 0) {
         risposta++;
@@ -38,7 +38,7 @@ int presta(int N, int C, vector<int> P) {
 }
 ```
 
-La lezione che ne traiamo è che - in certi problemi - ad una scelta _localmente ottima_ formulata nel modo corretto, in questo caso chiedere ogni volta all'amico che ci dà più soldi, corrisponde una soluzione _globalmente ottima_ che per questo problema significa minimizzare il numero di amici a cui chiedere.
+La lezione che ne traiamo è che -- in certi problemi -- ad una scelta _localmente ottima_ formulata nel modo corretto, in questo caso chiedere ogni volta all'amico che ci dà più soldi, corrisponde una soluzione _globalmente ottima_ che per questo problema significa minimizzare il numero di amici a cui chiedere.
 
 Un possibile criterio che ci suggerisce che il problema si possa risolvere in modo greedy è che le scelte che facciamo siano indipendenti tra loro. 
 In questo caso chiedere ad un amico non pone vincoli sugli amici ai quali potremo chiedere successivamente.
@@ -110,7 +110,7 @@ long long solve(int N, int* M, int* P) {
     for (int i = 0; i < N; i++) {
         D[i] = {M[i] - P[i], i};
     }
-    sort(D.begin(), D.end());
+    sort(begin(D), end(D));
 
     long long somma = 0;
     for (int i = 0; i < N; i++) {
