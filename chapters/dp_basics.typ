@@ -94,7 +94,7 @@ $
 "conta"[Y] = cases(
   0 & " se " Y < 0,
   1 & " se " Y = 0,
-  sum_(i = 0)^(N-1) "conta"[Y - c_i] & " altrimenti "
+  sum_(i = 1)^(N) "conta"[Y - c_i] & " altrimenti "
 )
 $
 
@@ -108,7 +108,7 @@ for (int y = 1; y <= x; ++y)
             conta[y] = (conta[y] + conta[y - c[i]]) % mod;
 ```
 
-La complessità temporale è $cal(O)(N X)$, quella spaziale $cal(O)(N)$.
+La complessità temporale è $cal(O)(N X)$, quella spaziale $cal(O)(N + X)$.
 
 #problem("Coin Combinations II", url: "https://cses.fi/problemset/task/1636", lbl: "coin-comb-II",
 [
@@ -116,7 +116,7 @@ La complessità temporale è $cal(O)(N X)$, quella spaziale $cal(O)(N)$.
 ]
 )
 
-Cerchiamo innanzitutto una pila rappresentante per ogni sottoinsieme di monete: una scelta ragionevole è quella le cui monete sono ordinate per valore crescente. La famiglia di sottoproblemi in questo caso è "In quanti modi fondamentalmente distinti si ottiene somma $Y$ avendo a disposizione i primi $i$ tipi di monete?" al variare di $Y <= X$, $i <= N$. Fissati i casi base, vale la ricorsione $"conta"[Y][i] = "conta"[Y][i - 1] + "conta"[Y - c_i][i]$. L'implementazione diretta costa $cal(O)(N X)$ tempo e memoria, ma si può fare meglio di così! Se immaginiamo di aggiungere al sistema monetario una moneta alla volta otteniamo una soluzione $O(N X)$ tempo e $O(N)$ memoria:
+Cerchiamo innanzitutto una pila rappresentante per ogni sottoinsieme di monete: una scelta ragionevole è quella le cui monete sono ordinate per valore crescente. La famiglia di sottoproblemi in questo caso è "In quanti modi fondamentalmente distinti si ottiene somma $Y$ avendo a disposizione i primi $i$ tipi di monete?" al variare di $Y <= X$, $i <= N$. Fissati i casi base, vale la ricorsione $"conta"[Y][i] = "conta"[Y][i - 1] + "conta"[Y - c_i][i]$. L'implementazione diretta costa $cal(O)(N X)$ tempo e memoria, ma si può fare meglio di così! Se immaginiamo di aggiungere al sistema monetario una moneta alla volta otteniamo una soluzione $cal(O)(N X)$ tempo e $cal(O)(N + X)$ memoria:
 ```cpp
 vector<int> conta(X + 1);
 conta[0] = 1;
@@ -205,7 +205,7 @@ for (int i = 0; i < lcs[n][m]; ++i)
 
 Una valida famiglia di sottoproblemi da risolvere in questo caso è "qual è la risposta per $k$ turni se termino il $k$-esimo turno sulla casella $i$ con $l$ lanci". Alternativamente, il limite di tempo permette una soluzione più lenta ma più semplice i cui stati sono solo le coppie $k$, $i$ con $0 <= k <= K$ e $0 <= i < N$. Un'implementazione del primo approccio si trova #link("https://github.com/franfill1/training.olinfo.it-solutions/blob/master/src/ois_monopoly.cpp")[qui], una del secondo a #link("https://github.com/lorenzo-ferrari/olinfo/blob/main/src/ois_monopoly.cpp")[questo link].
 
-Invitiamo a notare che per quanto la programmazione dinamica in questione abbia $cal(O)(N K)$ stati, i valori all'$(i+1)$-esimo turno dipendono esclusivamente da quelli all'$i$-esimo turno, quindi la soluzione si può implementare in $O(N)$ memoria.
+Invitiamo a notare che per quanto la programmazione dinamica in questione abbia $cal(O)(N K)$ stati, i valori all'$(i+1)$-esimo turno dipendono esclusivamente da quelli all'$i$-esimo turno, quindi la soluzione si può implementare in $cal(O)(N)$ memoria.
 
 == Esercizi consigliati
 
@@ -226,7 +226,7 @@ Innanzitutto ti consigliamo di risolvere i problemi della sezione "dp" su #link(
 - #link("https://training.olinfo.it/task/preoii_pokemongo")
 
 
-*_Commenti:_* tra quelli elencati, i problemi preferiti della persona che sta scrivendo sono oii_coda e Coding Company, ma anche preoii_yutaka è molto bello. Non tutti i problemi sopra si risolvono pensando esclusivamente in termini di programmazione dinamica. Un esempio: per zigzag e ois_tulips fa comodo avere prima risolto #link("https://cses.fi/problemset/task/1645")[Nearest Smaller Values] in $cal(O)(N)$
+*_Commenti:_* tra quelli elencati, i problemi preferiti della persona che sta scrivendo sono oii_coda e Coding Company, ma anche preoii_yutaka è molto bello. Non tutti i problemi sopra si risolvono pensando esclusivamente in termini di programmazione dinamica. Un esempio: per zigzag e ois_tulips fa comodo avere prima visto #link("https://cses.fi/problemset/task/1645")[Nearest Smaller Values] in $cal(O)(N)$
 #footnote[È una tecnica comune a cui vale la pena pensare. Se siete bloccati per troppo tempo, chiedete e il link da cui imparare vi sarà dato.],
 // #link("https://cp-algorithms.com/data_structures/stack_queue_modification.html")
 che vi apre la piacevolissima strada secondaria di #link("https://cses.fi/problemset/task/1142")[Advertisement] e #link("https://cses.fi/problemset/task/1147")[Maximum Building I]
