@@ -5,7 +5,7 @@
 
 #codly(languages: codly-languages)
 
-= Programmazione dinamica
+== Programmazione dinamica
 
 In questo capitolo sviluppiamo una tecnica molto potente per affrontare due categorie di problemi che ha senso trattare congiuntamente:
 - problemi di *ottimizzazione*, cioè prendere scelte che portino al massimo guadagno (o, equivalentemente, alla minima spesa) possibile;
@@ -78,8 +78,6 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
 // ]
 // )
 
-== Coin Combinations
-
 #problem("Coin Combinations I", url: "https://cses.fi/problemset/task/1635", lbl: "coin-comb-I",
 [
   Dato un sistema monetario di $N$ monete con valore distinti $c_1, dots, c_N$ e una somma $X$, conta modulo $10^9 + 7$ le pile distinte di monete con somma $X$. Due pile composte dalle stesse monete in ordine diverso si considerano distinte.
@@ -132,12 +130,9 @@ Alla fine di ogni iterazione del primo `for`, il vettore `conta` contiene ad ogn
 #footnote[La risposta è... non lo so: dovrei pensarci meglio. Sicuramente se tutti gli $m_i$ sono uno in meno di una potenza di due, la risposta è sì.]
 // non ci ho pensato attentamente, ma 
 
-== Massima sottosequenza comune
-
-Un'array si dice #emph[sottosequenza] di un altro array se il primo si può ottenere dal secondo eliminando alcuni elementi (possibilmente nessuno) senza cambiare l'ordine degli elementi rimanenti.
-
 #problem("Massima sottosequenza comune", url: "https://cses.fi/problemset/task/3403", lbl: "lcs",
 [
+  Un'array si dice #emph[sottosequenza] di un altro array se il primo si può ottenere dal secondo eliminando alcuni elementi (possibilmente nessuno) senza cambiare l'ordine degli elementi rimanenti.
   Dati due array $a_1, a_2, ..., a_n$ e $b_1, b_2, ..., b_m$ rispettivamente di $n$ e $m$ elementi, si trovi una sottosequenza comune di lunghezza massima.
 ]
 )
@@ -189,8 +184,6 @@ for (int i = 0; i < lcs[n][m]; ++i)
     cout << ans[i] << " \n"[i == lcs[n][m] - 1];
 ```
 
-== Monopoly Board Game
-
 #problem("Monopoly Board Game", url: "https://training.olinfo.it/task/ois_monopoly", lbl: "ois_monopoly",
 [
   Giochi a Monopoli su un tabellone circolare di $N$ caselle, numerate da $0$ a $N-1$ con le caselle $N-1$ e $0$ adiacenti.
@@ -207,7 +200,7 @@ Una valida famiglia di sottoproblemi da risolvere in questo caso è "qual è la 
 
 Invitiamo a notare che per quanto la programmazione dinamica in questione abbia $cal(O)(N K)$ stati, i valori all'$(i+1)$-esimo turno dipendono esclusivamente da quelli all'$i$-esimo turno, quindi la soluzione si può implementare in $cal(O)(N)$ memoria.
 
-== Esercizi consigliati
+=== Esercizi consigliati
 
 Innanzitutto ti consigliamo di risolvere i problemi della sezione "dp" su #link("https://training.olinfo.it/algobadge")[algobadge]. Dopodiché, se hai bisogno di altro _classicismo_, proponiamo la sezione "Dynamic Programming" di #link("cses.fi/problemset"). Proponiamo qui sotto problemi più succosi e di vari livelli di difficoltà (non minori di algobadge)
 #footnote[Se hai già visto tutti gli esercizi consigliati, probabilmente questa lezione non fa per te.]

@@ -5,7 +5,7 @@
 
 #codly(languages: codly-languages)
 
-= Problemi greedy
+== Problemi greedy
 
 Come suggerisce il nome, nei problemi che vedremo tra poco la strategia vincente è agire come un avaro che in ogni momento prende per sé quanti più soldi possibile. 
 Analizziamo ad esempio la seguente situazione:

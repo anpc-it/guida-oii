@@ -5,7 +5,7 @@
 
 #codly(languages: codly-languages)
 
-= Sum over Subsets DP
+== Sum over Subsets DP
 
 Consideriamo il seguente problema.
 #problem("Bit Problem", url: "https://cses.fi/problemset/task/1654", lbl: "bit-problem",
@@ -53,7 +53,7 @@ for (int x = 1; x < (1 << n); ++x) {
 
 Purtroppo nel nostro caso $cal(O)(3^N)$ è ancora troppo lento. Abbiamo bisogno di nuove idee: consideriamo un problema apparentemente scollegato.
 
-== Somme prefisse bidimensionali
+=== Somme prefisse bidimensionali
 
 È data una griglia le cui celle contengono degli interi. Per ogni cella $(i,j)$, calcolare la somma dei numeri contenuti nelle celle $(x,y)$ con $x <= i$ e $y <= j$.
 
@@ -114,7 +114,7 @@ Allo step $i$-esimo, per ogni cella sommiamo le celle precedenti nella $i$-esima
 // facciamo una sezione apposta per gli Hint?
 // Hint: [spoiler]data una stringa $w \in \{0, 1, ?\}^L$, qual è la massima frequenza del simbolo che appare meno volte?[/spoiler]
 
-=== Fonti:
+==== Fonti:
 - #link("https://usaco.guide/adv/dp-sos?lang=cpp")[Sum over Subsets DP - Usaco Guide]
 - #link("https://codeforces.com/blog/entry/105247")[Some SOS DP Insight]
 - #link("https://forum.olinfo.it/t/quarantraining-05/6125")[Quarantraining - 05]
