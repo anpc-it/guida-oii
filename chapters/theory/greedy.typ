@@ -1,6 +1,6 @@
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
-#import "../util.typ": *
+#import "../../util.typ": *
 #show: codly-init.with()
 
 #codly(languages: codly-languages)
@@ -46,7 +46,7 @@ In questo caso chiedere ad un amico non pone vincoli sugli amici ai quali potrem
 Il miglior metro per capire se in un problema si possa applicare un approccio greedy è però l'esperienza. 
 Vediamo quindi un altro problema.
 
-#problem("Viaggio in taxi", url: "https://training.olinfo.it/task/ois_taxi", lbl: "viaggio-in-taxi", 
+#problem("Viaggio in taxi", url: "https://training.olinfo.it/task/ois_taxi", lbl: "viaggio-in-taxi", tags: ("ois", "2014-15"),
 [
     Dobbiamo passare per $N$ città in fila (numerate da $0$ a $N - 1$), equidistanti tra loro, ed arrivare alla fine nella città numero $N$. 
     Nella città $i$ è presente un taxi che ci può portare alla città successiva $i + 1$ ad un costo di $C_i$ soldi. 
@@ -81,7 +81,7 @@ int viaggia(int N, vector<int> C) {
 
 Consideriamo ora questo problema:
 
-#problem("Mozzarelle di bufala", url: "https://training.olinfo.it/task/oii_bufale", lbl: "mozzarelle-di-bufala", 
+#problem("Mozzarelle di bufala", url: "https://training.olinfo.it/task/oii_bufale", lbl: "mozzarelle-di-bufala", tags: ("oii", "2013"),
 [
     Ci sono $N$ mozzarelle ($N$ è un numero pari). 
     Alla $i$-esima mozzarella Monica dà il voto $M_i$ e Paola il voto $P_i$. 

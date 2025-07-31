@@ -1,6 +1,6 @@
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
-#import "../util.typ": *
+#import "../../util.typ": *
 #show: codly-init.with()
 
 #codly(languages: codly-languages)
@@ -78,7 +78,7 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
 // ]
 // )
 
-#problem("Coin Combinations I", url: "https://cses.fi/problemset/task/1635", lbl: "coin-comb-I",
+#problem("Coin Combinations I", url: "https://cses.fi/problemset/task/1635", lbl: "coin-comb-I", tags: ("cses",),
 [
   Dato un sistema monetario di $N$ monete con valore distinti $c_1, dots, c_N$ e una somma $X$, conta modulo $10^9 + 7$ le pile distinte di monete con somma $X$. Due pile composte dalle stesse monete in ordine diverso si considerano distinte.
 ]
@@ -108,7 +108,7 @@ for (int y = 1; y <= x; ++y)
 
 La complessità temporale è $cal(O)(N X)$, quella spaziale $cal(O)(N + X)$.
 
-#problem("Coin Combinations II", url: "https://cses.fi/problemset/task/1636", lbl: "coin-comb-II",
+#problem("Coin Combinations II", url: "https://cses.fi/problemset/task/1636", lbl: "coin-comb-II", tags: ("cses",),
 [
   Come Coin Combinations I, ma conta questa volta i _sottoinsiemi_ di monete: due pile ottenibili l'una dall'altra per permutazione si considerano ora equivalenti.
 ]
@@ -184,7 +184,7 @@ for (int i = 0; i < lcs[n][m]; ++i)
     cout << ans[i] << " \n"[i == lcs[n][m] - 1];
 ```
 
-#problem("Monopoly Board Game", url: "https://training.olinfo.it/task/ois_monopoly", lbl: "ois_monopoly",
+#problem("Monopoly Board Game", url: "https://training.olinfo.it/task/ois_monopoly", lbl: "ois_monopoly", tags: ("ois", "2022-23"),
 [
   Giochi a Monopoli su un tabellone circolare di $N$ caselle, numerate da $0$ a $N-1$ con le caselle $N-1$ e $0$ adiacenti.
   Ogni casella ha un valore di imposta $T_i$ associato. Ogni volta che un giocatore atterra su una casella, deve pagare il rispettivo valore di imposta

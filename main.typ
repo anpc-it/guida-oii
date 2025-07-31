@@ -21,6 +21,8 @@
 
 #set heading(numbering: none)
 #show outline.entry.where(level: 1): strong
+#show math.equation.where(block: false): box
+#show raw.where(block: true): set text(size: 7pt)
 
 #outline(depth: 2)
 #pagebreak(weak: true)
@@ -57,10 +59,12 @@
 
 = Tecniche e teoria
 
-#include "chapters/cpp_basics.typ"
-#include "chapters/competitive_cpp.typ"
-#include "chapters/greedy.typ"
-#include "chapters/dp_basics.typ"
-#include "chapters/sos_dp.typ"
+#include "chapters/theory/cpp_basics.typ"
+#include "chapters/theory/competitive_cpp.typ"
+#include "chapters/theory/greedy.typ"
+#include "chapters/theory/dp_basics.typ"
+#include "chapters/theory/sos_dp.typ"
 
 = Problemi passati
+
+#include "chapters/editorials/graphs.typ"
