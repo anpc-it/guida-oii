@@ -41,7 +41,6 @@ L'istruzione `return` serve per restituire il valore di ritorno: il compito del 
 
 
 // disclaimer
-Sappiate che tante scelte convenienti quando si fa programmazione competitiva sono da evitare, per mille motivi, in altri ambiti: #link("www.google.com").
-// poi linko la pagina giusta.
+Sappi che tante scelte convenienti quando si fa programmazione competitiva sono da evitare, per mille motivi, in altri ambiti#footnote[Vedi il punto 7 di #link("https://www.comp.nus.edu.sg/~stevenha/cs3233.html").].
 
 // se vuoi un ambiente nativo, ti consigliamo ...
