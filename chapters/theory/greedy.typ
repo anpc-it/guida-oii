@@ -30,7 +30,7 @@ int presta(int N, int C, vector<int> P) {
     sort(begin(P), end(P));
     int risposta = 0;
     while (C > 0) {
-        risposta++;
+        ++risposta;
         C -= P.back();
         P.pop_back();
     }
@@ -68,12 +68,12 @@ Quindi se il taxi $A$ costa meno del taxi $B$ in una certa città, costerà di m
 int viaggia(int N, vector<int> C) {
     int costo_totale = 0;
     int costo_attuale = INT_MAX;
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < N; ++i) {
         if (costo_attuale > C[i]) {
             costo_attuale = C[i];
         }
         costo_totale += costo_attuale;
-        costo_attuale++;
+        costo_attuale += 1;
     }
     return costo_totale;
 }
@@ -107,13 +107,13 @@ Diciamo che $D_i = M_i - P_i$, allora le mozzarelle con $D_i$ alto sono  più bu
 ```cpp
 long long solve(int N, int* M, int* P) {
     vector<pair<int, int>> D(N);
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < N; ++i) {
         D[i] = {M[i] - P[i], i};
     }
     sort(begin(D), end(D));
 
     long long somma = 0;
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < N; ++i) {
         int idx = D[i].second;
         if (i < N / 2) {
             somma += P[idx];

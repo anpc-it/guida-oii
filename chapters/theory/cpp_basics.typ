@@ -35,11 +35,11 @@ L'esecuzione del codice inizia con la chiamata alla funzione `main`, che come va
 La funzione `std::cout` della libreria `iostream` stampa a video la stringa "Hello World!" (senza apici), l'ultimo carattere `\n` "newline" indica di andare a capo.
 L'istruzione `return` serve per restituire il valore di ritorno: il compito del `main` è terminato ed eventuali righe successive vengono ignorate.
 
-Il C++ che utilizzeremo si impara soprattutto strada facendo, quando ce n'è bisogno. Segue ora un insieme minimale di
+Il po' di C++ che utilizzeremo si impara soprattutto strada facendo, quando ce n'è bisogno. Segue ora un insieme minimale di
 
 === Esempi
 
-È normale la sintassi appaia inizialmente un po' criptica. Ti invitiamo a capire#footnote[Indovinare.] il funzionamento delle varie parti nei codici che seguono. La strategia migliore è sperimentare.
+È normale la sintassi appaia inizialmente un po' criptica. Ti invitiamo a capire#footnote[Cioè a indovinare.] il funzionamento delle varie parti nei codici che seguono. La strategia migliore è sperimentare.
 
 Il seguente programma legge prima un intero $n$, poi $n$ interi $a_0, dots, a_(n-1)$ e li stampa in ordine inverso.
 ```cpp
@@ -61,7 +61,7 @@ int main() {
 }
 ```
 
-Ahinoi, abbiamo omesso il valore di ritorno! Poco male, se tutto va bene il main già conosce il proprio valore di ritorno. Lo stesso non vale per le funzioni che definiremo in futuro.
+Ahinoi, abbiamo omesso il valore di ritorno! Poco male, il main è una funzione speciale e se tutto va bene già lo conosce. Lo stesso non vale per le funzioni che definiremo in futuro.
 I due modi consigliati per gestire liste di elementi sono gli `std::vector`, liste di dimensione variabile, e gli `std::array`, liste di dimensione fissa. Un `std::array<int, 10> arr` è una lista di dieci interi, all'$i$-esimo dei quali si accede con `arr[i]`.
 Scrivere `std::` prima di ogni funzione o oggetto della libreria standard è sconveniente: d'ora in poi la stringa `using namespace std;` ci risparmierà questa fatica.
 
@@ -89,7 +89,7 @@ int main() {
 }
 ```
 
-Una funzione di tipo `void` non ha nessun valore di ritorno e semplicemente svolge delle operazioni. In generale una funzione ha un valore di ritorno che specifichiamo con `return <valore>`. Una funzione può anche chiamare se stessa, nel cui caso si dice "ricorsiva". Implementiamo quindi una funzione ricorsiva per il calcolo del fattoriale
+Una funzione di tipo `void` non ha nessun valore di ritorno e semplicemente svolge delle operazioni. In generale una funzione ha un valore di ritorno che specifichiamo con `return <valore>;`. Una funzione può anche chiamare se stessa, nel cui caso si dice "ricorsiva". Implementiamo quindi una funzione ricorsiva di tipo `int` per il calcolo del fattoriale
 #footnote[Basterebbe anche un ciclo for, altre volte la ricorsione è estremamente utile.]
 di un naturale $n$, definito come $n! = 1 dot 2 dot ... dot n = n dot (n - 1)!$ per $n != 0$ e ponendo $0! = 1$.
 ```cpp
@@ -100,11 +100,13 @@ int fact(int n) {
 }
 ```
 
-Il costrutto `if (<condizione>) ` precede un blocco di codice che viene eseguito se e solo se la condizione è vera, in questo caso se e solo se $n = 0$. Poiché il blocco di codice consta di una sola istruzione, possiamo omettere le parentesi graffe per isolarlo, in maniera del tutto analoga ai cicli for
+Il costrutto `if (<condizione>) ` precede un blocco di codice che viene eseguito se e solo se la condizione è vera, in questo caso se e solo se $n = 0$. Poiché il blocco di codice consta di una sola istruzione, possiamo omettere le parentesi graffe altrimenti necessarie per isolarlo, in maniera del tutto analoga ai cicli for
 #footnote[Lo avevi notato?].
 Secondo te cosa accadrebbe se non mettessi il _caso base_ per $n = 0$ nella definizione di `fact`?
 
-Per ora abbiamo avuto a che fare solo con variabili di tipo `int`, ma è ragionevole voler maneggiare anche numeri decimali, caratteri, stringhe di caratteri o interi più grandi. Per questo esistono rispettivamente le variabili di tipo `double`, `char`, le `std::string` e i `long long`.
+Per ora abbiamo avuto a che fare solo con variabili di tipo `int`, ma è ragionevole voler maneggiare anche numeri decimali, caratteri, stringhe di caratteri o interi più grandi
+#footnote[Cosa succede se provi a calcolare il fattoriale di 15?].
+Per questo esistono rispettivamente le variabili di tipo `double`, `char`, le `std::string` e i `long long`.
 Poiché un computer non ha memoria infinita, ogni variabile ha dimensione finita, che ha lato pratico significa che un `int` contiene interi nell'intervallo $[-2^(31), 2^(31) - 1]$
 #footnote[ricordando $2^(10) = 1024$ puoi stimare $2^(31)$ circa uguale a due miliardi],
 per un `long long` l'intervallo è $[-2^(63), 2^(63) - 1]$ e un `double` ha una precisione relativa di circa $10^(-16)$.
@@ -121,19 +123,40 @@ int main() {
     string s; cin >> s;
     for (int i = 0; i < (int)s.size(); ++i)
         ++freq[s[i]];
-    for (char c = 32; c < 128; ++c)
+    for (int c = 32; c < 128; ++c)
         if (freq[c] != 0)
-            cout << c << ": " << freq[c] << "\n";
+            cout << (char)c << ": " << freq[c] << "\n";
 }
 ```
 
-// Per ordinare gli elementi di un vettore `a` in ordine crescente, chiamiamo l'apposita funzione `sort(begin(a), end(a))` definita nella libreria `<algorithms>`.
+Più in generale, quando data una lista di interi $a_0, ..., a_(n-1)$ siamo interessati a conoscere la frequenza con cui ognuno appare, se gli $a_i$ sono troppo grandi e non possiamo permetterci di allocare un array di quelle dimensioni, possiamo usare una `std::map` nel modo seguente.
 
-// set e map
+```cpp
+#include <map>
+#include <iostream>
+using namespace std;
 
+int main() {
+    int n; cin >> n;
+    map<int, int> freq;
+    for (int i = 0; i < n; ++i) {
+        int x; cin >> x;
+        ++freq[x];
+    }
+    for (auto [key, value] : freq) {
+        cout << key << ": " << value << "\n";
+    }
+}
+```
+
+Menzioniamo infine che per ordinare gli elementi di un vettore `a` in ordine crescente è possibile chiamare l'apposita funzione `std::sort(begin(a), end(a))` definita nella libreria `<algorithm>`.
 
 
 // disclaimer
 Prima di salutarci, sappi che tante scelte convenienti quando si fa programmazione competitiva sono da evitare, per mille motivi, in altri ambiti#footnote[Vedi il punto 7 di #link("https://www.comp.nus.edu.sg/~stevenha/cs3233.html").]. Al prossimo capitolo.
 
-// se vuoi un ambiente nativo, ti consigliamo ...
+=== Problemi consigliati
+- #link("https://training.olinfo.it/task/massimo")
+- #link("https://training.olinfo.it/task/ois_biglietti")
+- #link("https://training.olinfo.it/task/terry/download")
+- #link("https://training.olinfo.it/task/catalogo")

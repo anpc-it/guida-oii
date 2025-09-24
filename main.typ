@@ -5,6 +5,8 @@
   title: "Guida alle Olimpiadi di Informatica",
   author: ("M. Arcari", "L. Ferrari", "F. Vercellesi", "L. Versari"),
 )
+// si ringraziano anche:
+// - Valerio Stancanelli
 #let affiliation = "Associazione Nazionale Programmazione Competitiva"
 
 #set page(margin: 2cm)
@@ -63,6 +65,7 @@
 #include "chapters/theory/competitive_cpp.typ"
 #include "chapters/theory/greedy.typ"
 #include "chapters/theory/dp_basics.typ"
+#include "chapters/theory/ds_basics.typ"
 #include "chapters/theory/sos_dp.typ"
 
 = Problemi passati
