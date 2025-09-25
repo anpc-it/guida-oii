@@ -13,8 +13,7 @@
 - [ ] Introduzione
     - [ ] Risolvere un problema algoritmico (esempio facile ma non ovvio)
     - [ ] Un po' di complessità computazionale
-    - [ ] Introduzione a C++
-    - [ ] Lato pratico: istruzioni a prova di scimmia per scaricare DevC++ su Windows. Consigliare Linux, magari qualcosa in particolare
+    - [x] Introduzione a C++
     - [ ] Come e dove allenarsi. Altre risorse.
 - [ ] Complessità computazionale
 - [ ] Ricerca binaria

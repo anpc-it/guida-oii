@@ -202,7 +202,7 @@ Invitiamo a notare che per quanto la programmazione dinamica in questione abbia 
 
 === Esercizi consigliati
 
-Innanzitutto ti consigliamo di risolvere i problemi della sezione "dp" su #link("https://training.olinfo.it/algobadge")[algobadge]. Dopodiché, se hai bisogno di altro _classicismo_, proponiamo la sezione "Dynamic Programming" di #link("cses.fi/problemset"). Proponiamo qui sotto problemi più succosi e di vari livelli di difficoltà (non minori di algobadge)
+Innanzitutto ti consigliamo di risolvere i problemi della sezione "dp" su #link("https://training.olinfo.it/algobadge")[algobadge]. Dopodiché, se hai bisogno di altro _classicismo_, proponiamo la sezione "Dynamic Programming" di #link("cses.fi/problemset"). Proponiamo qui sotto problemi più croccanti e di vari livelli di difficoltà (non minori di algobadge)
 #footnote[Se hai già visto tutti gli esercizi consigliati, probabilmente questa lezione non fa per te.]
 
 // preoii_treni e ois_nonna stanno già su algobadge:

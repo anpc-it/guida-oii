@@ -66,6 +66,8 @@
 #include "chapters/theory/greedy.typ"
 #include "chapters/theory/dp_basics.typ"
 #include "chapters/theory/ds_basics.typ"
+
+= Argomenti avanzati
 #include "chapters/theory/sos_dp.typ"
 
 = Problemi passati
