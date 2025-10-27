@@ -63,6 +63,7 @@
 
 #include "chapters/theory/cpp_basics.typ"
 #include "chapters/theory/competitive_cpp.typ"
+#include "chapters/theory/binary_search.typ"
 #include "chapters/theory/greedy.typ"
 #include "chapters/theory/dp_basics.typ"
 #include "chapters/theory/ds_basics.typ"
