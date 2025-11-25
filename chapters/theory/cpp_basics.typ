@@ -160,3 +160,27 @@ Prima di salutarci, sappi che tante scelte convenienti quando si fa programmazio
 - #link("https://training.olinfo.it/task/ois_biglietti")
 - #link("https://training.olinfo.it/task/terry/download")
 - #link("https://training.olinfo.it/task/catalogo")
+
+=== Una nota per la programmazione competitiva
+Quando gareggi hai tempo limitato per scrivere le tue soluzioni. Per questo motivo è comune adottare strategie per rendere più fluida la scrittura del codice ed eventualmente ridurre il numero di caratteri necessari a esprimere lo stesso concetto. Considera il seguente esempio.
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+using LL = long long;
+#define all(x) begin(x), end(x)
+
+int main() {
+    int n; cin >> n;
+    vector<LL> a(n);
+    for (LL& x : a)
+        cin >> x;
+    sort(all(a));
+    a.erase(unique(all(a)), end(a));
+    for (LL x : a)
+        cout << x << " ";
+    cout << "\n";
+}
+```
+La libreria omnicomprensiva `bits/stdc++.h` include tutte le librerie standard del C++ in un colpo solo#footnote[Attenzione: potrebbe non essere disponibile su tutti i compilatori.]: i tempi di compilazione si allungano, in compenso puoi pensare a una cosa in meno mentre risolvi il problema.
+L'istruzione `using LL = long long;` significa che da quel momento in poi `LL` può sostituire la parola chiave `long long`.
+In modo simile, la "macro" `#define all(x) begin(x), end(x)` sostituisce#footnote[Prima della compilazione.] ogni occorrenza di `all(<nome>)` con `begin(<nome>), end(<nome>)`, risparmiando qualche carattere. Nel complesso, il codice legge un intero $n$ seguito da $n$ interi e stampa l'insieme (senza ripetizioni) degli elementi inseriti in ordine crescente. Puoi scoprire il perché leggendo la documentazione relativa alle funzioni #link("https://en.cppreference.com/w/cpp/algorithm/unique")[`std::unique`] ed #link("https://en.cppreference.com/w/cpp/container/vector/erase")[`std::vector::erase`].
