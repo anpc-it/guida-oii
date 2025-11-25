@@ -7,21 +7,21 @@
 
 == Ricerca binaria
 
-La ricerca binaria#footnote[talvolta chiamata anche _ricerca dicotomica_], in inglese, _binary search_, è una tecnica di ricerca che in molti contesti permette di velocizzare una ricerca lineare.
+La ricerca binaria#footnote[talvolta chiamata anche _ricerca dicotomica_], in inglese, _binary search_, è una tecnica di ricerca che spesso permette di velocizzare una ricerca lineare.
 
-Per capire l'idea alla base consideriamo il seguente esempio: un nostro amico sta pensando a un numero $N$ da $1$ a $100$ e noi dobbiamo indovinarlo. 
-La domanda che possiamo fare è _"Il numero $N$ è minore o uguale a X?"_.
+Per capire l'idea alla base consideriamo il seguente esempio: un nostro amico sta pensando a un numero $N$ da $1$ a $100$ e noi dobbiamo indovinarlo.
+Le domande che possiamo sono del tipo _"Il numero $N$ è minore o uguale a X?"_.
 
 La prima domanda che chiunque farebbe è _"Il numero è minore o uguale di 50?"_ perché qualsiasi sia la risposta, avremo scartato metà delle opzioni. 
-Proseguendo con un ragionamento simile, possiamo a ogni domanda dimezzare lo spazio di ricerca.
+Proseguendo con un ragionamento simile, con ogni domanda possiamo dimezzare lo spazio di ricerca.
 
-*Quante domande ci serviranno per determinare il numero?* Ovvero quante volte dobbiamo dimezzare lo spazio di ricerca per arrivare ad avere un solo numero plausibile?
+*Quante domande ci serviranno per determinare il numero?* Ovvero, quante volte dobbiamo dimezzare lo spazio di ricerca per arrivare a un solo numero plausibile e quindi alla soluzione?
 
-Per dare una risposta è più facile capovolgere il problema chiedendosi, partendo da un singolo elemento, quante volte devo raddoppiare lo spazio di ricerca per ottenere la dimensione di quello iniziale. 
+Per rispondere è più facile capovolgere il problema chiedendosi, partendo da un singolo elemento, quante volte devo raddoppiare lo spazio di ricerca per ottenere la dimensione di quello iniziale.
 
-Se $Q$ è il numero di query#footnote[domande] e $D$ la dimensione dello spazio di ricerca, avremo $2^Q = D$ da cui $ Q = log_2 D $
+Se $Q$ è il numero di query#footnote[domande.] e $D$ la dimensione dello spazio di ricerca, vale $2^Q = D$ da cui $ Q = log_2 D $
 
-Si ricorda che un cambio di base nei logaritmi equivale a un fattore costante e di conseguenza spesso si omette la base. Dunque diremo che la ricerca binaria impiega $cal(O)(log D)$.
+Si ricorda che un cambio di base nei logaritmi equivale a un fattore moltiplicativo costante, quindi è lecito omettere la base e affermare che la ricerca binaria impiega $cal(O)(log D)$ query, dove $D$ è la dimensione dello spazio di ricerca.
 
 Una possibile implementazione del problema sopra descritto è la seguente:
 
@@ -38,11 +38,10 @@ int main() {
     while (left != right) {
         queries++;
         int mid = (left + right) / 2;
-        if (chiedi(mid)) {
+        if (chiedi(mid))
             right = mid;
-        } else {
+        else
             left = mid + 1;
-        }
     }
     if (left == N)
         cout << "Correct: " << queries << " queries" << endl;

@@ -127,8 +127,7 @@ Alla fine di ogni iterazione del primo `for`, il vettore `conta` contiene ad ogn
 
 // book shop (?), cses
 *Bonus:* più in generale, qual è la risposta se la $i$-esima moneta si può usare un massimo di $m_i$ volte? Si può fare meglio di complessità temporale $cal(O)(N sum_i m_i)$?
-#footnote[La risposta è... non lo so: dovrei pensarci meglio. Sicuramente se tutti gli $m_i$ sono uno in meno di una potenza di due, la risposta è sì.]
-// non ci ho pensato attentamente, ma 
+#footnote[La risposta è... non lo so. Sicuramente se tutti gli $m_i$ sono uno in meno di una potenza di due, la risposta è sì.]
 
 #problem("Massima sottosequenza comune", url: "https://cses.fi/problemset/task/3403", lbl: "lcs",
 [
@@ -152,7 +151,7 @@ $
 
 Una possibile implementazione è la seguente:
 ```cpp
-vector<vector<int>> lcs(n+1, vector<int>(m+1));
+vector<vector<int>> lcs(n + 1, vector<int>(m + 1));
 for (int i = 1; i <= n; ++i) {
     for (int j = 1; j <= m; ++j) {
         if (a[i] == b[j])
@@ -202,8 +201,7 @@ Invitiamo a notare che per quanto la programmazione dinamica in questione abbia 
 
 === Esercizi consigliati
 
-Innanzitutto ti consigliamo di risolvere i problemi della sezione "dp" su #link("https://training.olinfo.it/algobadge")[algobadge]. Dopodiché, se hai bisogno di altro _classicismo_, proponiamo la sezione "Dynamic Programming" di #link("cses.fi/problemset"). Proponiamo qui sotto problemi più croccanti e di vari livelli di difficoltà (non minori di algobadge)
-#footnote[Se hai già visto tutti gli esercizi consigliati, probabilmente questa lezione non fa per te.]
+Innanzitutto ti consigliamo di risolvere i problemi della sezione "dp" su #link("https://training.olinfo.it/algobadge")[algobadge]. Dopodiché, se hai bisogno di altro _classicismo_, proponiamo la sezione "Dynamic Programming" di #link("cses.fi/problemset"). Proponiamo qui sotto problemi più croccanti e di vari livelli di difficoltà (non minori di algobadge).
 
 // preoii_treni e ois_nonna stanno già su algobadge:
 // - #link("https://training.olinfo.it/task/preoii_treni")
