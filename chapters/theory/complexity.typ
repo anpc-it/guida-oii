@@ -20,7 +20,7 @@ Facciamo degli esempi. Dato un array di $n$ interi $a_0, a_1, ..., a_(n - 1)$, c
   gutter: 10%,
   align: top,
   [
-    Un primo approccio implementa né più né meno della definizione del problema. Il programma a sinistra itera su tutti i sottoarray, ne calcola la somma e sceglie il valore massimo. Il numero totale di interazioni è proporzionale a $n^3$, quindi il codice a sinistra ha complessità $cal(O)(n^3)$.
+    Un primo approccio implementa né più né meno della definizione del problema. Il programma a destra itera su tutti i sottoarray, ne calcola la somma e sceglie il valore massimo. Il numero totale di interazioni è proporzionale a $n^3$, quindi il codice a destra ha complessità $cal(O)(n^3)$.
   ],
   [
     ```cpp
@@ -37,10 +37,15 @@ Facciamo degli esempi. Dato un array di $n$ interi $a_0, a_1, ..., a_(n - 1)$, c
   ],
 )
 
+#line(length: 100%, stroke: (paint: gray, thickness: 1pt))
+
 #grid(
   columns: (45%, 45%),
   gutter: 10%,
   align: top,
+  [
+    L'approccio precedente si può migliorare notando che la somma del sottoarray $a_i, ..., a_(j + 1)$ si ottiene con un'operazione a partire dalla somma del sottoarray $a_i, ..., a_j$. L'implementazione a sinistra elimina il ciclo `for` più interno, abbassando la complessità a $cal(O)(n^2)$.
+  ],
   [
     ```cpp
     LL ans = 0;
@@ -53,10 +58,9 @@ Facciamo degli esempi. Dato un array di $n$ interi $a_0, a_1, ..., a_(n - 1)$, c
     }
     ```
   ],
-  [
-    L'approccio precedente si può migliorare notando che la somma del sottoarray $a_i, ..., a_(j + 1)$ si ottiene con un'operazione a partire dalla somma del sottoarray $a_i, ..., a_j$. L'implementazione a sinistra elimina il ciclo `for` più interno, abbassando la complessità a $cal(O)(n^2)$.
-  ],
 )
+
+#line(length: 100%, stroke: (paint: gray, thickness: 1pt))
 
 #grid(
   columns: (45%, 45%),

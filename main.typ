@@ -67,6 +67,7 @@
 #include "chapters/theory/greedy.typ"
 #include "chapters/theory/dp_basics.typ"
 #include "chapters/theory/ds_basics.typ"
+#include "chapters/theory/trees.typ"
 
 = Argomenti avanzati
 #include "chapters/theory/sos_dp.typ"
