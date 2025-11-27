@@ -10,7 +10,7 @@
 La ricerca binaria#footnote[talvolta chiamata anche _ricerca dicotomica_], in inglese, _binary search_, è una tecnica di ricerca che spesso permette di velocizzare una ricerca lineare.
 
 Per capire l'idea alla base consideriamo il seguente esempio: un nostro amico sta pensando a un numero $N$ da $1$ a $100$ e noi dobbiamo indovinarlo.
-Le domande che possiamo sono del tipo _"Il numero $N$ è minore o uguale a X?"_.
+Le domande che possiamo fare sono del tipo _"Il numero $N$ è minore o uguale a X?"_.
 
 La prima domanda che chiunque farebbe è _"Il numero è minore o uguale di 50?"_ perché qualsiasi sia la risposta, avremo scartato metà delle opzioni. 
 Proseguendo con un ragionamento simile, con ogni domanda possiamo dimezzare lo spazio di ricerca.
