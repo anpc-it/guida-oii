@@ -30,7 +30,7 @@
 
 */
 #import "@preview/cetz:0.4.2": draw
-#import draw: *
+#import draw: line, circle, content
 
 #let node_rad = 12pt
 #let lines_color = rgb("#252525")
