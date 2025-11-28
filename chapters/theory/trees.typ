@@ -8,7 +8,7 @@ Dopo aver introdotto i grafi e alcuni algoritmi utili nel ricavare informazioni 
 #align(center)[
 #canvas({
   import draw: *
-  import "../../util.typ": *
+  import "../../draw_graph.typ": *
 
   let nodes = (
     (0, 0),
@@ -27,9 +27,9 @@ Dopo aver introdotto i grafi e alcuni algoritmi utili nel ricavare informazioni 
     (4, 5),
   )
 
-  draw_graph(nodes, edges)
+  draw_graph(nodes, edges, rad: 10pt, directed: true)
 })
-  _Prossimamente arriva un'immagine migliore_
+  _Un esempio di albero con $6$ nodi_
 ]
 
 Un albero è un grafo connesso con esattamente $N - 1$ archi, dove $N$ è il numero di nodi.
@@ -39,4 +39,9 @@ Questo fatto implica a sua volta che tra due nodi dell'albero esiste un solo cam
 
 È bene notare che vale anche l'implicazione inversa, cioè se un grafo è connesso e aciclico, allora è un albero ed ha esattamente $N - 1$ archi.
 
-Data l'unicità del cammino tra due nodi è possibile utilizzare molto degli algoritmi noti su grafi generici
+Data l'unicità del cammino tra due nodi è possibile utilizzare molto degli algoritmi noti su grafi generici, spesso con una migliore complessità. 
+Ad esempio, per trovare il cammino più breve tra due nodi basta una _DFS_ o una _BFS_, anche se gli archi avessero un peso.
+
+Quando un nodo ha grado $1$, ovvero ha un solo arco uscente, viene detto _foglia_. Nell'albero sopra, le foglie sono i nodi $2, 3$ e $5$. 
+Tutti gli alberi con più di un nodo contengono sempre almeno $2$ foglie. 
+

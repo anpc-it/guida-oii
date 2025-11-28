@@ -54,25 +54,3 @@
   })
 };
 
-#let node_rad = 10pt
-#let lines_color = rgb("#252525")
-#import "@preview/cetz:0.4.2": draw
-#import draw: *
-
-#let draw_node(i, pos) = {
-  circle(pos, fill: white, stroke: lines_color, radius: node_rad)
-  content(pos, [$#i$])
-}
-
-#let draw_edge(i, posA, posB) = {
-  draw.line(posA, posB, stroke: lines_color)
-}
-
-#let draw_graph(nodes, edges) = {
-  for i in range(edges.len()) {
-    draw_edge(i, nodes.at(edges.at(i).at(0)), nodes.at(edges.at(i).at(1)))
-  }
-  for i in range(nodes.len()) {
-    draw_node(i, nodes.at(i))
-  }
-}
