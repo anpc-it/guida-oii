@@ -129,7 +129,7 @@ Alla fine di ogni iterazione del primo `for`, il vettore `conta` contiene ad ogn
 *Bonus:* più in generale, qual è la risposta se la $i$-esima moneta si può usare un massimo di $m_i$ volte? Si può fare meglio di complessità temporale $cal(O)(N sum_i m_i)$?
 #footnote[La risposta è... non lo so. Sicuramente se tutti gli $m_i$ sono uno in meno di una potenza di due, la risposta è sì.]
 
-#problem("Massima sottosequenza comune", url: "https://cses.fi/problemset/task/3403", lbl: "lcs",
+#problem("Massima sottosequenza comune", url: "https://cses.fi/problemset/task/3403", lbl: "lcs", tags: ("cses",),
 [
   Un'array si dice #emph[sottosequenza] di un altro array se il primo si può ottenere dal secondo eliminando alcuni elementi (possibilmente nessuno) senza cambiare l'ordine degli elementi rimanenti.
   Dati due array $a_1, a_2, ..., a_n$ e $b_1, b_2, ..., b_m$ rispettivamente di $n$ e $m$ elementi, si trovi una sottosequenza comune di lunghezza massima.
