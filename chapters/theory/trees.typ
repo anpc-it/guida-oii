@@ -9,7 +9,7 @@
 
 == Alberi
 
-Dopo aver introdotto i grafi e alcuni algoritmi utili nel ricavare informazioni da essi, è necessario parlare di un tipo particolare di grafo: l'_albero_.
+Dopo aver introdotto i grafi e alcuni algoritmi utili per ricavare informazioni da essi, vale la pena concentrarsi su un tipo particolare di grafo: l'_albero_.
 
 #align(center)[
 #canvas({
@@ -39,35 +39,36 @@ Dopo aver introdotto i grafi e alcuni algoritmi utili nel ricavare informazioni 
 
 Un albero è un grafo connesso con esattamente $N - 1$ archi, dove $N$ è il numero di nodi.
 
-Questo fatto comporta diverse proprità, la più importante delle quali è che gli alberi non contengono cicli#footnote([Si può dimostrare facilmente per induzione.]). 
+// forse direi "un grafo è un albero se vale una delle seguenti definizioni equivalenti: ..."
+Questo fatto implica diverse proprietà, la più importante delle quali è che gli alberi non contengono cicli#footnote([Si può dimostrare facilmente per induzione.]). 
 Ciò implica a sua volta che tra due nodi dell'albero esiste un solo cammino che li collega. 
 È bene notare che vale anche l'implicazione inversa, cioè se un grafo è connesso e aciclico, allora è un albero ed ha esattamente $N - 1$ archi.
 
-Data l'unicità del cammino tra due nodi è possibile utilizzare molto degli algoritmi noti su grafi generici, spesso con una migliore complessità. 
-Ad esempio, per trovare il cammino più breve tra due nodi basta una _DFS_ o una _BFS_, anche se gli archi avessero un peso.
+Grazie all'unicità del cammino tra ogni coppia di nodi, spesso un problema su alberi si risolve in maniera più efficiente rispetto allo stesso problema su grafi generici.
+Ad esempio, puoi trovare il cammino più breve (nonché l'unico!) tra due nodi con una _DFS_ o una _BFS_, anche nel caso in cui gli archi hanno un peso.
 
-Quando un nodo ha grado $1$, ovvero ha un solo arco uscente, viene detto _foglia_. Nell'albero sopra, le foglie sono i nodi $2, 3$ e $5$. 
+Quando un nodo ha grado $1$, ovvero ha un solo arco uscente, viene detto _foglia_. Nell'albero in figura, le foglie sono i nodi $2$, $3$ e $5$. 
 Tutti gli alberi con più di un nodo contengono sempre almeno $2$ foglie. 
 
 === Alberi radicati
 
-Molti algoritmi su albero prevedono la scelta di un nodo speciale, detto _radice_, per dare un ordine all'albero. Se non viene specificata la radice nel testo del problema, la sua scelta è arbitraria#footnote([Solitamente si usa il nodo $0$ o, se $1$-based, il nodo $1$.]).
+Molti algoritmi su albero prevedono la scelta di un nodo speciale, detto _radice_, per dare un ordine all'albero. Se non viene specificata la radice nel testo del problema, la sua scelta è arbitraria#footnote([Solitamente si usa il nodo $0$ o, in contesti $1$-based, il nodo $1$.]).
 
-La scelta di una radice permette di definire per tutti i nodi a meno della radice un nodo _padre_ (spesso si utilizza il termine inglese _parent node_). Il padre del nodo $i$ è l'ultimo nodo che si visita muovendosi dalla radice al nodo $i$. 
-Inoltre si dice che un nodo $j$ è _figlio_ del nodo $i$ se $i$ è il padre di $j$.
+La scelta di una radice permette di definire per tutti i nodi a meno della radice un nodo _genitore_ (in inglese _parent node_). Il genitore del nodo $i$ è l'ultimo nodo che si visita muovendosi dalla radice al nodo $i$. 
+Si dice inoltre che un nodo $j$ è _figlio_ del nodo $i$ se $i$ è il genitore di $j$.
 
-Nell'albero sopra illustrato, prendendo come radice il nodo $0$, si ha per esempio che i nodi $2$ e $3$ sono figli del nodo $1$; il nodo $4$ è il padre del nodo $5$.
-L'array $P$ in cui $"P"[i]$ contiene il padre del nodo $i$ o $-1$ se il nodo $i$ è la radice è detto _parent array_. 
-Il parent array dell'albero sopra, radicandolo in $0$, sarebbe ${-1, 0, 1, 1, 0, 4}$.
+Nell'albero sopra illustrato, prendendo come radice il nodo $0$, si ha per esempio che i nodi $2$ e $3$ sono figli del nodo $1$, mentre il nodo $4$ è il genitore del nodo $5$.
+L'array $P$ tale per cui $P[i]$ contiene il genitore del nodo $i$ (o $-1$ se il nodo $i$ è la radice) è detto _parent array_. 
+Il parent array dell'albero sopra, radicato in $0$, sarebbe ${-1, 0, 1, 1, 0, 4}$.
 
-La profondità di un nodo è il numero di archi che bisogna percorrere andare dalla radice a quel nodo. La profondità della radice è $0$. Nell'esempio sopra, i nodi $1$ e $4$ sono a profondità $1$ mentre i nodi $2, 3$ e $5$ sono a profondità 2.
-I nodi a profondità massima in un albero sono sempre foglie. 
+La profondità di un nodo è il numero di archi che lo separano dalla radice. La profondità della radice è $0$. Nell'esempio sopra, i nodi $1$ e $4$ sono a profondità $1$ mentre i nodi $2, 3$ e $5$ sono a profondità $2$.
+I nodi a profondità massima in un albero sono sempre foglie.
 
-Gli _antenati_ di un nodo $i$ sono i nodi sul cammino dalla radice fino al nodo stesso. Gli antenati del nodo $5$ nell'esempio sopra sono i nodi $4$ e $1$. Il più basso antenato comune di due nodi $i$ e $j$, in inglese _lowest common ancestor_ (_LCA_), è il nodo $k$ alla massima profondità che è antenato sia di $i$ che di $j$. Diremo $"LCA"(i, j) = k$. 
+Gli _antenati_ di un nodo $i$ sono i nodi sul cammino dalla radice fino al nodo stesso. Gli antenati del nodo $5$ nell'esempio sopra sono i nodi $4$ e $1$. Il più basso antenato comune di due nodi $i$ e $j$, in inglese _lowest common ancestor_ (_LCA_), è il nodo $k$ alla massima profondità che è antenato sia di $i$ che di $j$: diremo $"LCA"(i, j) = k$. 
 Se $i$ è antenato di $j$, l'_LCA_ è $i$. Vice versa se $j$ è antenato di $i$.
 Nell'esempio sopra $"LCA"(2, 3) = 1$, $"LCA"(2, 5) = 0$ e $"LCA"(0, 3) = 0$.
 
-Trovare l'_LCA_ tra due nodi è estremamente utile per svolgere numerose query su albero. Come calcolarlo velocemente lo vedremo successivamente.
+Trovare l'_LCA_ tra due nodi è estremamente utile per svolgere numerose query su albero. Vedremo in futuro come calcolarlo in maniera efficiente.
 
 Un ultimo concetto utile nell'ambito degli alberi radicati è quello di _sottoalbero_: il sottoalbero di un nodo $i$ è l'insieme di tutti i nodi che hanno $i$ tra gli antenati, $i$ compreso.
 
@@ -128,7 +129,7 @@ Alcuni tipi di albero particolari assumono nomi specifici:
   ],
   [_Linea con $4$ nodi_],
   [_Stella con centro $0$_],
-  [_Abero binario con $7$ nodi_],
+  [_Abero binario completo con $7$ nodi_],
 )
 
 //#align(center)[
@@ -151,12 +152,10 @@ Come per i grafi generici, un albero può essere esplorato attraverso _BFS_ e _D
 ```cpp
 void dfs(int i, int parent) {
     // esploro il nodo i
-    for (int j: adj[i]) {
-        if (j != parent) {
+    for (int j: adj[i])
+        if (j != parent)
             dfs(j, i);
-        }
-    }
 }
 ```
 
-Non serve segnare i nodi visitati ma è sufficiente controllare che non ci si stia muovendo verso il padre. L'ordine in cui si visitano i nodi attraverso una visita in profondità è detto _dfs-order_
+Poiché esploriamo un albero, non è necessario tenere traccia dei nodi visitati ed è sufficiente non risalire verso il genitore. L'ordine in cui si visitano i nodi attraverso una visita in profondità è detto _dfs-order_. Per come funziona la _DFS_, il dfs-order trasforma sottoalberi in sottoarray. Il dato di un dfs-order e, per ogni nodo, il relativo sottoarray è detto _albero linearizzato_#footnote[Tieni a mente questo concetto per quando saremo capaci di svolgere operazioni interessanti su sequenze di numeri.].
