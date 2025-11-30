@@ -75,3 +75,6 @@
 = Problemi passati
 
 #include "chapters/editorials/graphs.typ"
+
+#pagebreak()
+#include "chapters/sources/sources.typ"

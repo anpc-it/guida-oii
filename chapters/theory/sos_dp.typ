@@ -113,8 +113,3 @@ Allo step $i$-esimo, per ogni cella sommiamo le celle precedenti nella $i$-esima
 *Problema:* (avanzato) #link("https://oj.uz/problem/view/JOI18_snake_escaping")[JOI18 -- Snake Escaping].
 // facciamo una sezione apposta per gli Hint?
 // Hint: [spoiler]data una stringa $w \in \{0, 1, ?\}^L$, qual è la massima frequenza del simbolo che appare meno volte?[/spoiler]
-
-==== Fonti:
-- #link("https://usaco.guide/adv/dp-sos?lang=cpp")[Sum over Subsets DP - Usaco Guide]
-- #link("https://codeforces.com/blog/entry/105247")[Some SOS DP Insight]
-- #link("https://forum.olinfo.it/t/quarantraining-05/6125")[Quarantraining - 05]

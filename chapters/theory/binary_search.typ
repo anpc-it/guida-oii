@@ -138,7 +138,7 @@ Consideriamo il seguente problema.
 Assumiamo che la risposta sia $L$. Possiamo osservare due cose:
 
 - Tutti i sotto-array più corti di $L$ non contengono $C$ colori distinti, altrimenti la risposta non sarebbe $L$;
-- Per ogni lunghezza $K >= L$ ($K <= N$) esiste almeno un sotto-array che contiene tutti i colori. Basta considerare il sotto-array lungo $L$ che li contiene tutti ed espanderlo agli estremi finché non è lungo $K$.
+- Per ogni lunghezza $K$ con $L <= K <= N$ esiste almeno un sotto-array che contiene tutti i colori. Basta considerare il sotto-array lungo $L$ che li contiene tutti ed espanderlo agli estremi finché non è lungo $K$.
 
 Controllare se esiste un sotto-array di lunghezza $ell$ può contenere tutti i colori ci richiede tempo $cal(O)(N)$ nel seguente modo:
 
