@@ -67,6 +67,7 @@
 #include "chapters/theory/greedy.typ"
 #include "chapters/theory/dp_basics.typ"
 #include "chapters/theory/ds_basics.typ"
+#include "chapters/theory/graphs.typ"
 #include "chapters/theory/trees.typ"
 
 = Argomenti avanzati
@@ -74,7 +75,7 @@
 
 = Problemi passati
 
-#include "chapters/editorials/graphs.typ"
+#include "chapters/editorials/graph_problems.typ"
 
 #pagebreak()
 #include "chapters/sources/sources.typ"

@@ -5,7 +5,63 @@
 
 #codly(languages: codly-languages)
 
-== Grafi
+// non sono in ordine di difficoltà
+== Problemi di grafi <graph_problems>
+
+#problem("Find the Treasure", url: "https://training.olinfo.it/task/ois_islands", lbl: "ois_islands", tags: ("OIS", "2020"), [
+  È data una mappa $R times C$ in cui ogni casella è mare o terraferma. Un'isola è un insieme di caselle di terraferma connesse tra loro che non tocca il bordo della mappa. Conta le isole.
+])
+
+La tua visita preferita permette di risolvere il problema in $cal(O)(R C)$. Una possibile implementazione è la seguente. Nota l'utilizzo degli array `dx` e `dy` per visitare convenientemente i vicini di ogni cella.
+
+```cpp
+int main() {
+	int r; cin >> r;
+	int c; cin >> c;
+	vector<vector<int>> land(r, vector<int>(c));
+	for (int i = 0; i < r; ++i)
+		for (int j = 0; j < c; ++j)
+			cin >> land[i][j];
+
+	auto exists = [&](int x, int y) -> bool {
+		return 0 <= x && x < r && 0 <= y && y < c;
+	};
+
+	constexpr array<int, 4> dx{+1, 0,-1, 0};
+	constexpr array<int, 4> dy{ 0,+1, 0,-1};
+	vector<vector<bool>> vis(r, vector<bool>(c));
+	auto dfs = [&](auto&& self, int x, int y) -> void {
+		if (!land[x][y])
+			return;
+		vis[x][y] = true;
+		for (int i = 0; i < 4; ++i) {
+			int nx = x + dx[i];
+			int ny = y + dy[i];
+			if (exists(nx, ny) && !vis[nx][ny])
+				self(self, nx, ny);
+		}
+	};
+
+	for (int y = 0; y < c; ++y) {
+		dfs(dfs, 0, y);
+		dfs(dfs, r - 1, y);
+	}
+	for (int x = 0; x < r; ++x) {
+		dfs(dfs, x, 0);
+		dfs(dfs, x, c - 1);
+	}
+
+	int count_islands = 0;
+	for (int x = 1; x < r - 1; ++x)
+		for (int y = 1; y < c - 1; ++y)
+			if (land[x][y] && !vis[x][y]) {
+				++count_islands;
+				dfs(dfs, x, y);
+			}
+
+	cout << count_islands << "\n";
+}
+```
 
 #problem("Imprevisti di viaggio", url: "https://training.olinfo.it/task/preoii_grandistazioni", lbl: "preoii_grandistazioni", tags: ("pre-oii", "2024"), [
   Luca si trova sul nodo $0$ di un grafo diretto pesato di $N$ nodi e $M$ archi e deve arrivare al nodo $N - 1$.
