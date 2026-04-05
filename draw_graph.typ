@@ -1,8 +1,10 @@
 /*
-#canvas({
-  import draw: *
-  import "../../draw_graph.typ": *
+# draw-graph
 
+```
+#canvas({
+  import "draw-graph.typ": *
+  
   let nodes = (
     (0, 0),
     (-1, -1.5),
@@ -20,13 +22,32 @@
     (4, 5),
   )
 
-  draw_graph(
-    nodes, // array of nodes position like ((0, 0), (3, 3), ...)
-    edges, // array of nodes indices pair 0-based like ((0, 1), (1, 2), ...)
-    rad: 12pt, // radius of the nodes, default 12pt
-    directed: false // if graph is directes, default false
+  let fill = (
+    "0": rgb("#ff9595"),
+    "4": aqua,
+    "2": luma(75%),
   )
+
+  draw_graph(nodes, edges, node_fill: fill)
 })
+```
+
+## function `draw_graph`
+
+Draws a graph
+
+### Parameters:
+
+`nodes`: array of nodes position like ((0, 0), (3, 3), ...)
+
+`edges`: array of nodes indices pair 0-based like ((0, 1), (1, 2), ...)
+
+`rad`: radius of the nodes, default: `12pt`
+
+`directed`: `true` if graph is directed, default: `false`
+
+`node_fill`: dictionary with the nodes with background color, default background: `white`.
+Keys should be the 0-based indices of the nodes as strings.
 
 */
 #import "@preview/cetz:0.4.2": draw
@@ -35,8 +56,8 @@
 #let node_rad = 12pt
 #let lines_color = rgb("#252525")
 
-#let draw_node(i, pos, rad) = {
-  circle(pos, fill: white, stroke: lines_color, radius: rad)
+#let draw_node(i, pos, rad, fill: white) = {
+  circle(pos, fill: fill, stroke: lines_color, radius: rad)
   content(pos, text(size: 1.4 * rad)[$#i$])
 }
 
@@ -48,7 +69,7 @@
   draw.line(posA, posB, stroke: lines_color, mark: arrow)
 }
 
-#let draw_graph(nodes, edges, rad: node_rad, directed: false) = {
+#let draw_graph(nodes, edges, rad: node_rad, directed: false, node_fill: (:)) = {
   for i in range(edges.len()) {
     draw_edge(
       i, 
@@ -59,7 +80,13 @@
     )
   }
   for i in range(nodes.len()) {
-    draw_node(i, nodes.at(i), rad)
+    if str(i) in node_fill {
+      draw_node(i, nodes.at(i), rad, fill: node_fill.at(str(i)))
+    } else {
+      draw_node(i, nodes.at(i), rad)
+    }
   }
 }
+
+
 
