@@ -1,33 +1,61 @@
 # Guida alle Olimpiadi di Informatica
+    
+## TODO
 
-## Task
-- [x] Pagina titolo
-- [ ] Configurazione
-    - [ ] 
+- [ ] Organizzare in modo sensato i contenuti
 
 ## Contenuti
 
-- [ ] Organizzare in modo sensato i contenuti
-- [x] Prefazione
-    - [ ] che sezioni consigliamo per (risp.) Terry e OII, in base al Syllabus
 - [ ] Introduzione
-    - [ ] Risolvere un problema algoritmico (esempio facile ma non ovvio)
-    - [ ] Un po' di complessità computazionale
-    - [x] Introduzione a C++
-    - [ ] Come e dove allenarsi. Altre risorse.
-- [ ] Complessità computazionale
-- [ ] Ricerca binaria
-- [ ] Algoritmi Greedy
-- [ ] Ricorsione e ricerca completa
-- [ ] Programmazione dinamica
-- [ ] Grafi: visite e conta le CC
-- [ ] Grafi: Disjoint Set Union e MST
-- [ ] Grafi: Dijkstra
-- [ ] Alberi e DAG
-- [ ] Segment Tree
-    - [ ] plain
-    - [ ] lazy propagation
+  - [ ] Risolvere un problema algoritmico (esempio facile ma non ovvio)
+  - [ ] Come e dove allenarsi. Altre risorse.
+  - [x] Introduzione a C++
+  - [ ] Come compilare
+  - [ ] Complessità computazionale
+  - [ ] Come debuggare, sanitizer
 
-## Alcuni argomenti avanzati
 
-- [x] Sum Over Subsets DP
+- [ ] Terry (Argomenti di base)
+  - [ ] Ricerca binaria
+  - [ ] Introduzione a STL
+  - [ ] Algoritmi Greedy
+  - [ ] Ricorsione e ricerca completa
+  - [ ] Programmazione dinamica
+  - [ ] Grafi: BFS, DFS, CC, Dijkstra
+  - [ ] Alberi e DAG
+
+
+- [ ] OII (Argomenti avanzati)
+  - [ ] Esempi di problemi interattivi 
+  - [ ] Segment Tree
+    - [ ] Lazy
+  - [ ] Fenwick
+  - [ ] Min-stack, Min-queue
+  - [ ] DSU
+  - [ ] MST
+  - [ ] Binary lifting
+  - [ ] Matematica (Combinatoria, inversi modulari, tdn)
+  - [ ] Soluzioni randomizzate e probabilistiche
+  - [ ] LIS e LCS
+  - [ ] Grafi moltiplicati
+  - [ ] Divide and conquer
+
+- [ ] IOI (Extra)
+  - [ ] Geocomp 
+  - [x] Sum Over Subsets DP
+  - [ ] FFT
+  - [ ] NTT
+  - [ ] Rollback on DS
+  - [ ] Segment tree
+    - [ ] Persistent
+  - [ ] Stringhe
+    - [ ] Hashing
+    - [ ] Trie
+    - [ ] Z-array
+  - [ ] Flow
+  - [ ] Sqrt
+  - [ ] BBST (Treap, splay, ~~~scapegoat~~~, pbds)
+  - [ ] Dynamic connectivity
+  - [ ] Parallel binary search
+  - [ ] Li-Chao tree
+  - [ ] CHT
