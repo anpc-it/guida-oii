@@ -77,16 +77,16 @@ Quest'ultima è la rappresentazione più pratica e comune, ma ognuna ha i propri
 
 ```cpp
 int main() {
-  int n; cin >> n; // numero di nodi
-  int m; cin >> m; // numero di archi
-  vector<vector<int>> adj(n);
-  for (int i = 0, a, b; i < m; ++i) {
-    cin >> a >> b;
-    adj[a].push_back(b); // a -> b
-    adj[b].push_back(a); // b -> a
-  }
+    int n; cin >> n; // numero di nodi
+    int m; cin >> m; // numero di archi
+    vector<vector<int>> adj(n);
+    for (int i = 0, a, b; i < m; ++i) {
+        cin >> a >> b;
+        adj[a].push_back(b); // a -> b
+        adj[b].push_back(a); // b -> a
+    }
 
-  // la lista di adiacenza è pronta!
+    // la lista di adiacenza è pronta!
 }
 ```
 
@@ -104,20 +104,20 @@ La BFS visita il grafo a livelli: prima il nodo di partenza, seguito dai suoi vi
 ```cpp
 // leggi il grafo, ...
 auto bfs = [&](int root) {
-  vector<bool> vis(adj.size());   // inizializzato a false
-  queue<int> Q;                   // libreria <queue>
-  vis[root] = true;
-  while (!Q.empty()) {
-    int cur = Q.front();
-    Q.pop();
-    cout << "Processo il nodo " << cur << "\n";
-    for (int u : adj[v]) {
-      if (vis[u])
-        continue
-      vis[u] = true;
-      Q.push(u);
+    vector<bool> vis(adj.size());   // inizializzato a false
+    queue<int> Q;                   // libreria <queue>
+    vis[root] = true;
+    while (!Q.empty()) {
+        int cur = Q.front();
+        Q.pop();
+        cout << "Processo il nodo " << cur << "\n";
+        for (int u : adj[v]) {
+            if (vis[u])
+                continue
+            vis[u] = true;
+            Q.push(u);
+        }
     }
-  }
 };
 ```
 
@@ -129,11 +129,11 @@ La DFS, invece, visita il grafo in maniera sostanzialmente ricorsiva. L'implemen
 // leggi il grafo, ...
 vector<bool> vis(n);
 auto dfs = [&](auto&& self, int cur) -> void {
-  vis[v] = true;
-  cout << "Processo il nodo " << cur << "\n";
-  for (int u : adj[v])
-    if (!vis[u])
-      self(self, u);
+    vis[v] = true;
+    cout << "Processo il nodo " << cur << "\n";
+    for (int u : adj[v])
+        if (!vis[u])
+            self(self, u);
 };
 ```
 
@@ -153,8 +153,8 @@ In questo caso, nella lista di adiacenza memorizziamo anche il peso di ogni arco
 ```cpp
 vector<vector<array<int, 2>>> adj(n);   // {nodo di arrivo, peso dell'arco}
 for (int i = 0, a, b, w; i < m; ++i) {
-  cin >> a >> b >> w;                   // arco a->b di peso w
-  adj[a].push_back({b, w});
+    cin >> a >> b >> w;                   // arco a->b di peso w
+    adj[a].push_back({b, w});
 }
 ```
 
@@ -183,30 +183,30 @@ Segue un'implementazione dell'algoritmo di Dijkstra.
 #include <queue>
 
 int main() {
-  // leggi il grafo
-  constexpr LL INF = 1e15;
+    // leggi il grafo
+    constexpr LL INF = 1e15;
 
-  vector<LL> dist(n, INF);
-  priority_queue<array<int, 2>> Q;  // {-dist[v], v}
-  dist[0] = 0;
-  Q.push({-0, 0});
+    vector<LL> dist(n, INF);
+    priority_queue<array<int, 2>> Q;  // {-dist[v], v}
+    dist[0] = 0;
+    Q.push({-0, 0});
 
-  while (!Q.empty()) {
-    auto [d, v] = Q.top();
-    Q.pop();
-    d = -d;
-    if (d > dist[v])
-      continue;
-    for (auto [u, w] : adj[v]) {
-      if (dist[v] + w < dist[u]) {
-        dist[u] = dist[v] + w;
-        Q.push({-dist[u], u});
-      }
+    while (!Q.empty()) {
+        auto [d, v] = Q.top();
+        Q.pop();
+        d = -d;
+        if (d > dist[v])
+        continue;
+        for (auto [u, w] : adj[v]) {
+            if (dist[v] + w < dist[u]) {
+                dist[u] = dist[v] + w;
+                Q.push({-dist[u], u});
+            }
+        }
     }
-  }
 
-  for (int i = 0; i < n; ++i)
-    cout << "La distanza minima da 0 a " << i << " e' " << dist[i] << "\n";
+    for (int i = 0; i < n; ++i)
+        cout << "La distanza minima da 0 a " << i << " e' " << dist[i] << "\n";
 }
 ```
 
@@ -260,18 +260,18 @@ Q.push({-0, 0});
 LL peso_totale = 0;
 
 while (!Q.empty()) {
-  auto [d, v] = Q.top();
-  Q.pop();
-  d = -d;
-  if (d > cost[v])
-    continue;
-  peso_totale += d;
-  for (auto [u, w] : adj[v]) {
-    if (w < cost[u]) {
-      cost[u] = w;
-      Q.push({-cost[u], u});
+    auto [d, v] = Q.top();
+    Q.pop();
+    d = -d;
+    if (d > cost[v])
+        continue;
+    peso_totale += d;
+    for (auto [u, w] : adj[v]) {
+        if (w < cost[u]) {
+            cost[u] = w;
+            Q.push({-cost[u], u});
+        }
     }
-  }
 }
 
 cout << "L'MST ha peso totale " << peso_totale << "\n";

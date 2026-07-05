@@ -157,7 +157,7 @@ for (int i = 1; i <= n; ++i) {
         if (a[i] == b[j])
             lcs[i][j] = 1 + lcs[i - 1][j - 1];
         else
-          lcs[i][j] = max(lcs[i][j - 1], lcs[i - 1][j]);
+            lcs[i][j] = max(lcs[i][j - 1], lcs[i - 1][j]);
     }
 }
 ```
