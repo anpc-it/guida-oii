@@ -1,13 +1,15 @@
 #import "config.typ"
 #show: config.config
 
+
 #set document(
   title: "Guida alle Olimpiadi di Informatica",
   author: ("M. Arcari", "L. Ferrari", "F. Vercellesi", "L. Versari"),
 )
+#let affiliation = "Associazione Nazionale Programmazione Competitiva"
+#let edition = "Prima edizione"
 // si ringraziano anche:
 // - Valerio Stancanelli
-#let affiliation = "Associazione Nazionale Programmazione Competitiva"
 
 #set page(margin: 2cm)
 #align(center + horizon)[
@@ -16,7 +18,7 @@
   #v(2em)
   #text(size: 18pt)[#context document.author.join(", ")]
   #v(1em)
-  #text(size: 14pt)[#datetime.today().display()]
+  #text(size: 14pt)[#edition]
 ]
 
 #pagebreak()
@@ -28,6 +30,9 @@
 
 #outline(depth: 2)
 #pagebreak(weak: true)
+
+= Prefazione
+
 #include "chapters/preface.typ"
 
 #set heading(numbering: (..nums) => {
@@ -59,9 +64,18 @@
   strong("Capitolo " + number + ": " + it.body)
 }
 
-= Tecniche e teoria
+
+// ========== Contenuti ===========
+
+
+= Introduzione alla programmazione competitiva
 
 #include "chapters/theory/cpp_basics.typ"
+#include "chapters/theory/debugging.typ"
+
+
+= Argomenti di base
+
 #include "chapters/theory/complexity.typ"
 #include "chapters/theory/binary_search.typ"
 #include "chapters/theory/greedy.typ"
@@ -70,12 +84,19 @@
 #include "chapters/theory/graphs.typ"
 #include "chapters/theory/trees.typ"
 
+
 = Argomenti avanzati
+
 #include "chapters/theory/sos_dp.typ"
+
+
+= Extra
+
 
 = Problemi passati
 
 #include "chapters/editorials/graph_problems.typ"
+
 
 #pagebreak()
 #include "chapters/sources/sources.typ"

@@ -1,11 +1,10 @@
-#import "../../util.typ": *
+#import "../../utils/problems.typ": *
 #import "@preview/cetz:0.4.2": *
 #import "@preview/cetz-plot:0.1.2": *
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
 
-#show: codly-init.with()
-#codly(languages: codly-languages)
+
 
 == Grafi
 
@@ -17,7 +16,7 @@ Molti problemi algoritmici si possono formulare in termini di _grafi_. Chiamiamo
   gutter: 2em,
   align: center,
   [
-    #import "../../draw_graph.typ": *
+    #import "../../utils/draw_graph.typ": *
     #canvas({
       let nodes = ((-1, 0), (-1, -1.5), (-1, -3), (1, 0), (1, -1.5), (1, -3))
       let edges = ((0, 3), (0, 4), (0, 5), (1, 3), (1, 5), (2, 4))
@@ -25,7 +24,7 @@ Molti problemi algoritmici si possono formulare in termini di _grafi_. Chiamiamo
       draw_graph(nodes, edges, rad: 10pt)
     })
   ],[
-    #import "../../draw_graph.typ": *
+    #import "../../utils/draw_graph.typ": *
     #canvas({
       let N = 8
       let rad = 45pt
@@ -44,7 +43,7 @@ Molti problemi algoritmici si possono formulare in termini di _grafi_. Chiamiamo
       draw_graph(nodes, edges, rad: 10pt)
     })
   ],[
-    #import "../../draw_graph.typ": *
+    #import "../../utils/draw_graph.typ": *
     #canvas({
       let nodes = ((0, -1.5), (1, -0.5), (2.5, -0.5), (3.5, -1.5), (2.5, -2.5), (1, -2.5))
       let edges = ((0, 1), (0, 5), (1, 2), (2, 4), (3, 2), (4, 3), (5, 1), (5, 2), (5, 4))
@@ -227,7 +226,7 @@ Dato un grafo $G(V, E)$ connesso e pesato, un albero ricoprente è un sottografo
 ]
 )
 
-// #import "../../draw_graph.typ": *
+// #import "../../utils/draw_graph.typ": *
 // #canvas({
 //   let nodes = ((0, 0), (2, 2), (2, -2), (5, 2), (5, -2), (7, 0))
 //   let edges = ((0, 1), (0, 2), (1, 3), (2, 4), (3, 5), (4, 5), (1, 2), (1, 4), (3, 4))
@@ -279,7 +278,7 @@ cout << "L'MST ha peso totale " << peso_totale << "\n";
 ```
 
 Come ti puoi aspettare, questa implementazione dell'algoritmo di Prim ha la stessa complessità del precedente algoritmo di Dijkstra, cioè $cal(O)(M log N)$.
-// inserire dei disegni che simulino l'algoritmo di Prim su un grafo semplice
+// TODO: inserire dei disegni che simulino l'algoritmo di Prim su un grafo semplice
 
 ==== Algoritmo di Kruskal
 
@@ -288,11 +287,11 @@ L'algoritmo di Kruskal si basa sulla seguente proprietà: dato un albero ricopre
 Se la proprietà sopra ti sembra intuitiva, possiamo occuparci dell'algoritmo di Kruskal.
 L'albero ricoprente contiene inizialmente i nodi del grafo, ma non contiene archi. L'algoritmo processa gli archi uno alla volta in ordine crescente di peso, e li aggiunge all'albero se e soltanto se questi non creano un ciclo.
 
-// disegno di esempio
+// TODO: disegno di esempio
 
 Una domanda naturale è come facciamo a controllare che aggiungere un arco non formi cicli? Viene in soccorso una delle nostre strutture dati preferite: la cosiddetta Union-Find, efficiente, super carina e dall'implementazione breve.
 
-// mettere i box problema
+// TODO: mettere i box problema
 
-// === Ordinamento topologico
-// TODO
+// TODO: === Ordinamento topologico
+

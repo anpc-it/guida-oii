@@ -1,8 +1,4 @@
 # Guida alle Olimpiadi di Informatica
-    
-## TODO
-
-- [ ] Organizzare in modo sensato i contenuti
 
 ## Contenuti
 
@@ -10,12 +6,12 @@
   - [ ] Risolvere un problema algoritmico (esempio facile ma non ovvio)
   - [ ] Come e dove allenarsi. Altre risorse.
   - [x] Introduzione a C++
-  - [ ] Come compilare
-  - [ ] Complessità computazionale
+  - [x] Come compilare
   - [ ] Come debuggare, sanitizer
 
 
 - [ ] Terry (Argomenti di base)
+  - [ ] Complessità computazionale
   - [ ] Ricerca binaria
   - [ ] Introduzione a STL
   - [ ] Algoritmi Greedy

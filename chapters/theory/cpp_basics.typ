@@ -1,11 +1,6 @@
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
-#show: codly-init.with()
 
-#codly(
-	languages: codly-languages,
-	// number-format: none
-)
 
 == Concetti base di programmazione in C++
 
@@ -35,7 +30,31 @@ L'esecuzione del codice inizia con la chiamata alla funzione `main`, che come va
 La funzione `std::cout` della libreria `iostream` stampa a video la stringa "Hello World!" (senza apici), l'ultimo carattere `\n` "newline" indica di andare a capo.
 L'istruzione `return` serve per restituire il valore di ritorno: il compito del `main` è terminato ed eventuali righe successive vengono ignorate.
 
-Il po' di C++ che utilizzeremo si impara soprattutto strada facendo, quando ce n'è bisogno. Segue ora un insieme minimale di
+Ora che abbiamo scritto il nostro programma, è giunto il momento di compilarlo! Per compilare il sorgente ci sono due modi principali:
+    1. Tramite l'IDE in cui stiamo lavorando, è spesso possibile compilare ed eseguire il programma premendo un tasto (o una combinazione/sequenza). Ad esempio, su _Visual Studio Code_ `F5`, su _Code::Blocks_ `F9`, su _Dev-C++_ `F11`.
+    2. (Consigliato) Tramite terminale si può avere un controllo più granulare sulla compilazione (che, come vedremo nella sezione di _Debugging_, può tornare molto utile). 
+        - *Windows*: Possiamo installare `g++` tramite #link("https://dev.to/prastha/install-mingw-w64-on-windows-11-2025-november-acg", `MinGW`) o `MSYS2`. Compiliamo il sorgente con \ 
+        ```sh 
+        g++ ilnomedeltuofile.cpp
+        ```
+        Nella cartella comparirà un file chiamato `a.exe`, che possiamo eseguire tramite il comando \
+        ```sh 
+        ./a
+        ```
+        - *Linux*: Tramite il _package manager_ del sistema possiamo direttamente installare `g++`, appartenente al pacchetto `gcc` (Es. su _Arch Linux_, ```sh sudo pacman -S gcc```). Compiliamo tramite \
+        ```sh 
+        g++ ilnomedeltuofile.cpp
+        ```
+        Nella cartella comparirà un file chiamato `a.out`, che possiamo eseguire tramite il comando 
+        ```sh
+        ./a.out
+        ```
+
+
+#figure(
+    image("../../figures/compile_and_run.png", width: 40%),
+    caption: "Esempio di compilazione su Arch Linux."
+)
 
 === Esempi
 

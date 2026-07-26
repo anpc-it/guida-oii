@@ -1,9 +1,7 @@
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
-#import "../../util.typ": *
-#show: codly-init.with()
+#import "../../utils/problems.typ": *
 
-#codly(languages: codly-languages)
 
 == Strutture dati base
 

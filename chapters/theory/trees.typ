@@ -1,11 +1,10 @@
-#import "../../util.typ": *
+#import "../../utils/problems.typ": *
 #import "@preview/cetz:0.4.2": *
 #import "@preview/cetz-plot:0.1.2": *
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
 
-#show: codly-init.with()
-#codly(languages: codly-languages)
+
 
 == Alberi
 
@@ -13,7 +12,7 @@ Dopo aver introdotto i grafi e alcuni algoritmi utili per ricavare informazioni 
 
 #align(center)[
 #canvas({
-  import "../../draw_graph.typ": *
+  import "../../utils/draw_graph.typ": *
   
   let nodes = (
     (0, 0),
@@ -82,7 +81,7 @@ Alcuni tipi di albero particolari assumono nomi specifici:
   gutter: 2em,
   align: center,
   [
-    #import "../../draw_graph.typ": *
+    #import "../../utils/draw_graph.typ": *
     #canvas({
 
       let rad = 20pt * calc.sqrt(2)
@@ -100,7 +99,7 @@ Alcuni tipi di albero particolari assumono nomi specifici:
       draw_graph(nodes, edges, rad: 10pt)
     })
   ],[
-    #import "../../draw_graph.typ": *
+    #import "../../utils/draw_graph.typ": *
     #canvas({
       let N = 8
       let rad = 45pt
@@ -119,7 +118,7 @@ Alcuni tipi di albero particolari assumono nomi specifici:
       draw_graph(nodes, edges, rad: 10pt)
     })
   ],[
-    #import "../../draw_graph.typ": *
+    #import "../../utils/draw_graph.typ": *
     #canvas({
       let nodes = ((0, 0), (-1, -1.5), (1, -1.5), (-1.5, -3), (-0.5, -3), (0.5, -3), (1.5, -3))
       let edges = ((0, 1), (0, 2), (1, 3), (1, 4), (2, 5), (2, 6))
@@ -133,7 +132,7 @@ Alcuni tipi di albero particolari assumono nomi specifici:
 )
 
 //#align(center)[
-//  #import "../../draw_graph.typ": *
+//  #import "../../utils/draw_graph.typ": *
 //  #canvas({
 //    let nodes = ((0, 0), (0, 3), (3, 0), (-3, 0), (0, -3), (-3, -3), (3, -3), (-3, 3), (3, 3))
 //    let edges = ((0, 1), (0, 2), (0, 3), (0, 4), (1, 7), (2, 8), (4, 6), (3, 5))
