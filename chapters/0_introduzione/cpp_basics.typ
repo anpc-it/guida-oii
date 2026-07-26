@@ -11,7 +11,7 @@ Ti consigliamo di scrivere il tuo codice in C++ per almeno due buoni motivi:
 + la sua Standard Template Library offre una vasta collezione di strutture dati e algoritmi adatti all'utilizzo come scatole nere. C++ è inoltre un linguaggio molto efficiente e permette, a chi lo desidera, un controllo a basso livello della memoria per eventuali ulteriori ottimizzazioni;
 + è l'unico linguaggio ammesso alle OII.
 
-Puoi scrivere i tuoi programmi alla pagina #link("https://editor.olinfo.it"). Un file C++ ha l'aspetto che segue.
+Un file C++ ha l'aspetto che segue:
 
 #codly(
 	header: [*ilnomedeltuofile.cpp*],
@@ -31,8 +31,11 @@ La funzione `std::cout` della libreria `iostream` stampa a video la stringa "Hel
 L'istruzione `return` serve per restituire il valore di ritorno: il compito del `main` è terminato ed eventuali righe successive vengono ignorate.
 
 Ora che abbiamo scritto il nostro programma, è giunto il momento di compilarlo! Per compilare il sorgente ci sono due modi principali:
-    1. Tramite l'IDE in cui stiamo lavorando, è spesso possibile compilare ed eseguire il programma premendo un tasto (o una combinazione/sequenza). Ad esempio, su _Visual Studio Code_ `F5`, su _Code::Blocks_ `F9`, su _Dev-C++_ `F11`.
-    2. (Consigliato) Tramite terminale si può avere un controllo più granulare sulla compilazione (che, come vedremo nella sezione di _Debugging_, può tornare molto utile). 
+    1. Tramite l'*IDE* in cui stiamo lavorando, è spesso possibile compilare ed eseguire il programma premendo un tasto (o una combinazione/sequenza). Ad esempio, su _Visual Studio Code_ `F5`, su _Code::Blocks_ `F9`, su _Dev-C++_ `F11`. 
+    
+        Lo staff delle OII ha messo a disposizione un IDE online (#link("https://editor.olinfo.it", `editor.olinfo.it`)) per compilare ed eseguire il codice senza installare nulla sul proprio computer. Per quanto questo IDE sia comodo all'inizio, è consigliabile installare un IDE sul proprio computer per svariate ragioni, tra cui la possibilità di fare _debugging_ in maniera più efficace e il fatto che l'editor online non sarà disponibile durante la finale delle OII. 
+
+    2. (*Consigliato*) Tramite *terminale* si può avere un controllo più granulare sulla compilazione (che, come vedremo nella sezione di _Debugging_, può tornare molto utile). 
         - *Windows*: Possiamo installare `g++` tramite #link("https://dev.to/prastha/install-mingw-w64-on-windows-11-2025-november-acg", `MinGW`) o `MSYS2`. Compiliamo il sorgente con \ 
         ```sh 
         g++ ilnomedeltuofile.cpp
@@ -53,7 +56,7 @@ Ora che abbiamo scritto il nostro programma, è giunto il momento di compilarlo!
 
 #figure(
     image("../../figures/compile_and_run.png", width: 40%),
-    caption: "Esempio di compilazione su Arch Linux."
+    caption: "Esempio di compilazione su Linux."
 )
 
 === Esempi

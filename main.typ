@@ -68,35 +68,35 @@
 // ========== Contenuti ===========
 
 
-= Introduzione alla programmazione competitiva
+= Introduzione alla programmazione competitiva //introduzione
 
-#include "chapters/theory/cpp_basics.typ"
-#include "chapters/theory/debugging.typ"
-
-
-= Argomenti di base
-
-#include "chapters/theory/complexity.typ"
-#include "chapters/theory/binary_search.typ"
-#include "chapters/theory/greedy.typ"
-#include "chapters/theory/dp_basics.typ"
-#include "chapters/theory/ds_basics.typ"
-#include "chapters/theory/graphs.typ"
-#include "chapters/theory/trees.typ"
+#include "chapters/0_introduzione/cpp_basics.typ"
+#include "chapters/0_introduzione/debugging.typ"
 
 
-= Argomenti avanzati
+= Argomenti di base //terry
 
-#include "chapters/theory/sos_dp.typ"
+#include "chapters/1_terry/complexity.typ"
+#include "chapters/1_terry/greedy.typ"
+#include "chapters/1_terry/ds_basics.typ"
+#include "chapters/1_terry/binary_search.typ"
+#include "chapters/1_terry/dp_basics.typ"
+#include "chapters/1_terry/graphs.typ"
+#include "chapters/1_terry/trees.typ"
 
 
-= Extra
+= Argomenti avanzati //oii
 
 
-= Problemi passati
+= Extra //ioi
 
-#include "chapters/editorials/graph_problems.typ"
+#include "chapters/3_ioi/sos_dp.typ"
+
+
+= Problemi passati //editorials
+
+#include "chapters/4_editorials/graph_problems.typ"
 
 
 #pagebreak()
-#include "chapters/sources/sources.typ"
+#include "sources.typ"
