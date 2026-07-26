@@ -1,0 +1,22 @@
+name: Typst Compile Check
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    # We use the official Typst docker container to ensure typst is already installed
+    container:
+      image: ghcr.io/typst/typst:latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check that main.typ compiles
+        run: typst compile main.typ
