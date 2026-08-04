@@ -27,8 +27,6 @@
 
 La Standard Template Library (abbr. STL) è una collezione di algoritmi, strumenti e _strutture dati_ pensate per essere facilmente integrate nel codice. Nell'ambiente della programmazione competitiva vengono spesso utilizzate per via della loro semplicità d'uso e velocità nell'implementazione. La documentazione della STL è disponibile su #link("https://www.cppreference.com"), da cui è anche possibile consultare la complessità temporale delle operazioni sulle strutture.
 
-È bene notare che la STL, per quanto comoda essa sia, offre spesso performance inferiori rispetto ad implementazioni scritte a mano usando le feature base del C++. Nonostante ciò, per la maggior parte dei casi questo non rappresenta un problema. 
-
 Tutte le funzionalità della STL sono racchiuse dal namespace `std`. Per comodità possiamo includere all'inizio del codice tutto il namespace tramite `using namespace std;`, in modo da scrivere, per esempio, `vector<int>` invece di `std::vector<int>`. Inoltre, ogni funzionalità della STL è racchiusa in una libreria che andrà importata all'inizio del file. Ad esempio, `vector` sta nella libreria `<vector>`, `sort` sta in `<algorithm>`, e così via. Anche qui possiamo semplificarci la vita usando la libreria `<bits/stdc++.h>` che include automaticamente _quasi_#footnote("Alcune funzionalità come le PBDS non sono incluse.") tutta la STL. Da ora in avanti, assumeremo che il namespace `std` e `<bits/stdc++.h>` siano stati importati.
 
 === Struttura dati
@@ -56,7 +54,7 @@ cout << *it << endl; // stampa 10
 cout << *it << endl;  // stampa 20
 ```
 
-Possiamo passare all'elemento successivo con `next(it)` (oppure incrementando direttamente l'iteratore con `++it` o `it++`), e a quello precedente con `prev(it)` (oppure `--it`). Inoltre è importante notare che se abbiamo una struttura, ad esempio un vettore `V`, allora `V.begin()` punta al primo elemento del vettore (se esiste), mentre `V.end()` punta all'elemento subito dopo l'ultimo (ovvero a memoria non allocata). Se `V` è vuoto vale `V.begin() = V.end()`.
+Possiamo passare all'elemento successivo con `next(it)` (oppure incrementando direttamente l'iteratore con `++it` o `it++`), e a quello precedente con `prev(it)` (oppure `--it`). Inoltre è importante notare che se abbiamo una struttura, ad esempio un vettore `V`, allora `V.begin()` punta al primo elemento del vettore (se esiste), mentre `V.end()` punta all'elemento subito dopo l'ultimo (ovvero a memoria non allocata). Se `V` è vuoto vale `V.begin() == V.end()`.
 
 === `vector`
 inclusa in `<vector>`
