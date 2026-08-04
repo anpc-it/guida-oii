@@ -1,6 +1,6 @@
 # Guida alle Olimpiadi di Informatica
 
-## Contenuti
+## Contenuti (non in ordine)
 
 - [ ] Introduzione
   - [ ] Risolvere un problema algoritmico (esempio facile ma non ovvio)
@@ -11,14 +11,15 @@
 
 
 - [ ] Terry (Argomenti di base)
-  - [ ] Complessità computazionale
-  - [ ] Ricerca binaria
-  - [ ] Introduzione a STL
-  - [ ] Algoritmi Greedy
+  - [x] Complessità computazionale
+  - [x] Ricerca binaria
+  - [x] Introduzione a STL
+  - [ ] Altre cose della STL utili (sort, iota, unordered_set, unordered_map, bitset, ...)
+  - [x] Algoritmi Greedy
   - [ ] Ricorsione e ricerca completa
-  - [ ] Programmazione dinamica
-  - [ ] Grafi: BFS, DFS, CC, Dijkstra
-  - [ ] Alberi e DAG
+  - [x] Programmazione dinamica
+  - [x] Grafi: BFS, DFS, CC, Dijkstra
+  - [x] Alberi e DAG
 
 
 - [ ] OII (Argomenti avanzati)
