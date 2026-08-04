@@ -6,6 +6,19 @@
   set par(justify: true)
   set smartquote(alternative: true)
 
+  show raw.where(block: false): it => {
+    box(
+      fill: luma(92%),
+      inset: (x: 0.2em, y: 0.15em),
+      radius: 0.2em,
+      it
+    )
+  }
+
+  show link: it => {
+    text(fill: rgb("#168aad"), it)
+  }
+
   show: codly-init.with()
   codly(
     languages: codly-languages,
