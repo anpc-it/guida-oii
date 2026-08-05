@@ -78,7 +78,7 @@
 
 #include "chapters/1_terry/complexity.typ"
 #include "chapters/1_terry/greedy.typ"
-#include "chapters/1_terry/ds_basics.typ"
+#include "chapters/1_terry/stl.typ"
 #include "chapters/1_terry/binary_search.typ"
 #include "chapters/1_terry/dp_basics.typ"
 #include "chapters/1_terry/graphs.typ"
