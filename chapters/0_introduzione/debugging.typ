@@ -2,7 +2,9 @@
 
 == Debugging
 
-Il _debugging_, o in italiano "_correzione degli errori_", è il processo di rimozione di errori logici o concettuali (in inglese, _bugs_) dal proprio codice. A meno che non abbiate vinto almeno 3 medaglie d'oro alle _IOI_, durante fase di stesura del codice è molto probabile che vengano inseriti inavvertitamente dei bugs, perciò familiarizzare e padroneggiare le tecniche di debugging è essenziale. Elenchiamo qui sotto le tecniche e gli strumenti più efficaci per fare _debugging_:
+Il _debugging_, o in italiano "_correzione degli errori_", è il processo di rimozione di errori logici o concettuali (in inglese, _bugs_) dal proprio codice. 
+Durante fase di stesura del codice è molto probabile che vengano inseriti inavvertitamente dei bugs, perciò familiarizzare e padroneggiare le tecniche di debugging è essenziale. 
+Elenchiamo qui sotto le tecniche e gli strumenti più efficaci per fare _debugging_:
 
 - === Usare `std::cout` o `std::cerr`
 Il metodo più banale (ma spesso il più efficace) per scovare bugs è quello di stampare delle informazioni intermedie durante l'esecuzione del codice. Capiamo meglio con un semplice esempio:
@@ -17,7 +19,7 @@ Consideriamo il seguente codice che dovrebbe risolvere il problema:
 using namespace std;
 
 int main() {
-    int a,b;
+    int a, b;
     cin >> a >> b;
     int risposta = 1;
 
