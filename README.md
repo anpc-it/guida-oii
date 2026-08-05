@@ -12,8 +12,8 @@
 
 - [ ] Terry (Argomenti di base)
   - [x] Complessità computazionale
-  - [x] Ricerca binaria
   - [x] Introduzione a STL
+  - [x] Ricerca binaria
   - [ ] Altre cose della STL utili (sort, iota, unordered_set, unordered_map, bitset, ...)
   - [x] Algoritmi Greedy
   - [ ] Ricorsione e ricerca completa

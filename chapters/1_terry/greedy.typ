@@ -19,10 +19,6 @@ Analizziamo ad esempio la seguente situazione:
 
 Questa strategia si rivela essere quella ottimale! Di seguito l'implementazione:
 
-#codly(
-	header: [*Soluzione ottimale $cal(O)(N log N)$*],
-)
-
 ```cpp
 int presta(int N, int C, vector<int> P) {
     sort(begin(P), end(P));
@@ -57,10 +53,6 @@ Se rimaniamo sul nostro taxi alla stazione successiva pagheremo $5$ e così via.
 
 Anche in questo problema la strategia intuitiva di prendere sempre il taxi che ci costa meno funziona perché in ogni caso entrambi aumenterebbero il loro prezzo di $1$ soldo a ogni stazione successiva. 
 Quindi se il taxi $A$ costa meno del taxi $B$ in una certa città, costerà di meno anche in tutte le successive. 
-
-#codly(
-	header: [*Soluzione $cal(O)(N)$*],
-)
 
 ```cpp
 int viaggia(int N, vector<int> C) {
@@ -97,10 +89,6 @@ Una mozzarella che vale $10$ per la prima e $9$ per la seconda è meno rilevante
 Per fare ciò ordiniamo le mozzarelle per la differenza tra il voto che dà Monica e quello che dà Paola. 
 
 Diciamo che $D_i = M_i - P_i$, allora le mozzarelle con $D_i$ alto sono  più buone per Monica che per Paola e viceversa, se $D_i$ è piccolo sarà più conveniente darle a Paola.
-
-#codly(
-	header: [*Soluzione $cal(O)(N log N)$*],
-)
 
 ```cpp
 long long solve(int N, int* M, int* P) {

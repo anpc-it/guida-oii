@@ -4,12 +4,14 @@
 
 #set document(
   title: "Guida alle Olimpiadi di Informatica",
-  author: ("M. Arcari", "L. Ferrari", "F. Vercellesi", "L. Versari"),
+  author: ("M. Arcari", "A. Coato", "L. Ferrari", "F. Vercellesi", "L. Versari"),
 )
 #let affiliation = "Associazione Nazionale Programmazione Competitiva"
 #let edition = "Prima edizione"
 // si ringraziano anche:
 // - Valerio Stancanelli
+
+#set heading(supplement: "Capitolo")
 
 #set page(margin: 2cm)
 #align(center + horizon)[
@@ -77,8 +79,9 @@
 = Argomenti di base //terry
 
 #include "chapters/1_terry/complexity.typ"
-#include "chapters/1_terry/greedy.typ"
 #include "chapters/1_terry/stl.typ"
+#include "chapters/1_terry/greedy.typ"
+#include "chapters/1_terry/complete_search.typ"
 #include "chapters/1_terry/binary_search.typ"
 #include "chapters/1_terry/dp_basics.typ"
 #include "chapters/1_terry/graphs.typ"
