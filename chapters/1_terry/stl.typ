@@ -4,7 +4,7 @@
 #import "../../utils/tables.typ": *
 
 
-== Standard Template Library (STL)
+== Standard Template Library (STL) <stl>
 
 === Introduzione
 
@@ -44,7 +44,6 @@ inclusa in `<vector>`
 
 `vector` è forse la struttura dati più semplice della STL: può essere pensata come un _array dinamico_, che si ridimensiona automaticamente quando necessario.
 
-// TODO: inserire immagine di un vector
 Supporta le seguenti operazioni principali:
 
 #op-table(
@@ -66,7 +65,6 @@ Supporta le seguenti operazioni principali:
 === `queue`
 inclusa in `<queue>`
 
-// TODO: Immagine di una queue
 `queue` è una struttura dati che implementa una coda *FIFO* (_First In, First Out_): l'elemento che viene inserito per primo è anche il primo ad essere rimosso. Permette di eseguire le seguenti operazioni:
 
 #op-table(
@@ -283,6 +281,49 @@ m.erase("oia");
 cout << m.size() << endl; // stampa 2
 
 cout << m["swerc"] << endl; // stampa 0 e inserisce "swerc" con valore 0
+```
+
+=== `string`
+inclusa in `<string>`
+
+`string` rappresenta una sequenza di caratteri e viene utilizzata per
+gestire il testo. È possibile accedere ai singoli caratteri tramite il loro
+indice, che parte da `0`, come negli array e nei `vector`.
+
+Le operazioni più utilizzate sono:
+
+#op-table(
+  op-row([`[i]` / `at(i)`], [$cal(O)(1)$], [Restituiscono il carattere in posizione `i`.]),
+  op-row([`size()` / `length()`], [$cal(O)(1)$], [Restituiscono il numero di caratteri della stringa.]),
+  op-row([`push_back(c)` / `pop_back()`], [$cal(O)(1)$ _ammortizzata_], [Aggiungono o rimuovono un carattere alla fine della stringa.]),
+  op-row([`substr(pos, len)`], [$cal(O)(M)$], [Restituisce la sottostringa di lunghezza `len` che inizia in posizione `pos`, dove `M` è la lunghezza della sottostringa.]),
+  op-row([`find(t)`], [$cal(O)(N M)$], [Restituisce la prima posizione in cui compare `t`, oppure `string::npos` se non viene trovata.]),
+  op-row([`erase(pos, len)` / `insert(pos, t)`], [$cal(O)(N)$], [Rimuovono o inseriscono caratteri nella posizione indicata.]),
+)
+
+Le stringhe possono essere concatenate con `+` e confrontate direttamente
+con gli operatori `==`, `!=`, `<`, `<=`, `>` e `>=`. I confronti lessicografici
+usano l'ordine dei caratteri.
+
+```cpp
+string s = "grazie";
+s += " dario";
+s.push_back('!');
+
+cout << s << endl;             // stampa: grazie dario!
+cout << s.substr(7, 5) << endl; // stampa: dario
+
+auto pos = s.find("dario");
+if (pos != string::npos) {
+  cout << pos << endl;         // stampa 7
+}
+```
+
+Nota bene: usare `cin` per leggere una stringa può causare problemi se essa contiene spazi. In particolare, `cin` legge l'input fino a quando non trova uno spazio o la riga è terminata, quindi la stringa verrebbe "spezzata" ad ogni spazio. Se vogliamo leggere una riga per intero possiamo usare `getline` come illustrato nell'esempio:
+
+```cpp
+string s;
+getline(cin, s);
 ```
 
 
