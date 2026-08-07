@@ -14,7 +14,6 @@
   - [x] Complessità computazionale
   - [x] Introduzione a STL
   - [x] Ricerca binaria
-  - [ ] Altre cose della STL utili (sort, iota, unordered_set, unordered_map, bitset, ...)
   - [x] Algoritmi Greedy
   - [ ] Ricorsione e ricerca completa
   - [x] Programmazione dinamica
@@ -23,6 +22,7 @@
 
 
 - [ ] OII (Argomenti avanzati)
+  - [x] Altre cose della STL utili (sort, unordered_set, unordered_map, bitset, ...)
   - [ ] Esempi di problemi interattivi 
   - [ ] Segment Tree
     - [ ] Lazy

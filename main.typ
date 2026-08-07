@@ -89,6 +89,7 @@
 
 
 = Argomenti avanzati //oii
+#include "chapters/2_oii/stl2.typ"
 
 
 = Extra //ioi
