@@ -6,7 +6,8 @@
 
 == Altre funzionalità della STL
 
-Le strutture dati introdotte nella #link(<stl>)[capitolo precedente] sono tra le più utilizzate, ma la STL offre molte altre funzionalità utili, che presentiamo di seguito.
+// TODO: update this link once the book is done
+Le strutture dati introdotte nel #link(<stl>)[capitolo precedente della STL] sono tra le più utilizzate, ma la STL offre molte altre funzionalità utili, che presentiamo di seguito.
 
 === Funzioni della STL
 incluse in `<algorithm>`
@@ -16,7 +17,7 @@ Segue una lista delle funzioni della STL più comunemente usate, con la relativa
   op-row([`sort(l, r)`], [$cal(O)(N log N)$], [Ordina il range $[l, r)$]),
   op-row([`reverse(l, r)`], [$cal(O)(N)$], [Inverte l'ordine del range $[l, r)$]),
   op-row([`max_element(l, r)` / `min_element(l, r)`], [$cal(O)(N)$], [Restituisce un iteratore all'elemento massimo o minimo del range $[l, r)$]),
-  op-row([`lower_bound(l, r, x)` / `upper_bound(l, r, x)`], [$cal(O)(log N)$], [Restituisce un iteratore al primo elemento $>= x$ o $> x$ nel range ordinato $[l, r)$]),
+  op-row([`lower_bound(l, r, x)` / `upper_bound(l, r, x)`], [$cal(O)(log N)$], [Restituisce un iteratore rispettivamente al primo elemento $>= x$ o $> x$ nel range $[l, r)$. I valori nel range devono necessariamente essere ordinati.]),
 )
 
 #v(1em)
