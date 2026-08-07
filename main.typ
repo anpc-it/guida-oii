@@ -72,6 +72,7 @@
 
 = Introduzione alla programmazione competitiva //introduzione
 
+#include "chapters/0_introduzione/olympiads.typ"
 #include "chapters/0_introduzione/cpp_basics.typ"
 #include "chapters/0_introduzione/debugging.typ"
 
