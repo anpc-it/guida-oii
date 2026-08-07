@@ -58,7 +58,7 @@ Si dice inoltre che un nodo $j$ è _figlio_ del nodo $i$ se $i$ è il genitore d
 
 Nell'albero sopra illustrato, prendendo come radice il nodo $0$, si ha per esempio che i nodi $2$ e $3$ sono figli del nodo $1$, mentre il nodo $4$ è il genitore del nodo $5$.
 L'array $P$ tale per cui $P[i]$ contiene il genitore del nodo $i$ (o $-1$ se il nodo $i$ è la radice) è detto _parent array_. 
-Il parent array dell'albero sopra, radicato in $0$, sarebbe ${-1, 0, 1, 1, 0, 4}$.
+Il parent array dell'albero sopra, radicato in $0$, sarebbe $[-1, 0, 1, 1, 0, 4]$.
 
 La profondità di un nodo è il numero di archi che lo separano dalla radice. La profondità della radice è $0$. Nell'esempio sopra, i nodi $1$ e $4$ sono a profondità $1$ mentre i nodi $2, 3$ e $5$ sono a profondità $2$.
 I nodi a profondità massima in un albero sono sempre foglie.

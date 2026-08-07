@@ -11,7 +11,12 @@
   }
   table(
     columns: (auto, auto, 1fr),
-    gutter: 0em,
+    gutter: 2pt,
+    stroke: white,
+    inset: (x: 5pt, y: 7pt),
+    fill: (x, y) =>
+      if y == 0 { luma(75%) }
+      else { luma(97%) },
     ..cells,
   )
 }

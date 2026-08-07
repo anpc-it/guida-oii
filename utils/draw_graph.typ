@@ -15,11 +15,11 @@
   )
 
   let edges = (
-    (0, 1),
+    (0, 1, 8),
     (1, 2),
-    (1, 3),
+    (1, 3, 6),
     (0, 4),
-    (4, 5),
+    (4, 5, 2),
   )
 
   let fill = (
@@ -40,7 +40,7 @@ Draws a graph
 
 `nodes`: array of nodes position like ((0, 0), (3, 3), ...)
 
-`edges`: array of nodes indices pair 0-based like ((0, 1), (1, 2), ...)
+`edges`: array of nodes indices pair 0-based like ((0, 1), (1, 2), ...). For each edge, you can specify a third number: the weight of the edge.
 
 `rad`: radius of the nodes, default: `12pt`
 
@@ -50,33 +50,53 @@ Draws a graph
 Keys should be the 0-based indices of the nodes as strings.
 
 */
-#import "@preview/cetz:0.4.2": draw
-#import draw: line, circle, content
+#import "@preview/cetz:0.4.2": draw, vector
+#import draw: line, content, 
+#import vector: scale, add
 
 #let node_rad = 12pt
 #let lines_color = rgb("#252525")
 
+#let pos_avg(posA, posB) = {
+  return vector.scale(vector.add(posA, posB), .5)
+
+}
+
 #let draw_node(i, pos, rad, fill: white) = {
-  circle(pos, fill: fill, stroke: lines_color, radius: rad)
+  draw.circle(pos, fill: fill, stroke: lines_color, radius: rad)
   content(pos, text(size: 1.4 * rad)[$#i$])
 }
 
-#let draw_edge(i, posA, posB, directed, rad) = {
+#let draw_edge(i, posA, posB, directed, rad, w) = {
   let arrow = none
   if directed {
-    arrow = (end: ")>", fill: white, pos: rad, scale: 1.5 * rad / node_rad)
+    arrow = (end: "straight", fill: white, pos: rad, scale: 0.1 * rad / 1pt)
   }
   draw.line(posA, posB, stroke: lines_color, mark: arrow)
+
+  if w != none {
+    content(
+      (posA, 50%, posB), 
+      circle(stroke: none, fill: white, inset: 0.1 * rad)[
+        #text(size: rad)[$#w$]
+      ]
+    )
+  }
 }
 
 #let draw_graph(nodes, edges, rad: node_rad, directed: false, node_fill: (:)) = {
   for i in range(edges.len()) {
+    let w = none
+    if edges.at(i).len() > 2 { 
+      w = edges.at(i).at(2) 
+    }
     draw_edge(
       i, 
       nodes.at(edges.at(i).at(0)), 
       nodes.at(edges.at(i).at(1)),
       directed,
-      rad
+      rad,
+      w,
     )
   }
   for i in range(nodes.len()) {

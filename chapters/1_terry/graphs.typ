@@ -14,7 +14,7 @@ Molti problemi algoritmici si possono formulare in termini di _grafi_. Chiamiamo
   columns: (1fr, 1fr, 1fr),
   rows: 2,
   gutter: 2em,
-  align: center,
+  align: center + horizon,
   [
     #import "../../utils/draw_graph.typ": *
     #canvas({
@@ -49,8 +49,6 @@ Molti problemi algoritmici si possono formulare in termini di _grafi_. Chiamiamo
       let edges = ((0, 1), (0, 5), (1, 2), (2, 4), (3, 2), (4, 3), (5, 1), (5, 2), (5, 4))
 
       draw_graph(nodes, edges, rad: 10pt, directed: true)
-
-      let directed = true
     })
   ],
   [_Un grafo bipartito_],
@@ -89,7 +87,8 @@ int main() {
 }
 ```
 
-Sottolineamo il fatto che non sempre è necessario memorizzare il grafo come oggetto esplicito: pensa al caso di una griglia $R times C$ dove ogni cella è un nodo e ogni coppia di celle adiacenti è connessa da un arco. Non è necessario memorizzare esplicitamente gli archi, poiché dato un nodo puoi calcolare i suoi vicini in tempo costante.
+Sottolineiamo il fatto che non sempre è necessario memorizzare il grafo come oggetto esplicito: pensa al caso di una griglia $R times C$ dove ogni cella è un nodo e ogni coppia di celle adiacenti è connessa da un arco. 
+Non è necessario memorizzare esplicitamente gli archi, poiché dato un nodo puoi calcolare i suoi vicini in tempo costante.
 
 Abbiamo il nostro grafo in forma di lista di adiacenza: per ogni nodo $v$ il corrispondente vettore $"adj"[v]$ contiene i vicini di $v$. Ora ci piacerebbe visitarlo a partire da un nodo. Ci sono sostanzialmente due modi per farlo.
 
@@ -98,26 +97,30 @@ Abbiamo il nostro grafo in forma di lista di adiacenza: per ogni nodo $v$ il cor
 
 Le due visite che seguono sono i mattoni con cui si costruiscono buona parte degli algoritmi sui grafi: la visita in ampiezza (Breadth-First Search) e in profondità (Depth-First Search).
 
-La BFS visita il grafo a livelli: prima il nodo di partenza, seguito dai suoi vicini, poi i vicini dei vicini non già visitati, e così fino a visitare tutti i nodi raggiungibili. La BFS si implementa processando i nodi uno per volta: il nodo corrente si segna come visitato e i suoi vicini non già visitati si mettono in coda, in attesa di essere processati.
+La BFS visita il grafo a livelli: prima il nodo di partenza, seguito dai suoi vicini, poi i vicini dei vicini non già visitati, e così fino a visitare tutti i nodi raggiungibili. 
+La BFS si implementa processando i nodi uno per volta: il nodo corrente si segna come visitato e i suoi vicini non già visitati si mettono in coda, in attesa di essere processati.
 
 ```cpp
 // leggi il grafo, ...
-auto bfs = [&](int root) {
-    vector<bool> vis(adj.size());   // inizializzato a false
-    queue<int> Q;                   // libreria <queue>
-    vis[root] = true;
-    while (!Q.empty()) {
-        int cur = Q.front();
-        Q.pop();
-        cout << "Processo il nodo " << cur << "\n";
-        for (int u : adj[v]) {
-            if (vis[u])
-                continue
-            vis[u] = true;
-            Q.push(u);
-        }
+
+vector<bool> vis(adj.size());   // inizializzato a false
+vis[root] = true;
+
+queue<int> Q;                   // libreria <queue>
+Q.push(root);
+
+while (!Q.empty()) {
+    int u = Q.front();
+    Q.pop();
+    cout << "Processo il nodo " << u << "\n";
+    for (int v: adj[u]) {
+        if (vis[v])
+            continue
+        vis[u] = true;
+        Q.push(u);
     }
-};
+}
+
 ```
 
 Nota come la BFS si può utilizzare per calcolare le distanze minime in un grafo non pesato: il livello di ogni nodo è la sua distanza dalla radice.
@@ -125,14 +128,14 @@ Nota come la BFS si può utilizzare per calcolare le distanze minime in un grafo
 La DFS, invece, visita il grafo in maniera sostanzialmente ricorsiva. L'implementazione più naturale è quella che segue, ma se nel codice precedente sostituissi la parola `stack` a `queue` e la parola `top` a `front` otterresti lo stesso ordine di visita.
 
 ```cpp
-// leggi il grafo, ...
-vector<bool> vis(n);
-auto dfs = [&](auto&& self, int cur) -> void {
-    vis[v] = true;
-    cout << "Processo il nodo " << cur << "\n";
-    for (int u : adj[v])
-        if (!vis[u])
-            self(self, u);
+// la lista di adiacenza e vis devono essere globali
+
+void dfs(int u) {
+    vis[u] = true;
+    cout << "Processo il nodo " << u << "\n";
+    for (int v: adj[u])
+        if (!vis[v])
+            dfs(v);
 };
 ```
 
@@ -150,7 +153,7 @@ Consideriamo ora grafi pesati, cioè dove ogni arco ha un _peso_ (o _costo_) ass
 
 In questo caso, nella lista di adiacenza memorizziamo anche il peso di ogni arco come segue.
 ```cpp
-vector<vector<array<int, 2>>> adj(n);   // {nodo di arrivo, peso dell'arco}
+vector<vector<pair<int, int>>> adj(n);   // {nodo di arrivo, peso dell'arco}
 for (int i = 0, a, b, w; i < m; ++i) {
     cin >> a >> b >> w;                   // arco a->b di peso w
     adj[a].push_back({b, w});
@@ -160,7 +163,7 @@ for (int i = 0, a, b, w; i < m; ++i) {
 Che te ne fai di un grafo pesato?
 Pensa a Google Maps che calcola il percorso migliore per andare da casa tua al panificio: in questo caso il peso di un arco è il tempo necessario per percorrerlo e tu vuoi arrivare al panificio nel minor tempo possibile.
 
-#problem("Cammino Minimo", lbl: "dijkstra",
+#problem("Cammino Minimo", url: "training.olinfo.it/task/mincammino2", lbl: "dijkstra",
 [
   Dato un grafo pesato, un nodo sorgente $s$ e un nodo obiettivo $t$, determina la lunghezza del minimo cammino da $s$ a $t$.
 ]
@@ -174,6 +177,9 @@ La coda di priorità, per noi `priority_queue` supporta le sequenti operazioni:
 - `top()`: restituisce l'elemento massimo, complessità $cal(O)(1)$;
 - `pop()`: rimuove l'elemento massimo, complessità $cal(O)(log n)$.
 
+Normalmente le code a priorità hanno in cima l'elemento massimo, ma noi siamo interessato a quello con chiave (la distanza) minima.
+Per ovviare a questo problema possiamo inserire le distanze cambiate di segno (sconsigliato, è facile dimenticarsi dei segni meno in giro) o specificare, quando dichiariamo la coda, come ordinarla. 
+
 Segue un'implementazione dell'algoritmo di Dijkstra.
 
 ```cpp
@@ -184,34 +190,35 @@ Segue un'implementazione dell'algoritmo di Dijkstra.
 int main() {
     // leggi il grafo
     constexpr LL INF = 1e15;
+    int sorgente = 0;
 
     vector<LL> dist(n, INF);
-    priority_queue<array<int, 2>> Q;  // {-dist[v], v}
-    dist[0] = 0;
-    Q.push({-0, 0});
+    priority_queue<pair<LL, int>,
+                   vector<pair<LL, int>>,
+                   greater<>> Q;  // {dist[u], u}
+
+    dist[sorgente] = 0;
+    Q.push({0, sorgente});
 
     while (!Q.empty()) {
-        auto [d, v] = Q.top();
+        auto [d, u] = Q.top();
         Q.pop();
-        d = -d;
-        if (d > dist[v])
+
+        if (d > dist[u])
         continue;
-        for (auto [u, w] : adj[v]) {
-            if (dist[v] + w < dist[u]) {
-                dist[u] = dist[v] + w;
-                Q.push({-dist[u], u});
+
+        for (auto [v, w]: adj[u]) {
+            if (d + w < dist[v]) {
+                dist[v] = d + w;
+                Q.push({dist[v], v});
             }
         }
     }
 
     for (int i = 0; i < n; ++i)
-        cout << "La distanza minima da 0 a " << i << " e' " << dist[i] << "\n";
+        cout << "La distanza minima da " << sorgente << " a " << i << " e' " << dist[i] << "\n";
 }
 ```
-
-Nota come le distanze nella coda di priorità siano cambiate di segno: questo perché la `priority_queue` di default restituisce il massimo, mentre
-a noi interessa estrarre l'elemento con la distanza minima.
-Ci sono modi più canonici per ottenere lo stesso risultato: in gara questo è il modo più funzionale.
 
 Poiché l'algoritmo esegue al più un inserimento per arco del grafo, la nostra implementazione ha complessità $cal(O)(M log N)$.
 
@@ -220,26 +227,20 @@ Immagina di dover progettare la rete elettrica dell'attuale Repubblica Ceca in m
 
 Dato un grafo $G(V, E)$ connesso e pesato, un albero ricoprente è un sottografo connesso che contiene tutti i nodi di $G$ e non contiene cicli.
 
-#problem("Minimum Spanning Tree (MST)", lbl: "mst",
-[
+#problem("Minimum Spanning Tree (MST)", lbl: "mst")[
   Dato un grafo pesato, trova un albero ricoprente di peso totale minimo.
 ]
-)
 
-// #import "../../utils/draw_graph.typ": *
-// #canvas({
-//   let nodes = ((0, 0), (2, 2), (2, -2), (5, 2), (5, -2), (7, 0))
-//   let edges = ((0, 1), (0, 2), (1, 3), (2, 4), (3, 5), (4, 5), (1, 2), (1, 4), (3, 4))
+// #figure(
+//   canvas({
+//     import "../../utils/draw_graph.typ": *
+//     let nodes = ((0, 0), (2, 2), (2, -2), (5, 2), (5, -2), (7, 0))
+//     let edges = ((0, 1, 5), (0, 2, 10), (1, 3), (2, 4), (3, 5), (4, 5, 8), (1, 2), (1, 4), (3, 4))
 // 
-//   let rad = 0.3
-//   for i in range(nodes.len()) {
-//     let pos = nodes.at(i)
-//     circle(pos, fill: white, stroke: lines_color, radius: 0.3)
-//     content(pos, text(size: 1.4 * 0.3)[$#i$])
-//   }
+//     draw_graph(nodes, edges, rad: 12pt)
+//   })
 // 
-//   // draw_graph(nodes, edges, rad: 10pt)
-// })
+// )
 
 Questo problema si affronta sostanzialmente in tre modi: l'algoritmo di Prim, l'algoritmo di Kruskal e l'algoritmo di Borùvka. Trattiamo i primi due.
 
@@ -249,26 +250,32 @@ L'algoritmo funziona nel seguente modo. Inizialmente si aggiunge un nodo arbitra
 dopodiché, per $N - 1$ volte, si aggiunge un arco di peso minimo che connetta un nuovo nodo all'albero.
 Il sottografo risultante è un albero ricoprente di peso minimo.
 
-Anche se inizialmente non si direbbe, l'implementazione è molto simile a quella di Dijkstra. Il cuore del programma cambia come segue.
+Anche se inizialmente non si direbbe, l'implementazione è molto simile a quella di Dijkstra. 
+Il cuore del programma cambia come segue.
+
 ```cpp
 vector<LL> cost(n, INF);
-priority_queue<array<int, 2>> Q;  // {-cost[v], v}
+priority_queue<pair<LL, int>,
+               vector<pair<LL, int>>,
+               greater<>> Q;  // {cost[u], u}
+
 cost[0] = 0;
-Q.push({-0, 0});
+Q.push({0, 0});
 
 LL peso_totale = 0;
 
 while (!Q.empty()) {
-    auto [d, v] = Q.top();
+    auto [d, u] = Q.top();
     Q.pop();
-    d = -d;
-    if (d > cost[v])
+
+    if (d > cost[u])
         continue;
+
     peso_totale += d;
-    for (auto [u, w] : adj[v]) {
-        if (w < cost[u]) {
-            cost[u] = w;
-            Q.push({-cost[u], u});
+    for (auto [v, w]: adj[u]) {
+        if (w < cost[v]) {
+            cost[v] = w;
+            Q.push({cost[v], v});
         }
     }
 }
@@ -289,7 +296,7 @@ L'albero ricoprente contiene inizialmente i nodi del grafo, ma non contiene arch
 
 // TODO: disegno di esempio
 
-Una domanda naturale è come facciamo a controllare che aggiungere un arco non formi cicli? Viene in soccorso una delle nostre strutture dati preferite: la cosiddetta Union-Find, efficiente, super carina e dall'implementazione breve.
+Una domanda naturale è come facciamo a controllare che aggiungere un arco non formi cicli? Viene in soccorso una delle nostre strutture dati preferite: la cosiddetta Union-Find, o DSU.
 
 // TODO: mettere i box problema
 
