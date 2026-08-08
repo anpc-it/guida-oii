@@ -101,16 +101,18 @@ Oltre a dover risolvere il problema correttamente, la tua soluzione dovrà rispe
 
 Se proviamo effettivamente a scrivere queste due soluzioni in C++ e misuriamo quanto tempo ci impiegano ad eseguire per valori diversi di $N$ otteniamo questa tabella: #footnote([Il tempo di esecuzione dipende dal computer su cui viene eseguito il programma. In questo caso un _MacBook Pro M4 Max (16-core CPU)_ compilato con clang versione _21.0.0_, _C++17_. ])
 
-#table(
-  columns: 3,
-  align: right,
-  [N], [Soluzione 1], [Soluzione 2],
-  [$10^5$], [0.057 ms], [< 0.001 ms],
-  [$10^6$], [0.607 ms], [< 0.001 ms],
-  [$10^7$], [5.95 ms], [< 0.001 ms],
-  [$10^8$], [51.6 ms], [< 0.001 ms],
-  [$10^9$], [515 ms], [< 0.001 ms],
-) 
+#figure(
+  table(
+    columns: 3,
+    align: right,
+    [N], [Soluzione 1], [Soluzione 2],
+    [$10^5$], [0.057 ms], [< 0.001 ms],
+    [$10^6$], [0.607 ms], [< 0.001 ms],
+    [$10^7$], [5.95 ms], [< 0.001 ms],
+    [$10^8$], [51.6 ms], [< 0.001 ms],
+    [$10^9$], [515 ms], [< 0.001 ms],
+  ) 
+)
 
 Come possiamo notare, per $N = 10^9$ la prima soluzione è più di $500.000$ volte più lenta! Questo è dovuto a un semplice fatto: i computer impiegano del tempo a svolgere le operazioni. Questo argomento verrà ripreso in dettaglio nel #link(<complexity>)[capitolo sulla complessità computazionale], per ora però teniamo a mente che esistono soluzioni più o meno veloci che risolvono lo stesso problema.
 

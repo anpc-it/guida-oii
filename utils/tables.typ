@@ -9,14 +9,16 @@
   for row in rows.pos() {
     cells = cells + row
   }
-  table(
-    columns: (auto, auto, 1fr),
-    gutter: 2pt,
-    stroke: white,
-    inset: (x: 5pt, y: 7pt),
-    fill: (x, y) =>
-      if y == 0 { luma(75%) }
-      else { luma(97%) },
-    ..cells,
+  figure(
+    table(
+      columns: (auto, auto, 1fr),
+      gutter: 2pt,
+      stroke: white,
+      inset: (x: 5pt, y: 7pt),
+      fill: (x, y) =>
+        if y == 0 { luma(75%) }
+        else { luma(97%) },
+      ..cells,
+    )
   )
 }
