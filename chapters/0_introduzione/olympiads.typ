@@ -80,6 +80,15 @@ Il giudice si aspetta il formato indicato nella sezione Output, quindi bisogna s
 
 Gli esempi servono a capire il formato dell'output richiesto ed a testare la tua soluzione, ma il giudice testerà la tua soluzione con molti altri input nascosti. 
 
+Nota che questo non è l'unico formato di problemi possibile: esistono anche i problemi _output only_ e i problemi _interattivi_:
+
+- _output only_: Sono problemi in cui l'utente scarica tutti i test di input, anche quelli segreti, e li processa sulla propria macchina. Gli input possono essere _statici_ o _dinamici_: nel primo caso sono uguali per tutti gli utenti e non cambiano nel tempo, nell'altro sono diversi per ogni utente e vengono rigenerati dopo un intervallo di tempo oppure se viene inviata un soluzione. 
+  
+  Nella *fase territoriale* delle OII il fomato dei problemi è *_output only dinamico_*.
+
+- _interattivi_: Un problema interattivo prevede che la soluzione dell'utente comunichi con un altra soluzione (o con se stessa) tramite specifiche funzioni. Questa classe di problemi è abbastanza rara: compare a volte tra i problemi della fase finale delle OII, oppure in gare internazionali.
+// TODO: fare un capitolo sugli interattivi e linkarlo qua
+
 === Vincoli di tempo e di memoria
 
 Oltre a dover risolvere il problema correttamente, la tua soluzione dovrà rispettare degli ulteriori vincoli sul _tempo di esecuzione_ e _memoria_. Andiamo con ordine e consideriamo il seguente problema:
