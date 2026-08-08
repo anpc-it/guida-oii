@@ -2,7 +2,7 @@
 #import "@preview/codly-languages:0.1.1": *
 
 
-== Complessità computazionale
+== Complessità computazionale <complexity>
 
 Dati due algoritmi che risolvono lo stesso problema, siamo interessati a capire quale dei due sia il migliore in base alle nostre necessità. Poiché il nostro algoritmo deve risolvere il problema in un dato tempo, vogliamo quantificarne l'_efficienza_.
 
