@@ -54,9 +54,24 @@ Ora che abbiamo scritto il nostro programma, è giunto il momento di compilarlo!
         ```
 
 
+// #figure(
+//     image("../../figures/compile_and_run.png", width: 40%),
+//     caption: "Esempio di compilazione su Linux."
+// )
+
 #figure(
-    image("../../figures/compile_and_run.png", width: 40%),
-    caption: "Esempio di compilazione su Linux."
+  box(
+    fill: luma(20%),
+    inset: 5pt,
+    align(left, text(luma(90%), size: 8pt, font: "JetBrains Mono")[
+      > g++ hello_world.cpp \
+      > ls \
+      #text(olive)[a.out] hello_world.cpp \
+      > ./a.out \
+      Hello World!
+    ],
+  )),
+  caption: "Esempio di compilazione su Linux."
 )
 
 === Esempi

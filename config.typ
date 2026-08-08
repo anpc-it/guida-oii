@@ -8,12 +8,12 @@
 
   show raw.where(block: false): it => {
     box(
-    fill: luma(92%),
-    inset: (x: 0.2em, y: 0em),
-    outset: (y: 0.2em),
-    radius: 0.2em,
-    it
-  )
+      fill: luma(92%),
+      inset: (x: 0.2em, y: 0em),
+      outset: (y: 0.2em),
+      radius: 0.2em,
+      it
+    )
   }
 
   show link: it => {

@@ -1,4 +1,6 @@
 #import "../../config.typ"
+#import "@preview/codly:1.3.0": *
+#import "@preview/codly-languages:0.1.1": *
 
 
 == Cos'è una gara di informatica
@@ -32,32 +34,46 @@ Un problema contiene le seguenti sezioni:
 
 Vediamo un esempio di problema molto semplice:
 
-#v(10pt)
-*Descrizione*
+#align(center, box(
+  stroke: 0.5pt + black,
+  inset: 20pt,
+  width: 90%,
+)[
+  #set align(left)
+  #codly(number-format: none)
+==== Descrizione
 
 Dati due interi $a$ e $b$, stampa il maggiore dei due.
 
-*Input*
+==== Input
 
 L'unica riga contiene due interi $a$ e $b$, separati da uno spazio.
 
-*Output*
+==== Output
 
 Stampa il maggiore tra $a$ e $b$.
 
-*Vincoli*
+==== Vincoli
 
 $-10^9 <= a, b <= 10^9$.
 
-*Esempio*
+==== Esempi
 
-```input
-7 4
-```
-
-```output
-7
-```
+#grid(
+  columns: (1fr, 1fr),
+  gutter: 5pt,
+  [*`input`*],[*`output`*],
+  [```
+  7 4
+  ```],[```
+  7
+  ```],[```
+  6 10
+  ```],[```
+  10
+  ```],
+)
+])
 
 Gli esempi mostrano solo alcuni casi semplici, mentre una soluzione deve funzionare per tutti i valori ammessi dai vincoli.
 
