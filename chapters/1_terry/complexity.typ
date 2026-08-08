@@ -32,7 +32,7 @@ Facciamo degli esempi. Dato un array di $n$ interi $a_0, a_1, ..., a_(n - 1)$, c
         for (int j = i; j < n; ++j) {
             LL sum = 0;
             for (int k = i; k <= j; ++k)
-                sum += a[i];
+                sum += a[k];
             ans = max(ans, sum);
         }
     }

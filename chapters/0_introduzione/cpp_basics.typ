@@ -2,7 +2,7 @@
 #import "@preview/codly-languages:0.1.1": *
 
 
-== Concetti base di programmazione in C++ <cpp_intro>
+== Concetti base di programmazione in C++
 
 Hai capito come risolvere il problema! Cioè sapresti redigere una lista di istruzioni a prova di idiota (per brevità, _algoritmo_) che permetta a chiunque di risolvere non uno, ma tutti i possibili casi di input.
 Purtroppo lo staff delle Olimpiadi di Informatica non è pagato abbastanza per leggere la lista che hai scarabocchiato su carta e giudicarne la correttezza, per questo, ma anche perché non siamo alle Olimpiadi della Matematica#footnote[La partecipazione alle quali ci sentiamo di consigliare.] e a noi i risultati piace averli subito, la lista non la scrivi per noi ma per le macchine.
@@ -120,7 +120,7 @@ int fact(int n) {
         return 1;
     return n * fact(n - 1);
 }
-```
+```<factorial>
 
 Il costrutto `if (<condizione>) ` precede un blocco di codice che viene eseguito se e solo se la condizione è vera, in questo caso se e solo se $n = 0$. Poiché il blocco di codice consta di una sola istruzione, possiamo omettere le parentesi graffe altrimenti necessarie per isolarlo, in maniera del tutto analoga ai cicli for
 #footnote[Lo avevi notato?].
@@ -135,13 +135,13 @@ per un `long long` l'intervallo è $[-2^(63), 2^(63) - 1]$ e un `double` ha una 
 Un `char` è un carattere rappresentato come un intero secondo la #link("https://it.wikipedia.org/wiki/ASCII")[Tabella ASCII] e una `std::string` funziona esattamente come un `std::vector<char>`, ossia un vettore di caratteri. Il seguente programma legge una parola (senza spazi) e stampa la frequenza di ogni carattere.
 
 ```cpp
-#include <array>
+#include <vector>
 #include <string>
 #include <iostream>
 using namespace std;
 
 int main() {
-    array<int, 128> freq;
+    vector<int> freq(128);
     string s; cin >> s;
     for (int i = 0; i < (int)s.size(); ++i)
         ++freq[s[i]];

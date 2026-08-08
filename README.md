@@ -15,7 +15,7 @@
   - [x] Introduzione a STL
   - [x] Ricerca binaria
   - [x] Algoritmi Greedy
-  - [ ] Ricorsione e ricerca completa
+  - [x] Ricorsione e ricerca completa
   - [x] Programmazione dinamica
   - [x] Grafi: BFS, DFS, CC, Dijkstra
   - [x] Alberi e DAG

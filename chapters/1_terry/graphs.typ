@@ -115,9 +115,9 @@ while (!Q.empty()) {
     cout << "Processo il nodo " << u << "\n";
     for (int v: adj[u]) {
         if (vis[v])
-            continue
-        vis[u] = true;
-        Q.push(u);
+            continue;
+        vis[v] = true;
+        Q.push(v);
     }
 }
 

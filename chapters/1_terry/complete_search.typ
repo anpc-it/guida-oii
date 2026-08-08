@@ -27,7 +27,7 @@ Questa funzione vuole evidentemente calcolare la somma dei primi $n$ numeri (con
 
 Questa funzione ha complessità $cal(O)(n)$ perché chiamare `somma_primi_n_numeri(n)` comporta la chiamata della stessa funzione con parametro $n-1$, poi $n-2$ e così via fino a $0$.
 
-Un altro esempio è la funzione per calcolare il fattoriale mostrata nel @cpp_intro.
+Un altro esempio è la funzione per calcolare il fattoriale mostrata nel #link(<factorial>)[capitolo introduttivo al C++].
 
 In entrambi questi esempi è presente un caso base e un caso generale.
 Una funzione ricorsiva senza caso base non terminerebbe mai l'esecuzione e continuerebbe a chiamarsi all'infinito.
