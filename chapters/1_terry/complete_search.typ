@@ -69,8 +69,7 @@ Ci sono casi in cui la ricerca completa è l'unico modo per risolvere un problem
     ```
   ],
   [
-    *`output`*
-    ```
+    ```output
 1 1 1 
 1 1 2 
 1 2 1 

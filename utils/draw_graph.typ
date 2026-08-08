@@ -70,15 +70,15 @@ Keys should be the 0-based indices of the nodes as strings.
 #let draw_edge(i, posA, posB, directed, rad, w) = {
   let arrow = none
   if directed {
-    arrow = (end: "straight", fill: white, pos: rad, scale: 0.1 * rad / 1pt)
+    arrow = (end: "straight", fill: white, pos: rad)
   }
   draw.line(posA, posB, stroke: lines_color, mark: arrow)
 
   if w != none {
     content(
       (posA, 50%, posB), 
-      circle(stroke: none, fill: white, inset: 0.1 * rad)[
-        #text(size: rad)[$#w$]
+      circle(stroke: none, fill: white, inset: 0pt)[
+        #text(size: 0.8 * rad)[$#w$]
       ]
     )
   }
@@ -107,6 +107,4 @@ Keys should be the 0-based indices of the nodes as strings.
     }
   }
 }
-
-
 

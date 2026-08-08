@@ -22,7 +22,10 @@
 
   show: codly-init.with()
   codly(
+    zebra-fill: luma(94%),
+    fill: luma(97%),
     languages: codly-languages,
+    display-icon: false,
   )
   show raw.where(block: true, lang: "input"): local.with(number-format: none)
   show raw.where(block: true, lang: "output"): local.with(number-format: none)
