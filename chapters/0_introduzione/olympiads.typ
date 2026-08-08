@@ -9,11 +9,12 @@ Per partecipare alle gare di informatica non è necessario sapere usare un progr
 
 Le gare di informatica hanno quindi due aspetti distinti:
 
-- trovare un algoritmo corretto (non serve dimostrare che sia corretto);
+- trovare un algoritmo corretto (non è richiesto di dimostrarne la correttezza);
 - implementarlo in un linguaggio di programmazione in modo abbastanza _efficiente_.
  
 === Le Olimpiadi Italiane di Informatica
 
+// TODO: foto OII
 Le OII sono una competizione rivolta agli studenti delle scuole secondarie superiori. Il percorso di selezione comprende diverse fasi, dalla selezione scolastica, alla selezione territoriale, fino alla gara nazionale. Le regole precise, le date e i criteri di selezione possono cambiare di anno in anno: per informazioni aggiornate consultare il #link("https://olimpiadi-informatica.it/")[sito ufficiale delle OII].
 
 Dalla fase territoriale in poi l'obiettivo è lo stesso: leggere i dati forniti, elaborare una risposta e stamparla nel formato richiesto. La teoria richiesta per cominciare a partecipare alle olimpiadi di informatica è molto ridotta: basta saper scrivere codice in un linguaggio di programmazione a scelta (preferibilmente C++, ne parleremo nei capitoli futuri). La teoria spiegata in questo libro comprende principalmente strumenti e tecniche che possono essere applicate in molti problemi diversi, e che rendono la soluzione più efficiente o facile da tradurre in codice.
@@ -29,16 +30,16 @@ Un problema contiene le seguenti sezioni:
 - *Subtask* (opzionale): sono sottoproblemi più semplici, che permettono di ottenere punteggio parziale.
 - *Esempi*: mostrano alcuni input e il corrispondente output.
 
-Consideriamo questo problema molto semplice:
+Vediamo un esempio di problema molto semplice:
 
 #v(10pt)
-*Problema*
+*Descrizione*
 
 Dati due interi $a$ e $b$, stampa il maggiore dei due.
 
 *Input*
 
-L'unica riga contiene due interi $a$ e $b$.
+L'unica riga contiene due interi $a$ e $b$, separati da uno spazio.
 
 *Output*
 
