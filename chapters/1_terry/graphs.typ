@@ -3,28 +3,26 @@
 #import "@preview/cetz-plot:0.1.2": *
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
-
+#import "../../utils/draw_graph.typ": *
 
 
 == Grafi
 
 Molti problemi algoritmici si possono formulare in termini di _grafi_. Chiamiamo grafi gli oggetti simili a quelli in figura.
 
-#grid(
+#figure(grid(
   columns: (1fr, 1fr, 1fr),
   rows: 2,
   gutter: 2em,
   align: center + horizon,
   [
-    #import "../../utils/draw_graph.typ": *
     #canvas({
-      let nodes = ((-1, 0), (-1, -1.5), (-1, -3), (1, 0), (1, -1.5), (1, -3))
-      let edges = ((0, 3), (0, 4), (0, 5), (1, 3), (1, 5), (2, 4))
+      let nodes = ((0, 0), (2, 2), (-1, 2), (3, 0))
+      let edges = ((0, 1, 2), (0, 2, 1), (1, 2, 3), (1, 3, 5))
 
       draw_graph(nodes, edges, rad: 10pt)
     })
   ],[
-    #import "../../utils/draw_graph.typ": *
     #canvas({
       let N = 8
       let rad = 45pt
@@ -51,26 +49,28 @@ Molti problemi algoritmici si possono formulare in termini di _grafi_. Chiamiamo
       draw_graph(nodes, edges, rad: 10pt, directed: true)
     })
   ],
-  [_Un grafo bipartito_],
+  [_Un grafo pesato_],
   [_Un albero_],
   [_Un grafo diretto_],
-)
+))
 
-Sono grafi gli incroci di una città collegati dalle strade, gli esami necessari per laurearsi e le dipendenze del tipo "l'esame $a$ va dato prima dell'esame $b$", l'insieme dei vostri amici e le relazioni di amicizia tra di loro e tanti altri oggetti. "Tutto è grafo", disse un saggio.
+In generale possiamo modellare con un grafo un insieme di entità (dette *nodi*) tra le quali sussistono relazioni di qualche tipo (dette *archi*). 
 
-Formalmente, un grafo $G$ è una coppia $(V, E)$ dove $V$ è un insieme di _nodi_ (o _vertici_) e $E$ è un (multi)insieme di _archi_, cioè coppie di nodi. Un arco può essere diretto, cioè una strada a senso unico, o non diretto, cioè una strada a doppio senso. Archi diretti e non diretti corrispondono a coppie ordinate e non ordinate.
+Sono grafi gli incroci di una città collegati dalle strade, gli esami necessari per laurearsi e le dipendenze del tipo "l'esame $a$ va dato prima dell'esame $b$", l'insieme dei vostri amici e le relazioni di amicizia tra di loro e tanti altri oggetti. 
+
+Formalmente, un grafo $G$ è una coppia $(V, E)$ dove $V$ è un insieme di _nodi_ (o _vertici_) e $E$ è un (multi)insieme di _archi_, cioè coppie di nodi. 
+Un arco può essere diretto, cioè una strada a senso unico, o non diretto, cioè una strada a doppio senso. Archi diretti e non diretti corrispondono a coppie ordinate e non ordinate.
 Denotiamo con $N$ il numero di nodi e con $M$ il numero di archi.
 
 Due nodi $u, v$ si dicono _adiacenti_ se sono connessi da un arco.
-
-// zoologia?
 
 A livello implementativo, un grafo può assumere tre forme:
 - matrice di adiacenza
 - lista di archi
 - lista di adiacenza
 
-Quest'ultima è la rappresentazione più pratica e comune, ma ognuna ha i propri vantaggi e svantaggi. Una lista di adiacenza da una lista di archi si costruisce come segue.
+Quest'ultima è la rappresentazione più pratica e comune, ma ognuna ha i propri vantaggi e svantaggi. 
+Una lista di adiacenza da una lista di archi si costruisce come segue.
 
 ```cpp
 int main() {
@@ -90,8 +90,23 @@ int main() {
 Sottolineiamo il fatto che non sempre è necessario memorizzare il grafo come oggetto esplicito: pensa al caso di una griglia $R times C$ dove ogni cella è un nodo e ogni coppia di celle adiacenti è connessa da un arco. 
 Non è necessario memorizzare esplicitamente gli archi, poiché dato un nodo puoi calcolare i suoi vicini in tempo costante.
 
+Cosa ce ne facciamo di un grafo? 
+Alcune delle domande che uno si potrebbe fare sono: posso andare dal nodo $A$ al nodo $B$? C'è solo un modo? Quanto è lungo il cammino più breve tra questi? Quanti sono i gruppi di nodi?
+
+A queste e altre domande possiamo rispondere attraverso degli algoritmi che operano su uno o più grafi.
+
 Abbiamo il nostro grafo in forma di lista di adiacenza: per ogni nodo $v$ il corrispondente vettore $"adj"[v]$ contiene i vicini di $v$. Ora ci piacerebbe visitarlo a partire da un nodo. Ci sono sostanzialmente due modi per farlo.
 
+Prima di vedere quali, è importante introdurre alcuni termini che ci permetteranno di esprimere in modo più semplice alcuni concetti.
+
+Un *_cammino_* fra due nodi $A$ e $B$ è una sequenza di nodi $a_1, a_2, dots, a_k$ tale che $a_1 = A$, $a_k = B$ ed esiste un arco dal nodo $a_i$ al nodo $a_(i + 1)$ per ogni $i = 1 dots k - 1$.
+In altre parole seguo un cammino se mi muovo tra i nodi del grafo attraverso gli archi.
+
+Due nodi sono *_connessi_* se esiste un cammino tra loro.
+
+La *_lunghezza_* di un cammino è il numero di archi che questo utilizza. Se il grafo è pesato, la lunghezza del cammino è la somma dei pesi degli archi percorsi.
+
+La *_distanza_* fra due nodi è la lunghezza minima di un cammino tra questi.
 
 === Visite in ampiezza e in profondità
 
@@ -125,10 +140,80 @@ while (!Q.empty()) {
 
 Nota come la BFS si può utilizzare per calcolare le distanze minime in un grafo non pesato: il livello di ogni nodo è la sua distanza dalla radice.
 
+Prendiamo il seguente grafo e facciamo una visita in ampiezza assumendo $"root" = 0$. 
+
+#[
+
+#let nodes = ((0, -1.5), (1, -0.5), (2.5, -0.5), (3.5, -1.5), (2.5, -2.5), (1, -2.5))
+#let edges = ((0, 1), (0, 5), (1, 2), (2, 4), (3, 2), (4, 3), (5, 1), (5, 2), (5, 4))
+
+#let current = rgb("#68ff84")
+#let visited = rgb("#bcbcbc") 
+#let fill = (:)
+
+#figure(grid(
+  columns: (1fr, 1fr, 1fr),
+  row-gutter: 30pt,
+
+  [
+    #canvas({
+      fill += ("0": current)
+
+      draw_graph(nodes, edges, rad: 10pt, node_fill: fill)
+    })
+    Passo 1 $-> Q = [underline(0)]$
+  ],[
+    #canvas({
+      fill.at("0") = visited
+      fill += ("1": current)
+
+      draw_graph(nodes, edges, rad: 10pt, node_fill: fill)
+    })
+    Passo 2 $-> Q = [cancel(0), underline(1), 5]$
+  ],[
+    #canvas({
+      fill.at("1") = visited
+      fill += ("5": current)
+
+      draw_graph(nodes, edges, rad: 10pt, node_fill: fill)
+    })
+    Passo 3 $-> Q = [cancel(0), cancel(1), underline(5), 2]$
+  ],[
+    #canvas({
+      fill.at("5") = visited
+      fill += ("2": current)
+
+      draw_graph(nodes, edges, rad: 10pt, node_fill: fill)
+    })
+    Passo 4 $-> Q = [cancel(0), cancel(1), cancel(5), underline(2), 4]$
+  ],[
+    #canvas({
+      fill.at("2") = visited
+      fill += ("4": current)
+
+      draw_graph(nodes, edges, rad: 10pt, node_fill: fill)
+    })
+    Passo 5 $-> Q = [cancel(0), cancel(1), cancel(5), cancel(2), underline(4), 3]$
+  ],[
+    #canvas({
+      fill.at("4") = visited
+      fill += ("3": current)
+
+      draw_graph(nodes, edges, rad: 10pt, node_fill: fill)
+    })
+    Passo 6 $-> Q = [cancel(0), cancel(1), cancel(5), cancel(2), cancel(4), underline(3)]$
+  ],
+))]
+
+L'ordine di visita dei nodi è $[0, 1, 5, 2, 4, 3]$.
+
+I nodi vengono visitati in ordine di distanza dal nodo di partenza, cioè il nodo $0$. Dopo il nodo $0$ vengono visitati i nodi $1$ e $5$ che sono a distanza $1$, poi i nodi $2$ e $4$ a distanza $2$ e infine il nodo $3$ che si trova a distanza $3$.
+
+
 La DFS, invece, visita il grafo in maniera sostanzialmente ricorsiva. L'implementazione più naturale è quella che segue, ma se nel codice precedente sostituissi la parola `stack` a `queue` e la parola `top` a `front` otterresti lo stesso ordine di visita.
 
 ```cpp
-// la lista di adiacenza e vis devono essere globali
+// la lista di adiacenza e vis devono essere dichiarati globalmente
 
 void dfs(int u) {
     vis[u] = true;
@@ -138,11 +223,100 @@ void dfs(int u) {
             dfs(v);
 };
 ```
+Prendiamo il seguente grafo e facciamo una visita in profondità assumendo $"root" = 0$. 
 
-// TODO: disegnini dei vari passaggi e relativo albero BFS/DFS
+#[
+
+#let nodes = ((0, -1.5), (1, -0.5), (2.5, -0.5), (1.75, -1.5), (2.5, -2.5), (1, -2.5))
+#let edges = ((0, 1), (0, 5), (1, 2), (4, 3), (5, 3), (5, 4))
+
+#let current = rgb("#68ff84")
+#let visited = rgb("#bcbcbc") 
+#let fill = (:)
+
+#figure(grid(
+  columns: (1fr, 1fr, 1fr),
+  row-gutter: 30pt,
+
+  [
+    #canvas({
+      fill += ("0": current)
+
+      draw_graph(nodes, edges, rad: 10pt, node_fill: fill)
+    })
+    Passo 1 $-> "dfs"(0)$
+  ],[
+    #canvas({
+      fill.at("0") = visited
+      fill += ("1": current)
+
+      draw_graph(nodes, edges, rad: 10pt, node_fill: fill)
+    })
+    Passo 2 $-> "dfs"(1)$
+  ],[
+    #canvas({
+      fill.at("1") = visited
+      fill += ("2": current)
+
+      draw_graph(nodes, edges, rad: 10pt, node_fill: fill)
+    })
+    Passo 3 $-> "dfs"(2)$
+  ],[
+    #canvas({
+      fill.at("2") = visited
+      fill += ("5": current)
+
+      draw_graph(nodes, edges, rad: 10pt, node_fill: fill)
+    })
+    Passo 4 $-> "dfs"(5)$
+  ],[
+    #canvas({
+      fill.at("5") = visited
+      fill += ("4": current)
+
+      draw_graph(nodes, edges, rad: 10pt, node_fill: fill)
+    })
+    Passo 5 $-> "dfs"(4)$
+  ],[
+    #canvas({
+      fill.at("4") = visited
+      fill += ("3": current)
+
+      draw_graph(nodes, edges, rad: 10pt, node_fill: fill)
+    })
+    Passo 6 $-> "dfs"(3)$
+  ],
+))]
+
+In questo caso l'ordine di visita dei nodi è $[0, 1, 2, 5, 4, 3]$.
+
+Sia nel caso della BFS che nel caso della DFS l'ordine di visita può variare in base all'ordine dei nodi nelle liste di adiacenza e all'implementazione della visita.
 Ti invitiamo a pensare in che senso una visita è in ampiezza e l'altra in profondità.
 
-Prima di procedere, diciamo che un grafo è _connesso_ se da ogni nodo si può raggiungere ogni altro nodo tramite una sequenza di archi consecutivi, chiamata _cammino_. Non tutti i grafi sono connessi, ma ogni grafo si partiziona naturalmente in _componenti connesse_, cioè sottografi connessi, ma sconnessi l'uno dall'altro.
+Per il momento diciamo che l'applicazione principale della BFS è trovare la distanza da un nodo verso tutti gli altri in un grafo non pesato.
+L'ordine di visita della DFS invece diventerà importante quando parleremo di alberi.
+
+Prima di procedere, diciamo che un grafo è _*connesso*_ se ogni coppia di nodi del grafo è connessa. Non tutti i grafi sono connessi, ma ogni grafo si partiziona naturalmente in _componenti connesse_, cioè sottografi connessi, ma sconnessi l'uno dall'altro.
+
+#figure(
+  canvas({
+    let node = ((-1, 0), (0, 1.5), (1.5, 0), (3, 1), (4, 3), (5, 1.5), (2, 2.5), (-2, 2.5))
+    let edges = ((0, 1), (1, 2), (2, 0), (6, 5), (3, 6), (6, 4))
+    let fill = (
+      "0": rgb("#9aff6c"),
+      "1": rgb("#9aff6c"),
+      "2": rgb("#9aff6c"),
+      "3": rgb("#ffac8b"),
+      "4": rgb("#ffac8b"),
+      "5": rgb("#ffac8b"),
+      "6": rgb("#ffac8b"),
+      "7": rgb("#5be4ff"),
+    )
+    draw_graph(node, edges, node_fill: fill, rad: 10pt)
+  }),
+  caption: [Le componenti connesse sono evidenziate con colori diveri.]
+)
+
 Ora che sappiamo visitare il grafo, possiamo anche contare il numero di isole su una mappa, come nel problema #link(<graph_problems>)[Find the Treasure (ois_islands)].
 
 Un'altra applicazione delle visite è dire se un grafo contiene o meno dei _cicli_, cioè dei cammini che partono e arrivano allo stesso nodo senza passare due volte per lo stesso arco, o ancora l'ordinamento topologico di un grafo diretto acilico, che tratteremo più avanti.

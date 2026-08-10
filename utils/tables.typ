@@ -15,6 +15,7 @@
       gutter: 2pt,
       stroke: white,
       inset: (x: 5pt, y: 7pt),
+      align: (center, center, left),
       fill: (x, y) =>
         if y == 0 { luma(75%) }
         else { luma(97%) },

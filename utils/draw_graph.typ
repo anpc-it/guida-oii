@@ -77,8 +77,8 @@ Keys should be the 0-based indices of the nodes as strings.
   if w != none {
     content(
       (posA, 50%, posB), 
-      circle(stroke: none, fill: white, inset: 0pt)[
-        #text(size: 0.8 * rad)[$#w$]
+      circle(stroke: none, fill: white, inset: 1pt)[
+        #text(size: rad)[$#w$]
       ]
     )
   }

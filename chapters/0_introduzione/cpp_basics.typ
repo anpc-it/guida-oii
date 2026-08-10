@@ -48,7 +48,8 @@ Ora che abbiamo scritto il nostro programma, è giunto il momento di compilarlo!
     1. Tramite l'*IDE* in cui stiamo lavorando, è spesso possibile compilare ed eseguire il programma premendo un tasto (o una combinazione/sequenza). Ad esempio, su _Visual Studio Code_ `F5`, su _Code::Blocks_ `F9`, su _Dev-C++_ `F11`. 
     
         Lo staff delle OII ha messo a disposizione un IDE online (#link("https://editor.olinfo.it")) per compilare ed eseguire il codice senza installare nulla sul proprio computer. Per quanto questo IDE sia comodo all'inizio, è consigliabile installare un IDE sul proprio computer per svariate ragioni, tra cui la possibilità di fare _debugging_ in maniera più efficace e il fatto che l'editor online non sarà disponibile durante la finale delle OII.
-        // TODO: fact check the last sentence
+        
+// TODO: fact check the last sentence
 
     2. (*Consigliato*) Tramite *terminale* si può avere un controllo più granulare sulla compilazione (che, come vedremo nel #link(<debugging>, "capitolo sul Debugging"), può tornare molto utile).
         - *Windows*: Possiamo installare `g++` tramite #link("https://dev.to/prastha/install-mingw-w64-on-windows-11-2025-november-acg", `MinGW`) o `MSYS2`. Compiliamo il sorgente con \ 
@@ -155,17 +156,19 @@ Secondo te cosa accadrebbe se non inserissi il _caso base_ per $n = 0$ nella def
 
 Per ora abbiamo usato solo `int`, ma non è l'unico tipo di variabile. Presentiamo un breve elenco dei tipi più comunemente usati:
 
-#table(
-  columns: 3,
-  align: (left, right, left),
-  [*Tipo*], [*Byte*], [*Dettagli*],
-  [`char`], [1], [Un singolo carattere.],
-  [`bool`], [1], [Un valore booleano: `true` oppure `false`.],
-  [`int`], [4], [Un intero; tipicamente da $-2^31$ a $2^31 - 1$ (circa $2 dot 10^9$).],
-  [`long long`], [8], [Un intero di 64 bit; tipicamente da $-2^63$ a $2^63 - 1$ (circa $9 dot 10^18$).],
-  [`float`], [4], [Numero reale con precisione singola.],
-  [`double`], [8], [Numero reale con precisione doppia.],
-  [`std::string`], [variabile], [Stringa di lunghezza variabile; la memoria dipende dal contenuto.],
+#figure(
+  table(
+    columns: 3,
+    align: (left, right, left),
+    [*Tipo*], [*Byte*], [*Dettagli*],
+    [`char`], [1], [Un singolo carattere.],
+    [`bool`], [1], [Un valore booleano: `true` oppure `false`.],
+    [`int`], [4], [Un intero; tipicamente da $-2^31$ a $2^31 - 1$ (circa $2 dot 10^9$).],
+    [`long long`], [8], [Un intero di 64 bit; tipicamente da $-2^63$ a $2^63 - 1$ (circa $9 dot 10^18$).],
+    [`float`], [4], [Numero reale con precisione singola.],
+    [`double`], [8], [Numero reale con precisione doppia.],
+    [`std::string`], [variabile], [Stringa di lunghezza variabile; la memoria dipende dal contenuto.],
+  )
 )
 
 Cosa succede quando si provano a salvare dentro un tipo di variabile come `int` valori maggiori a quelli massimi consentiti?

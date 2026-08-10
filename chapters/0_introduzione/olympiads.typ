@@ -9,7 +9,7 @@ In una gara di informatica si risolvono problemi scrivendo programmi. A ogni pro
 
 Per partecipare alle gare di informatica non è necessario sapere usare un programma già pronto #footnote([Per questo esiste #link("https://excel-esports.com")]), non si deve costruire un computer, tanto meno programmare dei robot. Una gara di informatica consiste nel trovare un _algoritmo_, cioè una sequenza finita di istruzioni che risolva correttamente tutti i casi di input previsti dal problema.
 
-Le gare di informatica hanno quindi due aspetti distinti:
+Le gare di informatica hanno quindi due aspetti distinti: 
 
 - trovare un algoritmo corretto (non è richiesto di dimostrarne la correttezza);
 - implementarlo in un linguaggio di programmazione in modo abbastanza _efficiente_.
@@ -40,7 +40,6 @@ Vediamo un esempio di problema molto semplice:
   width: 90%,
 )[
   #set align(left)
-  #codly(number-format: none)
 ==== Descrizione
 
 Dati due interi $a$ e $b$, stampa il maggiore dei due.

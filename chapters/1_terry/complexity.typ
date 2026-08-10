@@ -9,12 +9,15 @@ Dati due algoritmi che risolvono lo stesso problema, siamo interessati a capire 
 È ragionevole assumere il tempo impiegato sia proporzionale al numero di operazioni eseguite. Il fattore di proporzionalità cambia da macchina a macchina, per questo conviene dare una stima _asintotica_ del numero di operazioni. In altre parole, analizziamo come cresce il numero di operazioni al crescere della dimensione dell'input, ignorando fattori costanti.
 #footnote[Classicamente questa si esprime in numero di bit. Nei nostri casi cosa intendiamo sarà chiaro dal contesto.]
 
-Sia $g(n)$ il massimo numero di operazioni di un dato algoritmo al variare degli input di dimensione $n$. Se $g(n)$ cresce non più velocemente di $n^2$, si dice che "$g$ è O grande di $n^2$", scritto $g(n) in cal(O)(n^2)$ o con un abuso di notazione $g(n) = cal(O)(n^2)$.#footnote[Formalmente, data $f : NN -> NN$ si definisce la classe di funzioni
-$ cal(O)(f(n)) = { g: NN -> NN | exists n_0, c in NN thick "tali che" thick forall n >= n_0 thick g(n) <= c f(n) }. $]
+Sia $g(n)$ il massimo numero di operazioni di un dato algoritmo al variare degli input di dimensione $n$. Se $g(n)$ cresce non più velocemente di $n^2$, si dice che "$g$ è O grande di $n^2$", scritto $g(n) in cal(O)(n^2)$ o con un abuso di notazione $g(n) = cal(O)(n^2)$.//#footnote[Formalmente, data $f : NN -> NN$ si definisce la classe di funzioni
+//$ cal(O)(f(n)) = { g: NN -> NN | exists n_0, c in NN thick "tali che" thick forall n >= n_0 thick g(n) <= c f(n) }. $]
+// 
+
+Formalmente, una funzione $g(n)$ si dice $cal(O)(f(n))$ se esistono due costanti $c$ e $n_0$ tali che $g(n) < c dot f(n)$ per tutti gli $n > n_0$.
 
 Per esempio le funzioni che a $n$ associano rispettivamente $n$, $n + 4$, $3 n + 17$ e $42 + (-1)^n$ appartengono tutte alla classe $cal(O)(n)$, ma di queste solo $42 + (-1)^n$ appartiene a $cal(O)(1)$.
 
-Per completezza definiamo anche le classi $Omega(f(n))$ e $Theta(f(n))$ ponendo $g in Omega(f(n))$ sse $f in cal(O)(g(n))$ e $g in Theta(f(n))$ sse allo stesso tempo $g in cal(O)(f(n))$ e $g in Omega(f(n))$.
+//Per completezza definiamo anche le classi $Omega(f(n))$ e $Theta(f(n))$ ponendo $g in Omega(f(n))$ sse $f in cal(O)(g(n))$ e $g in Theta(f(n))$ sse allo stesso tempo $g in cal(O)(f(n))$ e $g in Omega(f(n))$.
 
 Facciamo degli esempi. Dato un array di $n$ interi $a_0, a_1, ..., a_(n - 1)$, consideriamo il problema di trovare la massima somma di un sottoarray#footnote[Ricorda che un sottoarray di un array $a = [a_0, ..., a_(n - 1)]$ è un'array del tipo $[a_l, ..., a_r]$ per qualche scelta di $0 <= l <= r < n$.] (anche vuoto) di $a$.
 
@@ -68,6 +71,10 @@ Facciamo degli esempi. Dato un array di $n$ interi $a_0, a_1, ..., a_(n - 1)$, c
     ```
   ],
 )
+
+Per il momento non serve capire a fondo gli algoritmi appena esposti ma basta comprendere che possono esistere più approcci diversi per rispondere ad una stessa richiesta e alcuni sono più efficienti di altri. 
+
+Non sempre c'è una singola soluzione migliore ma valutarne la complessità permette di capire quale strategia adottare sulla base delle limitazioni del problema.
 
 Osserva infine che lo stesso tipo di analisi si può applicare anche alla memoria utilizzata oltre che al numero di operazioni eseguite.
 

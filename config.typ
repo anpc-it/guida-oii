@@ -26,6 +26,7 @@
     fill: luma(97%),
     languages: codly-languages,
     display-icon: false,
+    number-format: none,
   )
   show raw.where(block: true, lang: "input"): local.with(number-format: none)
   show raw.where(block: true, lang: "output"): local.with(number-format: none)
