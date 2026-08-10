@@ -4,38 +4,53 @@
 
 == Concetti base di programmazione in C++
 
-Hai capito come risolvere il problema! Cioè sapresti redigere una lista di istruzioni a prova di idiota (per brevità, _algoritmo_) che permetta a chiunque di risolvere non uno, ma tutti i possibili casi di input.
-Purtroppo lo staff delle Olimpiadi di Informatica non è pagato abbastanza per leggere la lista che hai scarabocchiato su carta e giudicarne la correttezza, per questo, ma anche perché non siamo alle Olimpiadi della Matematica#footnote[La partecipazione alle quali ci sentiamo di consigliare.] e a noi i risultati piace averli subito, la lista non la scrivi per noi ma per le macchine.
+// Hai capito come risolvere il problema! Cioè sapresti redigere una lista di istruzioni a prova di idiota (per brevità, _algoritmo_) che permetta a chiunque di risolvere non uno, ma tutti i possibili casi di input.
+// Purtroppo lo staff delle Olimpiadi di Informatica non è pagato abbastanza per leggere la lista che hai scarabocchiato su carta e giudicarne la correttezza, per questo, ma anche perché non siamo alle Olimpiadi della Matematica#footnote[La partecipazione alle quali ci sentiamo di consigliare.] e a noi i risultati piace averli subito, la lista non la scrivi per noi ma per le macchine.
 
-Ti consigliamo di scrivere il tuo codice in C++ per almeno due buoni motivi:
-+ la sua Standard Template Library offre una vasta collezione di strutture dati e algoritmi adatti all'utilizzo come scatole nere. C++ è inoltre un linguaggio molto efficiente e permette, a chi lo desidera, un controllo a basso livello della memoria per eventuali ulteriori ottimizzazioni;
-+ è l'unico linguaggio ammesso alle OII.
+Prima di cominciare a risolvere effettivamente i problemi, dobbiamo possedere alcune conoscenze di base di programmazione.
+In questa guida assumeremo che il lettore conosca già i principali costrutti della programmazione (variabili, cicli, funzioni e istruzioni `if`/`else`).
 
-Un file C++ ha l'aspetto che segue:
+Consigliamo di scrivere il codice in C++ per diversi motivi:
++ la libreria standard del C++ offre una vasta collezione di strutture dati e algoritmi pronti all'uso;
++ è un linguaggio efficiente e permette, quando necessario, di controllare in modo granulare l'uso della memoria;
++ è l'unico linguaggio ammesso alla finale OII e dalla maggior parte delle competizioni internazionali.
 
-#codly(
-	header: [*ilnomedeltuofile.cpp*],
-)
+Il file C++ più semplice (e inutile) che possiamo scrivere è il seguente:
 ```cpp
-#include <iostream>
-
 int main() {
-    std::cout << "Hello World!\n";
     return 0;
 }
 ```
 
-La prima riga include la libreria `iostream`, che implementa funzioni per gestire l'input e l'output. La parola chiave `include` è abbreviazione di "prendi questo file che sta da qualche parte sulla macchina e fai come se copia-incollassi il suo contenuto qui, al posto dell'`#include`".
-L'esecuzione del codice inizia con la chiamata alla funzione `main`, che come valore di ritorno ha un intero (se tutto va bene: $0$).
-La funzione `std::cout` della libreria `iostream` stampa a video la stringa "Hello World!" (senza apici), l'ultimo carattere `\n` "newline" indica di andare a capo.
-L'istruzione `return` serve per restituire il valore di ritorno: il compito del `main` è terminato ed eventuali righe successive vengono ignorate.
+`int main()` è il punto di ingresso del nostro programma. La funzione `main` restituisce un `int`: questo valore è il _codice di uscita_. Per convenzione, `0` indica la terminazione corretta, mentre un valore diverso da `0` segnala un'anomalia. Se l'esecuzione raggiunge la fine di `main` senza incontrare un'istruzione `return`, in C++ viene restituito automaticamente `0`.
+
+Questo programma per ora non produce alcun output. Proviamo a stampare una stringa di testo, per esempio `Ciao Dario!`.
+
+#codly(
+  header: [*ciao_dario.cpp*],
+)
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    cout << "Ciao Dario!" << endl;
+    return 0;
+}
+```
+In C++ le varie dichiarazioni delle librerie vanno incluse nella compilazione tramite la keyword `#include`. La maggior parte delle dichiarazioni della _libreria standard_ appartiene principalmente al namespace `std`. L'istruzione `using namespace std;` permette di usarli senza scrivere ogni volta il prefisso `std::`.
+
+`cout` (abbr. di "character output") scrive sullo stream standard di output. `endl` inserisce un carattere di fine riga e svuota il buffer associato allo stream.
+
+Nota: in futuro useremo spesso `'\n'` al posto di `endl`, perché inserisce una nuova riga senza forzare lo svuotamento del buffer, operazione solitamente molto lenta. Il buffer viene comunque svuotato automaticamente, per esempio quando è pieno o quando lo stream viene chiuso.
 
 Ora che abbiamo scritto il nostro programma, è giunto il momento di compilarlo! Per compilare il sorgente ci sono due modi principali:
     1. Tramite l'*IDE* in cui stiamo lavorando, è spesso possibile compilare ed eseguire il programma premendo un tasto (o una combinazione/sequenza). Ad esempio, su _Visual Studio Code_ `F5`, su _Code::Blocks_ `F9`, su _Dev-C++_ `F11`. 
     
-        Lo staff delle OII ha messo a disposizione un IDE online (#link("https://editor.olinfo.it", `editor.olinfo.it`)) per compilare ed eseguire il codice senza installare nulla sul proprio computer. Per quanto questo IDE sia comodo all'inizio, è consigliabile installare un IDE sul proprio computer per svariate ragioni, tra cui la possibilità di fare _debugging_ in maniera più efficace e il fatto che l'editor online non sarà disponibile durante la finale delle OII. 
+        Lo staff delle OII ha messo a disposizione un IDE online (#link("https://editor.olinfo.it")) per compilare ed eseguire il codice senza installare nulla sul proprio computer. Per quanto questo IDE sia comodo all'inizio, è consigliabile installare un IDE sul proprio computer per svariate ragioni, tra cui la possibilità di fare _debugging_ in maniera più efficace e il fatto che l'editor online non sarà disponibile durante la finale delle OII.
+        // TODO: fact check the last sentence
 
-    2. (*Consigliato*) Tramite *terminale* si può avere un controllo più granulare sulla compilazione (che, come vedremo nella sezione di _Debugging_, può tornare molto utile). 
+    2. (*Consigliato*) Tramite *terminale* si può avere un controllo più granulare sulla compilazione (che, come vedremo nel #link(<debugging>, "capitolo sul Debugging"), può tornare molto utile).
         - *Windows*: Possiamo installare `g++` tramite #link("https://dev.to/prastha/install-mingw-w64-on-windows-11-2025-november-acg", `MinGW`) o `MSYS2`. Compiliamo il sorgente con \ 
         ```sh 
         g++ ilnomedeltuofile.cpp
@@ -53,22 +68,16 @@ Ora che abbiamo scritto il nostro programma, è giunto il momento di compilarlo!
         ./a.out
         ```
 
-
-// #figure(
-//     image("../../figures/compile_and_run.png", width: 40%),
-//     caption: "Esempio di compilazione su Linux."
-// )
-
 #figure(
   box(
     fill: luma(20%),
     inset: 5pt,
     align(left, text(luma(90%), size: 8pt, font: "JetBrains Mono")[
-      > g++ hello_world.cpp \
+      > g++ ciao_dario.cpp \
       > ls \
-      #text(olive)[a.out] hello_world.cpp \
+      #text(olive)[a.out] ciao_dario.cpp \
       > ./a.out \
-      Hello World!
+      Ciao Dario!
     ],
   )),
   caption: "Esempio di compilazione su Linux."
@@ -76,36 +85,35 @@ Ora che abbiamo scritto il nostro programma, è giunto il momento di compilarlo!
 
 === Esempi
 
-È normale la sintassi appaia inizialmente un po' criptica. Ti invitiamo a capire#footnote[Cioè a indovinare.] il funzionamento delle varie parti nei codici che seguono. La strategia migliore è sperimentare.
-
-Il seguente programma legge prima un intero $n$, poi $n$ interi $a_0, dots, a_(n-1)$ e li stampa in ordine inverso.
+Vediamo altri esempi. Il seguente programma legge prima un intero $n$, poi $n$ interi $a_0, dots, a_(n-1)$ e li stampa in ordine inverso.
 ```cpp
 #include <vector>
 #include <iostream>
+using namespace std;
 
 int main() {
     int n;
-    std::cin >> n;
+    cin >> n;
     
-    std::vector<int> a(n);
+    vector<int> a(n);
     for (int i = 0; i < n; ++i)
-        std::cin >> a[i];
+        cin >> a[i];
 
     for (int i = n - 1; i >= 0; --i)
-        std::cout << a[i] << " ";
+        cout << a[i] << " ";
 
-    std::cout << "\n";
+    cout << "\n";
 }
 ```
 
-Ahinoi, abbiamo omesso il valore di ritorno! Poco male, il main è una funzione speciale e se tutto va bene già lo conosce. Lo stesso non vale per le funzioni che definiremo in futuro.
-I due modi consigliati per gestire liste di elementi sono gli `std::vector`, liste di dimensione variabile, e gli `std::array`, liste di dimensione fissa. Un `std::array<int, 10> arr` è una lista di dieci interi, all'$i$-esimo dei quali si accede con `arr[i]`.
-Scrivere `std::` prima di ogni funzione o oggetto della libreria standard è sconveniente: d'ora in poi la stringa `using namespace std;` ci risparmierà questa fatica.
+`cin` è lo stream di input standard del C++ ed è la controparte di `cout`. L'operatore `>>` (diverso da quello del cout, `<<`) legge i dati dallo stream, ignorando automaticamente gli spazi bianchi iniziali.
+L'istruzione `vector<int> a(n)` costruisce un `vector` di `n` elementi di tipo `int`. Gli elementi vengono poi letti uno alla volta nel ciclo `for`.
+Infine, un ciclo `for` percorre il vettore al contrario, dagli indici `n - 1` a `0`, e `cout` ne stampa gli elementi.
 
-Se hai già avuto modo di partecipare alla fase #link("https://training.olinfo.it/tasks/terry/1")[territoriale], saprai che per ogni problema ricevi un file di input contenente più istanze dello stesso problema. In questi casi conviene definire una funzione `solve` che il main chiamerà tante volte quante sono le istanze. Qualcuno, probabilmente mentre partecipava alle Terry, ha già pensato a come evitare sconvenienti copia-incolla lunghi milioni di caratteri e ha inventato la lettura dell'input e scrittura dell'output da e su file.
-
+Vediamo ora un esempio leggermente più articolato:
 ```cpp
 #include <iostream>
+#include <cstdio>
 using namespace std;
 
 void solve() {
@@ -126,9 +134,15 @@ int main() {
 }
 ```
 
-Una funzione di tipo `void` non ha nessun valore di ritorno e semplicemente svolge delle operazioni. In generale una funzione ha un valore di ritorno che specifichiamo con `return <valore>;`. Una funzione può anche chiamare se stessa, nel cui caso si dice "ricorsiva". Implementiamo quindi una funzione ricorsiva di tipo `int` per il calcolo del fattoriale
-#footnote[Basterebbe anche un ciclo for, altre volte la ricorsione è estremamente utile.]
-di un naturale $n$, definito come $n! = 1 dot 2 dot ... dot n = n dot (n - 1)!$ per $n != 0$ e ponendo $0! = 1$.
+`freopen(file, mode, stream)` dirotta lo `stream` specificato e lo associa al `file`. Se `mode` è `"r"` (read), il file viene aperto per la lettura; se è `"w"` (write), viene aperto per la scrittura e il suo contenuto precedente viene sovrascritto.
+In questo caso il programma reindirizza l'input standard verso `input.txt` e l'output standard verso `output.txt`. Di conseguenza, le operazioni su `cin` e `cout` usano rispettivamente quei due file. Questo è il formato standard di input/output per la fase territoriale.
+
+Oltre a `main`, abbiamo definito la funzione `void solve()`.
+Una funzione di tipo `void` non restituisce un valore; può terminare raggiungendo la fine delle istruzioni oppure eseguendo `return;`. Una funzione con un tipo di ritorno diverso da `void` deve invece restituire sempre un valore del tipo corretto tramite `return <valore>;`, altrimenti il comportamento è indefinito.
+
+Una funzione può anche chiamare se stessa; in questo caso si dice che è ricorsiva. Implementiamo quindi una funzione ricorsiva di tipo `int` per il calcolo del fattoriale
+#footnote[In questo caso basterebbe anche un ciclo for, altre volte la ricorsione è estremamente utile.]
+di un numero naturale $n$, definito come $n! = 1 dot 2 dot ... dot n = n dot (n - 1)!$ per $n > 0$, ponendo $0! = 1$.
 ```cpp
 int fact(int n) {
     if (n == 0)
@@ -137,60 +151,32 @@ int fact(int n) {
 }
 ```<factorial>
 
-Il costrutto `if (<condizione>) ` precede un blocco di codice che viene eseguito se e solo se la condizione è vera, in questo caso se e solo se $n = 0$. Poiché il blocco di codice consta di una sola istruzione, possiamo omettere le parentesi graffe altrimenti necessarie per isolarlo, in maniera del tutto analoga ai cicli for
-#footnote[Lo avevi notato?].
-Secondo te cosa accadrebbe se non mettessi il _caso base_ per $n = 0$ nella definizione di `fact`?
+Secondo te cosa accadrebbe se non inserissi il _caso base_ per $n = 0$ nella definizione di `fact`? E se chiamassi `fact(-1)`?
 
-Per ora abbiamo avuto a che fare solo con variabili di tipo `int`, ma è ragionevole voler maneggiare anche numeri decimali, caratteri, stringhe di caratteri o interi più grandi
-#footnote[Cosa succede se provi a calcolare il fattoriale di 15?].
-Per questo esistono rispettivamente le variabili di tipo `double`, `char`, le `std::string` e i `long long`.
-Poiché un computer non ha memoria infinita, ogni variabile ha dimensione finita, che ha lato pratico significa che un `int` contiene interi nell'intervallo $[-2^(31), 2^(31) - 1]$
-#footnote[ricordando $2^(10) = 1024$ puoi stimare $2^(31)$ circa uguale a due miliardi],
-per un `long long` l'intervallo è $[-2^(63), 2^(63) - 1]$ e un `double` ha una precisione relativa di circa $10^(-16)$.
-Un `char` è un carattere rappresentato come un intero secondo la #link("https://it.wikipedia.org/wiki/ASCII")[Tabella ASCII] e una `std::string` funziona esattamente come un `std::vector<char>`, ossia un vettore di caratteri. Il seguente programma legge una parola (senza spazi) e stampa la frequenza di ogni carattere.
+Per ora abbiamo usato solo `int`, ma non è l'unico tipo di variabile. Presentiamo un breve elenco dei tipi più comunemente usati:
 
-```cpp
-#include <vector>
-#include <string>
-#include <iostream>
-using namespace std;
+#table(
+  columns: 3,
+  align: (left, right, left),
+  [*Tipo*], [*Byte*], [*Dettagli*],
+  [`char`], [1], [Un singolo carattere.],
+  [`bool`], [1], [Un valore booleano: `true` oppure `false`.],
+  [`int`], [4], [Un intero; tipicamente da $-2^31$ a $2^31 - 1$ (circa $2 dot 10^9$).],
+  [`long long`], [8], [Un intero di 64 bit; tipicamente da $-2^63$ a $2^63 - 1$ (circa $9 dot 10^18$).],
+  [`float`], [4], [Numero reale con precisione singola.],
+  [`double`], [8], [Numero reale con precisione doppia.],
+  [`std::string`], [variabile], [Stringa di lunghezza variabile; la memoria dipende dal contenuto.],
+)
 
-int main() {
-    vector<int> freq(128);
-    string s; cin >> s;
-    for (int i = 0; i < (int)s.size(); ++i)
-        ++freq[s[i]];
-    for (int c = 32; c < 128; ++c)
-        if (freq[c] != 0)
-            cout << (char)c << ": " << freq[c] << "\n";
-}
-```
+Cosa succede quando si provano a salvare dentro un tipo di variabile come `int` valori maggiori a quelli massimi consentiti?
+Un _overflow_ si verifica quando il risultato di un'operazione supera il valore massimo, o scende sotto il valore minimo (_underflow_), rappresentabile dal tipo scelto. Con gli interi con segno, il comportamento risultante è indefinito, ma solitamente genera valori spazzatura. Con gli interi senza segno (solo positivi), il risultato è quello corretto ma troncato ai bit disponibili.
 
-Più in generale, quando data una lista di interi $a_0, ..., a_(n-1)$ siamo interessati a conoscere la frequenza con cui ognuno appare, se gli $a_i$ sono troppo grandi e non possiamo permetterci di allocare un array di quelle dimensioni, possiamo usare una `std::map` nel modo seguente.
-
-```cpp
-#include <map>
-#include <iostream>
-using namespace std;
-
-int main() {
-    int n; cin >> n;
-    map<int, int> freq;
-    for (int i = 0; i < n; ++i) {
-        int x; cin >> x;
-        ++freq[x];
-    }
-    for (auto [key, value] : freq) {
-        cout << key << ": " << value << "\n";
-    }
-}
-```
-
-Menzioniamo infine che per ordinare gli elementi di un vettore `a` in ordine crescente è possibile chiamare l'apposita funzione `std::sort(begin(a), end(a))` definita nella libreria `<algorithm>`.
-
+In molti #footnote([In alcuni problemi, rispettare il limite di memoria è la parte più complicata del problema. Ad esempio, #link("https://training.olinfo.it/task/tai_cct2").])
+problemi la memoria massima consentita è molto generosa, quindi risulta più conveniente usare `long long` ovunque al posto di `int` per evitare questo tipo di errori.
+Dato che `long long` è più lungo da scrivere, possiamo definire un _alias_ all'inizio del codice con `using ll = long long;`, così da poter usare la sintassi abbreviata `ll`.
 
 // disclaimer
-Prima di salutarci, sappi che tante scelte convenienti quando si fa programmazione competitiva sono da evitare, per mille motivi, in altri ambiti#footnote[Vedi il punto 7 di #link("https://www.comp.nus.edu.sg/~stevenha/cs3233.html").]. Al prossimo capitolo.
+//Prima di salutarci, sappi che tante scelte convenienti quando si fa programmazione competitiva sono da evitare, per mille motivi, in altri ambiti#footnote[Vedi il punto 7 di #link("https://www.comp.nus.edu.sg/~stevenha/cs3233.html").]. Al prossimo capitolo.
 
 === Problemi consigliati
 - #link("https://training.olinfo.it/task/massimo")
@@ -199,25 +185,26 @@ Prima di salutarci, sappi che tante scelte convenienti quando si fa programmazio
 - #link("https://training.olinfo.it/task/catalogo")
 
 === Una nota per la programmazione competitiva
+
 Quando gareggi hai tempo limitato per scrivere le tue soluzioni. Per questo motivo è comune adottare strategie per rendere più fluida la scrittura del codice ed eventualmente ridurre il numero di caratteri necessari a esprimere lo stesso concetto. Considera il seguente esempio.
 ```cpp
 #include <bits/stdc++.h>
 using namespace std;
-using LL = long long;
+using ll = long long;
 #define all(x) begin(x), end(x)
 
 int main() {
     int n; cin >> n;
-    vector<LL> a(n);
-    for (LL& x : a)
+    vector<ll> a(n);
+    for (ll& x : a)
         cin >> x;
     sort(all(a));
     a.erase(unique(all(a)), end(a));
-    for (LL x : a)
+    for (ll x : a)
         cout << x << " ";
     cout << "\n";
 }
 ```
-La libreria omnicomprensiva `bits/stdc++.h` include tutte le librerie standard del C++ in un colpo solo#footnote[Attenzione: potrebbe non essere disponibile su tutti i compilatori.]: i tempi di compilazione si allungano, in compenso puoi pensare a una cosa in meno mentre risolvi il problema.
-L'istruzione `using LL = long long;` significa che da quel momento in poi `LL` può sostituire la parola chiave `long long`.
-In modo simile, la "macro" `#define all(x) begin(x), end(x)` sostituisce#footnote[Prima della compilazione.] ogni occorrenza di `all(<nome>)` con `begin(<nome>), end(<nome>)`, risparmiando qualche carattere. Nel complesso, il codice legge un intero $n$ seguito da $n$ interi e stampa l'insieme (senza ripetizioni) degli elementi inseriti in ordine crescente. Puoi scoprire il perché leggendo la documentazione relativa alle funzioni #link("https://en.cppreference.com/w/cpp/algorithm/unique")[`std::unique`] ed #link("https://en.cppreference.com/w/cpp/container/vector/erase")[`std::vector::erase`].
+
+In questo esempio non è importante comprendere il codice riga per riga; ciò che conta è il concetto:
+quando si gareggia, spesso conviene abbandonare le "buone pratiche" insegnate a lezione per favorire un'implementazione più rapida ed efficiente.
