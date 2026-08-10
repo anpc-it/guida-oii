@@ -1,12 +1,12 @@
 #import "../../config.typ"
 
-== Debugging
+== Debugging <debugging>
 
 Il _debugging_, o in italiano "_correzione degli errori_", è il processo di rimozione di errori logici o concettuali (in inglese, _bugs_) dal proprio codice. 
-Durante fase di stesura del codice è molto probabile che vengano inseriti inavvertitamente dei bugs, perciò familiarizzare e padroneggiare le tecniche di debugging è essenziale. 
+Durante la fase di stesura del codice è molto probabile che vengano inseriti inavvertitamente dei bugs, perciò familiarizzare e padroneggiare le tecniche di debugging è essenziale.
 Elenchiamo qui sotto le tecniche e gli strumenti più efficaci per fare _debugging_:
 
-- === Usare `std::cout` o `std::cerr`
+=== Usare `std::cout` o `std::cerr`
 Il metodo più banale (ma spesso il più efficace) per scovare bugs è quello di stampare delle informazioni intermedie durante l'esecuzione del codice. Capiamo meglio con un semplice esempio:
 
 // TODO: trovare un esempio migliore per debugging std::cout D:
@@ -106,10 +106,72 @@ int main() {
 11112006825558016
 ```
 
-// TODO: finire la sezione di debugging, decidere se spostare in un capitolo più avanti (debugging avanzato) o meno. Alcune tecniche da menzionare sono le seguenti:
+=== Usare gli avvisi del compilatore
+
+Il compilatore può segnalare alcune situazioni _sospette_ durante la compilazione. Per abilitare i vari controlli possiamo usare le opzioni `-Wall`, `-Wextra` e `-Wshadow`:
+```sh
+g++ -Wall -Wextra -Wshadow programma.cpp
+```
+
+Rispettivamente:
+- `-Wall` attiva molti warning generici, ad esempio quelli per una funzione non-`void` senza `return` o per una variabile dichiarata ma mai usata;
+- `-Wextra` attiva altri warning non inclusi in `-Wall`, come quello per un parametro della funzione mai utilizzato;
+- `-Wshadow` segnala quando una variabile dichiarata in uno _scope_ interno oscura una variabile con lo stesso nome in uno _scope_ esterno.
+Ricordiamo che gli avvisi non indicano necessariamente un errore, ma è buona pratica leggerli e correggerli quando possibile.
+
+Facciamo qualche esempio.
+Una funzione con tipo di ritorno diverso da `void` deve restituire un valore.
+In questo codice manca il `return`, quindi il compilatore può segnalare che l'esecuzione raggiunge la fine della funzione senza restituire un valore:
+```cpp
+int doppio(int x) {
+    x * 2;
+}
+```
+```output
+programma.cpp: In function ‘int doppio(int)’:
+programma.cpp:2:9: warning: statement has no effect [-Wunused-value]
+    2 |     x * 2;
+      |     ~~^~~
+programma.cpp:3:1: warning: no return statement in function returning non-void [-Wreturn-type]
+    3 | }
+      | ^
+```
+La correzione è:
+```cpp
+int doppio(int x) {
+    return x * 2;
+}
+```
+
+#v(20pt)
+
+Proviamo un altro esempio. Consideriamo il seguente codice, in cui vogliamo calcolare il massimo di un vettore:
+
+```cpp
+int massimo = a[0];
+
+for (int i = 1; i < n; ++i) {
+    int massimo = max(massimo, a[i]);
+}
+
+cout << massimo << "\n";
+```
+```output
+programma.cpp:32:9: warning: declaration of ‘int massimo’ shadows a previous local [-Wshadow]
+    32 |     int massimo = max(massimo, a[i]);
+       |         ^~~~~~~
+programma.cpp:1:5: note: shadowed declaration is here
+    29 | int massimo = a[0];
+       |     ^~~~~~~
+```
+La variabile `massimo` dichiarata nel ciclo nasconde quella esterna. Inoltre, nella sua inizializzazione viene usata prima di essere inizializzata. Il `massimo` esterno non viene aggiornato.
+
+
+// TODO: complete debugging section or write a more advanced one
+/*
 - === Usare `assert`
 - === Usare `fsanitize`
 - === Usare `gdb` 
 - === Usare `trapv`
-- === Usare `-Wall`
 - === Usare `valgrind`
+*/
