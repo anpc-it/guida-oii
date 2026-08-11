@@ -1,17 +1,6 @@
 #import "../../config.typ"
 #import "../../utils/examples.typ": *
 
-#let debugging-style(body) = {
-  show raw.where(block: true): it => block(
-    inset: (x: 0.35em, y: 0.25em),
-    radius: 0.5em,
-    stroke: 0.5pt + luma(85%),
-    it,
-  )
-  body
-}
-
-#debugging-style[
 == Debugging <debugging>
 
 Il _debugging_, o in italiano "_correzione degli errori_", è il processo di rimozione di errori logici o concettuali (in inglese, _bugs_) dal proprio codice. 
@@ -192,4 +181,3 @@ La variabile `massimo` dichiarata nel ciclo nasconde quella esterna. Inoltre, ne
 - === Usare `trapv`
 - === Usare `valgrind`
 */
-]
