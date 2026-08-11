@@ -77,8 +77,10 @@ Keys should be the 0-based indices of the nodes as strings.
   if w != none {
     content(
       (posA, 50%, posB), 
-      circle(stroke: none, fill: white, inset: 1pt)[
-        #text(size: rad)[$#w$]
+      rect(stroke: none, fill: white, inset: 3pt, radius: 5pt)[
+        #align(center + horizon)[
+          #text(size: rad)[$#w$]
+        ]
       ]
     )
   }

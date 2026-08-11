@@ -378,8 +378,8 @@ int main() {
         auto [d, u] = Q.top();
         Q.pop();
 
-        if (d > dist[u])
-        continue;
+        if (d > dist[u]) // importante
+            continue;
 
         for (auto [v, w]: adj[u]) {
             if (d + w < dist[v]) {
@@ -390,9 +390,22 @@ int main() {
     }
 
     for (int i = 0; i < n; ++i)
-        cout << "La distanza minima da " << sorgente << " a " << i << " e' " << dist[i] << "\n";
+        cout << "La distanza minima da " << sorgente << " a " << i << " è " << dist[i] << "\n";
 }
 ```
+
+Nel grafo sotto raffigurato, utilizzando il nodo $0$ come sorgente, l'array $"dist"$ conterrà i seguenti valori al termine dell'esecuzione: $[0, 6, 2, 5, 9, 7, 9]$.
+
+#figure(
+  canvas({
+    let nodes = ((0, 1.5), (1.5, 0), (1.5, 3), (3, 1.5), (4.5, 0), (4.5, 3), (6, 1.5))
+    let edges = ((0, 1, 7), (0, 2, 2), (2, 3, 3), (1, 3, 1), (2, 5, 5), (1, 4, 3), (3, 6, 8), (4, 6, 2), (5, 6, 2))
+
+    draw_graph(nodes, edges, rad: 10pt, node_fill: ("0": rgb("#8dffd7")))
+  })
+)
+
+Per come è strutturato l'algoritmo, i nodi verranno estratti dalla coda in ordine di distanza dalla sorgente, in questo caso nell'ordine $[0, 2, 3, 1, 5, 4, 6]$.
 
 Poiché l'algoritmo esegue al più un inserimento per arco del grafo, la nostra implementazione ha complessità $cal(O)(M log N)$.
 
