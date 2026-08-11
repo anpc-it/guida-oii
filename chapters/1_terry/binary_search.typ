@@ -201,13 +201,8 @@ Un esempio classico è l'albero binario di ricerca, struttura dati in cui ogni n
 Un'applicazione non banale della ricerca binaria è dare la risposta a un problema di minimo o di massimo.
 Consideriamo il seguente problema.
 
-#problem("Christmas lights", url: "https://training.olinfo.it/task/ois_lights", lbl: "christmas-lights", tags: ("ois", "2022-23"), 
-[
-    Abbiamo una fila di $N$ luci colorate di $C$ colori diversi; il colore della luce $i$-esima è $A_i$ ($0 <= A_i < C <= N$). 
-    Quanto è lungo il più corto sotto-array che contiene tutti i colori?
-])
-
-Assumiamo che la risposta sia $L$. Possiamo osservare due cose:
+#problem("Christmas lights", url: "https://training.olinfo.it/task/ois_lights", lbl: "christmas-lights", tags: ("ois", "2022-23"), solution: [
+  Assumiamo che la risposta sia $L$. Possiamo osservare due cose:
 
 - Tutti i sotto-array più corti di $L$ non contengono $C$ colori distinti, altrimenti la risposta non sarebbe $L$;
 - Per ogni lunghezza $K$ con $L <= K <= N$ esiste almeno un sotto-array che contiene tutti i colori. Basta considerare il sotto-array lungo $L$ che li contiene tutti ed espanderlo agli estremi finché non è lungo $K$.
@@ -261,4 +256,8 @@ while (left != right) {
 cout << left << endl;
 ```
 
-Quando ci viene richiesto di trovare _il massimo o il minimo valore per il quale vale una certa proprietà_ e questa proprietà vale solo per un prefisso o solo per un suffisso, allora è solitamente possibile fare una ricerca binaria sul punto in cui cambia la risposta. 
+  Quando ci viene richiesto di trovare _il massimo o il minimo valore per il quale vale una certa proprietà_ e questa proprietà vale solo per un prefisso o solo per un suffisso, allora è solitamente possibile fare una ricerca binaria sul punto in cui cambia la risposta.
+])[
+    Abbiamo una fila di $N$ luci colorate di $C$ colori diversi; il colore della luce $i$-esima è $A_i$ ($0 <= A_i < C <= N$).
+    Quanto è lungo il più corto sotto-array che contiene tutti i colori?
+]

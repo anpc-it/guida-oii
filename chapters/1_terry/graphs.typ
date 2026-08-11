@@ -338,141 +338,139 @@ Che te ne fai di un grafo pesato?
 Pensa a Google Maps che calcola il percorso migliore per andare da casa tua al panificio: in questo caso il peso di un arco è il tempo necessario per percorrerlo e tu vuoi arrivare al panificio nel minor tempo possibile.
 
 #problem("Cammino Minimo", url: "training.olinfo.it/task/mincammino2", lbl: "dijkstra",
-[
+solution: [
+  In un grafo non pesato, ogni arco ha lo stesso costo (ad esempio $1$) e il problema si risolve facilmente con una BFS. In generale la questione si complica.
+  Viene in soccorso l'algoritmo di Dijkstra (pronunciato "Daikstra"), che funziona in modo simile alla BFS, ma invece di usare una coda usa una _coda di priorità_ per processare prima i nodi più vicini alla radice. In questo modo, quando si processa un nodo, si è sicuri di aver trovato il cammino più corto per raggiungerlo.
+
+  La coda di priorità, per noi `priority_queue` supporta le sequenti operazioni:
+  - `push(x)`: inserisce l'elemento $x$ nella coda, complessità $cal(O)(log n)$ con $n$ numero di elementi nella coda;
+  - `top()`: restituisce l'elemento massimo, complessità $cal(O)(1)$;
+  - `pop()`: rimuove l'elemento massimo, complessità $cal(O)(log n)$.
+
+  Normalmente le code a priorità hanno in cima l'elemento massimo, ma noi siamo interessato a quello con chiave (la distanza) minima.
+Per ovviare a questo problema possiamo inserire le distanze cambiate di segno (sconsigliato, è facile dimenticarsi dei segni meno in giro) o specificare, quando dichiariamo la coda, come ordinarla.
+
+  Segue un'implementazione dell'algoritmo di Dijkstra.
+
+  ```cpp
+  // #include <le solite librerie>
+  #include <array>
+  #include <queue>
+
+  int main() {
+      // leggi il grafo
+      constexpr LL INF = 1e15;
+      int sorgente = 0;
+
+      vector<LL> dist(n, INF);
+      priority_queue<pair<LL, int>,
+                     vector<pair<LL, int>>,
+                     greater<>> Q;  // {dist[u], u}
+
+      dist[sorgente] = 0;
+      Q.push({0, sorgente});
+
+      while (!Q.empty()) {
+          auto [d, u] = Q.top();
+          Q.pop();
+
+          if (d > dist[u])
+          continue;
+
+          for (auto [v, w]: adj[u]) {
+              if (d + w < dist[v]) {
+                  dist[v] = d + w;
+                  Q.push({dist[v], v});
+              }
+          }
+      }
+
+      for (int i = 0; i < n; ++i)
+          cout << "La distanza minima da " << sorgente << " a " << i << " e' " << dist[i] << "\n";
+  }
+  ```
+
+  Poiché l'algoritmo esegue al più un inserimento per arco del grafo, la nostra implementazione ha complessità $cal(O)(M log N)$.
+])[
   Dato un grafo pesato, un nodo sorgente $s$ e un nodo obiettivo $t$, determina la lunghezza del minimo cammino da $s$ a $t$.
 ]
-)
-
-In un grafo non pesato, ogni arco ha lo stesso costo (ad esempio $1$) e il problema si risolve facilmente con una BFS. In generale la questione si complica.
-Viene in soccorso l'algoritmo di Dijkstra (pronunciato "Daikstra"), che funziona in modo simile alla BFS, ma invece di usare una coda usa una _coda di priorità_ per processare prima i nodi più vicini alla radice. In questo modo, quando si processa un nodo, si è sicuri di aver trovato il cammino più corto per raggiungerlo.
-
-La coda di priorità, per noi `priority_queue` supporta le sequenti operazioni:
-- `push(x)`: inserisce l'elemento $x$ nella coda, complessità $cal(O)(log n)$ con $n$ numero di elementi nella coda;
-- `top()`: restituisce l'elemento massimo, complessità $cal(O)(1)$;
-- `pop()`: rimuove l'elemento massimo, complessità $cal(O)(log n)$.
-
-Normalmente le code a priorità hanno in cima l'elemento massimo, ma noi siamo interessato a quello con chiave (la distanza) minima.
-Per ovviare a questo problema possiamo inserire le distanze cambiate di segno (sconsigliato, è facile dimenticarsi dei segni meno in giro) o specificare, quando dichiariamo la coda, come ordinarla. 
-
-Segue un'implementazione dell'algoritmo di Dijkstra.
-
-```cpp
-// #include <le solite librerie>
-#include <array>
-#include <queue>
-
-int main() {
-    // leggi il grafo
-    constexpr LL INF = 1e15;
-    int sorgente = 0;
-
-    vector<LL> dist(n, INF);
-    priority_queue<pair<LL, int>,
-                   vector<pair<LL, int>>,
-                   greater<>> Q;  // {dist[u], u}
-
-    dist[sorgente] = 0;
-    Q.push({0, sorgente});
-
-    while (!Q.empty()) {
-        auto [d, u] = Q.top();
-        Q.pop();
-
-        if (d > dist[u])
-        continue;
-
-        for (auto [v, w]: adj[u]) {
-            if (d + w < dist[v]) {
-                dist[v] = d + w;
-                Q.push({dist[v], v});
-            }
-        }
-    }
-
-    for (int i = 0; i < n; ++i)
-        cout << "La distanza minima da " << sorgente << " a " << i << " e' " << dist[i] << "\n";
-}
-```
-
-Poiché l'algoritmo esegue al più un inserimento per arco del grafo, la nostra implementazione ha complessità $cal(O)(M log N)$.
 
 === Minimo albero ricoprente
 Immagina di dover progettare la rete elettrica dell'attuale Repubblica Ceca in modo tale che ogni luogo di interesse sia collegato, anche non direttamente, a ogni altro luogo di interesse, minimizzando la lunghezza totale dei collegamenti. Puoi convincerti facilmente che questo problema si formula naturalmente come segue in termini di grafi.
 
 Dato un grafo $G(V, E)$ connesso e pesato, un albero ricoprente è un sottografo connesso che contiene tutti i nodi di $G$ e non contiene cicli.
 
-#problem("Minimum Spanning Tree (MST)", lbl: "mst")[
+#problem("Minimum Spanning Tree (MST)", lbl: "mst", solution: [
+  // #figure(
+  //   canvas({
+  //     import "../../utils/draw_graph.typ": *
+  //     let nodes = ((0, 0), (2, 2), (2, -2), (5, 2), (5, -2), (7, 0))
+  //     let edges = ((0, 1, 5), (0, 2, 10), (1, 3), (2, 4), (3, 5), (4, 5, 8), (1, 2), (1, 4), (3, 4))
+//
+  //     draw_graph(nodes, edges, rad: 12pt)
+  //   })
+//
+  // )
+
+  Questo problema si affronta sostanzialmente in tre modi: l'algoritmo di Prim, l'algoritmo di Kruskal e l'algoritmo di Borùvka. Trattiamo i primi due.
+
+  ==== Algoritmo di Prim
+
+  L'algoritmo funziona nel seguente modo. Inizialmente si aggiunge un nodo arbitrario all'albero,
+  dopodiché, per $N - 1$ volte, si aggiunge un arco di peso minimo che connetta un nuovo nodo all'albero.
+  Il sottografo risultante è un albero ricoprente di peso minimo.
+
+Anche se inizialmente non si direbbe, l'implementazione è molto simile a quella di Dijkstra.
+  Il cuore del programma cambia come segue.
+
+  ```cpp
+  vector<LL> cost(n, INF);
+  priority_queue<pair<LL, int>,
+                 vector<pair<LL, int>>,
+                 greater<>> Q;  // {cost[u], u}
+
+  cost[0] = 0;
+  Q.push({0, 0});
+
+  LL peso_totale = 0;
+
+  while (!Q.empty()) {
+      auto [d, u] = Q.top();
+      Q.pop();
+
+      if (d > cost[u])
+          continue;
+
+      peso_totale += d;
+      for (auto [v, w]: adj[u]) {
+          if (w < cost[v]) {
+              cost[v] = w;
+              Q.push({cost[v], v});
+          }
+      }
+  }
+
+  cout << "L'MST ha peso totale " << peso_totale << "\n";
+
+  ```
+
+  Come ti puoi aspettare, questa implementazione dell'algoritmo di Prim ha la stessa complessità del precedente algoritmo di Dijkstra, cioè $cal(O)(M log N)$.
+  // TODO: inserire dei disegni che simulino l'algoritmo di Prim su un grafo semplice
+
+  ==== Algoritmo di Kruskal
+
+  L'algoritmo di Kruskal si basa sulla seguente proprietà: dato un albero ricoprente, questo ha peso totale minimo se e soltanto se, per ogni ciclo, gli archi rimasti nell'albero non sono più pesanti di quelli rimossi.
+
+  Se la proprietà sopra ti sembra intuitiva, possiamo occuparci dell'algoritmo di Kruskal.
+  L'albero ricoprente contiene inizialmente i nodi del grafo, ma non contiene archi. L'algoritmo processa gli archi uno alla volta in ordine crescente di peso, e li aggiunge all'albero se e soltanto se questi non creano un ciclo.
+
+  // TODO: disegno di esempio
+
+  Una domanda naturale è come facciamo a controllare che aggiungere un arco non formi cicli? Viene in soccorso una delle nostre strutture dati preferite: la cosiddetta Union-Find, o DSU.
+
+  // TODO: mettere i box problema
+
+  // TODO: === Ordinamento topologico
+])[
   Dato un grafo pesato, trova un albero ricoprente di peso totale minimo.
 ]
-
-// #figure(
-//   canvas({
-//     import "../../utils/draw_graph.typ": *
-//     let nodes = ((0, 0), (2, 2), (2, -2), (5, 2), (5, -2), (7, 0))
-//     let edges = ((0, 1, 5), (0, 2, 10), (1, 3), (2, 4), (3, 5), (4, 5, 8), (1, 2), (1, 4), (3, 4))
-// 
-//     draw_graph(nodes, edges, rad: 12pt)
-//   })
-// 
-// )
-
-Questo problema si affronta sostanzialmente in tre modi: l'algoritmo di Prim, l'algoritmo di Kruskal e l'algoritmo di Borùvka. Trattiamo i primi due.
-
-==== Algoritmo di Prim
-
-L'algoritmo funziona nel seguente modo. Inizialmente si aggiunge un nodo arbitrario all'albero,
-dopodiché, per $N - 1$ volte, si aggiunge un arco di peso minimo che connetta un nuovo nodo all'albero.
-Il sottografo risultante è un albero ricoprente di peso minimo.
-
-Anche se inizialmente non si direbbe, l'implementazione è molto simile a quella di Dijkstra. 
-Il cuore del programma cambia come segue.
-
-```cpp
-vector<LL> cost(n, INF);
-priority_queue<pair<LL, int>,
-               vector<pair<LL, int>>,
-               greater<>> Q;  // {cost[u], u}
-
-cost[0] = 0;
-Q.push({0, 0});
-
-LL peso_totale = 0;
-
-while (!Q.empty()) {
-    auto [d, u] = Q.top();
-    Q.pop();
-
-    if (d > cost[u])
-        continue;
-
-    peso_totale += d;
-    for (auto [v, w]: adj[u]) {
-        if (w < cost[v]) {
-            cost[v] = w;
-            Q.push({cost[v], v});
-        }
-    }
-}
-
-cout << "L'MST ha peso totale " << peso_totale << "\n";
-
-```
-
-Come ti puoi aspettare, questa implementazione dell'algoritmo di Prim ha la stessa complessità del precedente algoritmo di Dijkstra, cioè $cal(O)(M log N)$.
-// TODO: inserire dei disegni che simulino l'algoritmo di Prim su un grafo semplice
-
-==== Algoritmo di Kruskal
-
-L'algoritmo di Kruskal si basa sulla seguente proprietà: dato un albero ricoprente, questo ha peso totale minimo se e soltanto se, per ogni ciclo, gli archi rimasti nell'albero non sono più pesanti di quelli rimossi.
-
-Se la proprietà sopra ti sembra intuitiva, possiamo occuparci dell'algoritmo di Kruskal.
-L'albero ricoprente contiene inizialmente i nodi del grafo, ma non contiene archi. L'algoritmo processa gli archi uno alla volta in ordine crescente di peso, e li aggiunge all'albero se e soltanto se questi non creano un ciclo.
-
-// TODO: disegno di esempio
-
-Una domanda naturale è come facciamo a controllare che aggiungere un arco non formi cicli? Viene in soccorso una delle nostre strutture dati preferite: la cosiddetta Union-Find, o DSU.
-
-// TODO: mettere i box problema
-
-// TODO: === Ordinamento topologico
-

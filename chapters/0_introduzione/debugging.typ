@@ -1,5 +1,17 @@
 #import "../../config.typ"
+#import "../../utils/examples.typ": *
 
+#let debugging-style(body) = {
+  show raw.where(block: true): it => block(
+    inset: (x: 0.35em, y: 0.25em),
+    radius: 0.5em,
+    stroke: 0.5pt + luma(85%),
+    it,
+  )
+  body
+}
+
+#debugging-style[
 == Debugging <debugging>
 
 Il _debugging_, o in italiano "_correzione degli errori_", è il processo di rimozione di errori logici o concettuali (in inglese, _bugs_) dal proprio codice. 
@@ -7,10 +19,12 @@ Durante la fase di stesura del codice è molto probabile che vengano inseriti in
 Elenchiamo qui sotto le tecniche e gli strumenti più efficaci per fare _debugging_:
 
 === Usare `std::cout` o `std::cerr`
-Il metodo più banale (ma spesso il più efficace) per scovare bugs è quello di stampare delle informazioni intermedie durante l'esecuzione del codice. Capiamo meglio con un semplice esempio:
+Il metodo più banale (ma spesso il più efficace) per scovare bugs è quello di stampare delle informazioni intermedie durante l'esecuzione del codice.
 
 // TODO: trovare un esempio migliore per debugging std::cout D:
-"_Dati due interi $a,b$ tali che $1 <= a,b <= 14$, calcolare $a^b$._"
+
+#example[Individuare un overflow con `std::cout`][
+_Dati due interi $a,b$ tali che $1 <= a,b <= 14$, calcolare $a^b$._
 
 Consideriamo il seguente codice che dovrebbe risolvere il problema:
 
@@ -105,6 +119,7 @@ int main() {
 ```output
 11112006825558016
 ```
+]
 
 === Usare gli avvisi del compilatore
 
@@ -119,8 +134,8 @@ Rispettivamente:
 - `-Wshadow` segnala quando una variabile dichiarata in uno _scope_ interno oscura una variabile con lo stesso nome in uno _scope_ esterno.
 Ricordiamo che gli avvisi non indicano necessariamente un errore, ma è buona pratica leggerli e correggerli quando possibile.
 
-Facciamo qualche esempio.
-Una funzione con tipo di ritorno diverso da `void` deve restituire un valore.
+#example[Leggere un warning sul valore restituito][
+  Una funzione con tipo di ritorno diverso da `void` deve restituire un valore.
 In questo codice manca il `return`, quindi il compilatore può segnalare che l'esecuzione raggiunge la fine della funzione senza restituire un valore:
 ```cpp
 int doppio(int x) {
@@ -142,10 +157,11 @@ int doppio(int x) {
     return x * 2;
 }
 ```
+]
 
-#v(20pt)
 
-Proviamo un altro esempio. Consideriamo il seguente codice, in cui vogliamo calcolare il massimo di un vettore:
+#example[Individuare una variabile shadowed][
+  Consideriamo il seguente codice, in cui vogliamo calcolare il massimo di un vettore:
 
 ```cpp
 int massimo = a[0];
@@ -165,6 +181,7 @@ programma.cpp:1:5: note: shadowed declaration is here
        |     ^~~~~~~
 ```
 La variabile `massimo` dichiarata nel ciclo nasconde quella esterna. Inoltre, nella sua inizializzazione viene usata prima di essere inizializzata. Il `massimo` esterno non viene aggiornato.
+]
 
 
 // TODO: complete debugging section or write a more advanced one
@@ -175,3 +192,4 @@ La variabile `massimo` dichiarata nel ciclo nasconde quella esterna. Inoltre, ne
 - === Usare `trapv`
 - === Usare `valgrind`
 */
+]
