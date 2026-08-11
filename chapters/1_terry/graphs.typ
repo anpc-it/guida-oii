@@ -104,7 +104,7 @@ In altre parole seguo un cammino se mi muovo tra i nodi del grafo attraverso gli
 
 Due nodi sono *_connessi_* se esiste un cammino tra loro.
 
-La *_lunghezza_* di un cammino è il numero di archi che questo utilizza. Se il grafo è pesato, la lunghezza del cammino è la somma dei pesi degli archi percorsi.
+La *_lunghezza_* di un cammino in un grafo non pesato è il numero di archi che questo utilizza. Se il grafo è pesato, la lunghezza del cammino è la somma dei pesi degli archi percorsi.
 
 La *_distanza_* fra due nodi è la lunghezza minima di un cammino tra questi.
 
@@ -147,8 +147,8 @@ Prendiamo il seguente grafo e facciamo una visita in ampiezza assumendo $"root" 
 #let nodes = ((0, -1.5), (1, -0.5), (2.5, -0.5), (3.5, -1.5), (2.5, -2.5), (1, -2.5))
 #let edges = ((0, 1), (0, 5), (1, 2), (2, 4), (3, 2), (4, 3), (5, 1), (5, 2), (5, 4))
 
-#let current = rgb("#68ff84")
-#let visited = rgb("#bcbcbc") 
+#let current = rgb("#a6ffb6")
+#let visited = rgb("#d2d2d2") 
 #let fill = (:)
 
 #figure(grid(
@@ -230,8 +230,8 @@ Prendiamo il seguente grafo e facciamo una visita in profondità assumendo $"roo
 #let nodes = ((0, -1.5), (1, -0.5), (2.5, -0.5), (1.75, -1.5), (2.5, -2.5), (1, -2.5))
 #let edges = ((0, 1), (0, 5), (1, 2), (4, 3), (5, 3), (5, 4))
 
-#let current = rgb("#68ff84")
-#let visited = rgb("#bcbcbc") 
+#let current = rgb("#a6ffb6")
+#let visited = rgb("#d2d2d2") 
 #let fill = (:)
 
 #figure(grid(
@@ -314,7 +314,7 @@ Prima di procedere, diciamo che un grafo è _*connesso*_ se ogni coppia di nodi 
     )
     draw_graph(node, edges, node_fill: fill, rad: 10pt)
   }),
-  caption: [Le componenti connesse sono evidenziate con colori diveri.]
+  caption: [Le componenti connesse sono evidenziate con colori diversi.]
 )
 
 Ora che sappiamo visitare il grafo, possiamo anche contare il numero di isole su una mappa, come nel problema #link(<graph_problems>)[Find the Treasure (ois_islands)].
@@ -398,7 +398,7 @@ Nel grafo sotto raffigurato, utilizzando il nodo $0$ come sorgente, l'array $"di
 
 #figure(
   canvas({
-    let nodes = ((0, 1.5), (1.5, 0), (1.5, 3), (3, 1.5), (4.5, 0), (4.5, 3), (6, 1.5))
+    let nodes = ((0.25, 1.5), (1.5, 0), (1.5, 3), (2.75, 1.5), (4, 0), (4, 3), (5.25, 1.5))
     let edges = ((0, 1, 7), (0, 2, 2), (2, 3, 3), (1, 3, 1), (2, 5, 5), (1, 4, 3), (3, 6, 8), (4, 6, 2), (5, 6, 2))
 
     draw_graph(nodes, edges, rad: 10pt, node_fill: ("0": rgb("#8dffd7")))
@@ -417,17 +417,6 @@ Dato un grafo $G(V, E)$ connesso e pesato, un albero ricoprente è un sottografo
 #problem("Minimum Spanning Tree (MST)", lbl: "mst")[
   Dato un grafo pesato, trova un albero ricoprente di peso totale minimo.
 ]
-
-// #figure(
-//   canvas({
-//     import "../../utils/draw_graph.typ": *
-//     let nodes = ((0, 0), (2, 2), (2, -2), (5, 2), (5, -2), (7, 0))
-//     let edges = ((0, 1, 5), (0, 2, 10), (1, 3), (2, 4), (3, 5), (4, 5, 8), (1, 2), (1, 4), (3, 4))
-// 
-//     draw_graph(nodes, edges, rad: 12pt)
-//   })
-// 
-// )
 
 Questo problema si affronta sostanzialmente in tre modi: l'algoritmo di Prim, l'algoritmo di Kruskal e l'algoritmo di Borùvka. Trattiamo i primi due.
 
@@ -472,20 +461,170 @@ cout << "L'MST ha peso totale " << peso_totale << "\n";
 ```
 
 Come ti puoi aspettare, questa implementazione dell'algoritmo di Prim ha la stessa complessità del precedente algoritmo di Dijkstra, cioè $cal(O)(M log N)$.
-// TODO: inserire dei disegni che simulino l'algoritmo di Prim su un grafo semplice
+
+Consideriamo il seguente grafo:
+
+#figure(
+  canvas({
+    let nodes = ((0.25, 1.5), (1.5, 0), (1.5, 3), (2.75, 1.5), (4, 0), (4, 3), (5.25, 1.5))
+    let edges = ((0, 1, 7), (0, 2, 2), (2, 3, 3), (1, 3, 1), (2, 5, 5), (1, 4, 8), (3, 6, 4), (4, 6, 2), (5, 6, 2))
+
+    draw_graph(nodes, edges, rad: 10pt)
+  })
+)
+
+Procediamo passo passo seguendo l'algoritmo di Prim. 
+Ogni volta prenderemo l'arco di peso minimo che connette un nodo preso (in rosso) e uno non preso.
+Cominceremo scegliendo arbitrariamente il nodo $0$ come nodo preso.
+
+#v(2em)
+
+#[
+
+#let nodes = ((0.25, 1.5), (1.5, 0), (1.5, 3), (2.75, 1.5), (4, 0), (4, 3), (5.25, 1.5))
+#for i in range(nodes.len()) {
+  nodes.at(i) = scale(nodes.at(i), 0.8)
+}
+//#let edges = ((0, 1, 7), (0, 2, 2), (2, 3, 3), (1, 3, 1), (2, 5, 5), (1, 4, 8), (3, 6, 4), (4, 6, 2), (5, 6, 2))
+#let edges = ()
+#let in_color = rgb("#ff9494")
+#let add_color = rgb("#9adcff")
+#let fill = ("0": in_color)
+
+#figure(grid(
+  columns: (1fr, 1fr, 1fr),
+  row-gutter: 30pt,
+  column-gutter: 10pt,
+  [
+    #canvas({
+      edges += ((0, 2, 2),)
+      fill += ("2": add_color)
+      draw_graph(nodes, edges, rad: 8pt, node_fill: fill)
+    })
+    Passo $1$: l'arco più piccolo uscente da $0$ è quello verso $2$.
+  ],[
+    #canvas({
+      fill.at("2") = in_color
+      fill += ("3": add_color)
+      edges += ((2, 3, 3),)
+      draw_graph(nodes, edges, rad: 8pt, node_fill: fill)
+    })
+    Passo $2$: ora l'albero è composto da $0$ e $2$, l'arco minimo uscente è $2->3$ con peso $3$.
+  ],[
+    #canvas({
+      fill.at("3") = in_color
+      fill += ("1": add_color)
+      edges += ((1, 3, 1),)
+      draw_graph(nodes, edges, rad: 8pt, node_fill: fill)
+    })
+    Passo $3$: l'arco uscente minimo è $3->1$ con peso $1$.
+  ],[
+    #canvas({
+      fill.at("1") = in_color
+      fill += ("6": add_color)
+      edges += ((3, 6, 4),)
+      draw_graph(nodes, edges, rad: 8pt, node_fill: fill)
+    })
+    Passo $4$: l'arco uscente minimo è $3->6$ con peso $4$.
+  ],[
+    #canvas({
+      fill.at("6") = in_color
+      fill += ("4": add_color)
+      edges += ((4, 6, 2),)
+      draw_graph(nodes, edges, rad: 8pt, node_fill: fill)
+    })
+    Passo $5$: l'arco uscente minimo è $6->4$ con peso $2$.
+  ],[
+    #canvas({
+      fill.at("4") = in_color
+      fill += ("5": add_color)
+      edges += ((5, 6, 2),)
+      draw_graph(nodes, edges, rad: 8pt, node_fill: fill)
+    })
+    Passo $6$: l'arco uscente minimo è $6->5$ con peso $2$.
+  ],
+))]
+
+#v(2em)
+
+Abbiamo ottenuto l'albero che desideravamo. 
+Di questo ora sappiamo dire il costo totale (14 in questo caso) e da quali archi è composto. 
 
 ==== Algoritmo di Kruskal
 
 L'algoritmo di Kruskal si basa sulla seguente proprietà: dato un albero ricoprente, questo ha peso totale minimo se e soltanto se, per ogni ciclo, gli archi rimasti nell'albero non sono più pesanti di quelli rimossi.
 
 Se la proprietà sopra ti sembra intuitiva, possiamo occuparci dell'algoritmo di Kruskal.
-L'albero ricoprente contiene inizialmente i nodi del grafo, ma non contiene archi. L'algoritmo processa gli archi uno alla volta in ordine crescente di peso, e li aggiunge all'albero se e soltanto se questi non creano un ciclo.
+L'albero ricoprente contiene inizialmente i nodi del grafo, ma non contiene archi. L'algoritmo processa gli archi uno alla volta in ordine crescente di peso, e li aggiunge all'albero se e soltanto se questi non creano un ciclo, cioè se connettono due componenti prima non connesse.
 
 // TODO: disegno di esempio
 
-Una domanda naturale è come facciamo a controllare che aggiungere un arco non formi cicli? Viene in soccorso una delle nostre strutture dati preferite: la cosiddetta Union-Find, o DSU.
+Una domanda naturale è come facciamo a controllare che due nodi siano in componenti diverse ed eventualmente ad unire queste componenti? Viene in soccorso una delle nostre strutture dati preferite: la cosiddetta Union-Find, o DSU.
 
-// TODO: mettere i box problema
+Per il momento limitiamoci a vedere un esempio con lo stesso grafo usato in precedenza:
 
-// TODO: === Ordinamento topologico
+#v(2em)
+
+#[
+
+#let nodes = ((0.25, 1.5), (1.5, 0), (1.5, 3), (2.75, 1.5), (4, 0), (4, 3), (5.25, 1.5))
+#for i in range(nodes.len()) {
+  nodes.at(i) = scale(nodes.at(i), 0.8)
+}
+//#let edges = ((0, 1, 7), (0, 2, 2), (2, 3, 3), (1, 3, 1), (2, 5, 5), (1, 4, 8), (3, 6, 4), (4, 6, 2), (5, 6, 2))
+#let edges = ()
+
+#figure(grid(
+  columns: (1fr, 1fr, 1fr),
+  row-gutter: 30pt,
+  column-gutter: 10pt,
+  [
+    #canvas({
+      edges += ((1, 3, 1),)
+      draw_graph(nodes, edges, rad: 8pt)
+    })
+    Passo $1$: l'arco più piccolo in assoluto è $1->3$ con peso $1$.
+  ],[
+    #canvas({
+      edges += ((0, 2, 2),)
+      draw_graph(nodes, edges, rad: 8pt)
+    })
+    Passo $2$: l'arco (uno dei tre) più piccolo ora è $0->2$ con peso $2$.
+  ],[
+    #canvas({
+      edges += ((6, 5, 2),)
+      draw_graph(nodes, edges, rad: 8pt)
+    })
+    Passo $3$: prendiamo ora l'arco $5->6$ di peso $2$.
+  ],[
+    #canvas({
+      edges += ((6, 4, 2),)
+      draw_graph(nodes, edges, rad: 8pt)
+    })
+    Passo $4$: anche l'arco $4->6$ di peso $2$ viene preso.
+  ],[
+    #canvas({
+      edges += ((2, 3, 3),)
+      draw_graph(nodes, edges, rad: 8pt)
+    })
+    Passo $5$: possiamo aggiungere l'arco $2->3$ di peso $3$.
+  ],[
+    #canvas({
+      edges += ((3, 6, 4),)
+      draw_graph(nodes, edges, rad: 8pt)
+    })
+    Passo $6$: l'ultimo arco che prendiamo è $3->6$ con peso $4$.
+  ],
+))]
+
+#v(2em)
+
+Gli ultimi due archi in ordine di peso non connettono nodi che non siano già connessi fra loro, dunque non prendiamo altri archi.
+
+Notare che gli archi sono stati aggiunti in ordine di peso e che, a differenza di prim, stavamo connettendo più gruppi di nodi contemporaneamente.
+
+L'albero risultante da questo altro algoritmo è lo stesso di Prim ma non è sempre così.
+La garanzia che abbiamo è che entrambi producano un albero ricoprente il cui peso è minimo tra tutti i possibili alberi ricoprenti.
+
+// TODO: === Ordinamento topologico (direi nella sezione OII non terry)
 

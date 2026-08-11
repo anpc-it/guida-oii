@@ -10,31 +10,31 @@
 
 Dopo aver introdotto i grafi e alcuni algoritmi utili per ricavare informazioni da essi, vale la pena concentrarsi su un tipo particolare di grafo: l'_albero_.
 
-#align(center)[
-#canvas({
-  import "../../utils/draw_graph.typ": *
-  
-  let nodes = (
-    (0, 0),
-    (-1, -1.5),
-    (-1.7, -3),
-    (-0.3, -3),
-    (1, -1.5),
-    (1.7, -3),
-  )
+#figure(
+  canvas({
+    import "../../utils/draw_graph.typ": *
+    
+    let nodes = (
+      (0, 0),
+      (-1, -1.5),
+      (-1.7, -3),
+      (-0.3, -3),
+      (1, -1.5),
+      (1.7, -3),
+    )
 
-  let edges = (
-    (0, 1),
-    (1, 2),
-    (1, 3),
-    (0, 4),
-    (4, 5),
-  )
+    let edges = (
+      (0, 1),
+      (1, 2),
+      (1, 3),
+      (0, 4),
+      (4, 5),
+    )
 
-  draw_graph(nodes, edges)
-})
-  _Un esempio di albero con $6$ nodi_
-]
+    draw_graph(nodes, edges)
+  }),
+  caption: [Un esempio di albero con $6$ nodi],
+)
 
 Un albero è un grafo connesso con esattamente $N - 1$ archi, dove $N$ è il numero di nodi.
 
