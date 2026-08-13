@@ -158,3 +158,46 @@ void dfs(int i, int parent) {
 ```
 
 Poiché esploriamo un albero, non è necessario tenere traccia dei nodi visitati ed è sufficiente non risalire verso il genitore. L'ordine in cui si visitano i nodi attraverso una visita in profondità è detto _dfs-order_. Per come funziona la _DFS_, il dfs-order trasforma sottoalberi in sottoarray. Il dato di un dfs-order e, per ogni nodo, il relativo sottoarray è detto _albero linearizzato_#footnote[Tieni a mente questo concetto per quando saremo capaci di svolgere operazioni interessanti su sequenze di numeri.].
+
+Vediamo un problema in cui serve visitare ricorsivamente l'albero.
+
+#problem("Convegno Aziendale", url: "https://training.olinfo.it/task/mat_convegno", lbl: "convegno")[
+  Ci viene dato l'albero delle gerarchie tra gli $N$ dipendenti di un'azienda e siamo interessati al numero di coppie di dipendenti $(a, b)$ tali che $a$ è antenato di $b$ nella gerarchia.
+]
+
+Al posto di provare tutte le coppie, possiamo fissare $a$. 
+Per un dato $a$, il numero di coppie che ci interessano è dato dalla dimensione del sottoalbero di $a$ tolto il nodo $a$ stesso. 
+Notiamo che il sottoalbero è ben definito dal momento che l'albero è radicato.
+
+Sia $S_i$ la dimensione del sottoalbero del nodo $i$. 
+Per calcolarla sommiamo gli $S_j$ dove $j$ è un nodo figlio di $i$.
+
+È chiaro che questo tipo di calcolo vada eseguito ricorsivamente dal momento che per calcolare la dimensione del sottoalbero di un nodo devo aver prima calcolato quella dei figli. 
+
+```cpp
+vector<vector<int>> adj;
+int totale = 0;
+
+int dfs(int i) {
+    int sottoalbero = 0;
+    for (int j: adj[i]) {
+        sottoalbero += dfs(j);
+    }
+    totale += sottoalbero;
+    return sottoalbero + 1;
+}
+
+int coppie(int N, int* C) {
+    adj.resize(N);
+    int root;
+	  for (int i = 0; i < N; i++) {
+        if (C[i] != -1) {
+            adj[C[i]].push_back(i);
+        } else {
+            root = i;
+        }
+    }
+    dfs(root);
+    return totale;
+}
+```

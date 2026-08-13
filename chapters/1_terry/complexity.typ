@@ -104,3 +104,50 @@ Determina per esercizio la complessità dei seguenti pezzi di codice.
     ```
   ]
 )
+
+=== Esempi notevoli
+
+Spesso ci si trova a dover stimare la complessità di un algoritmo in situazioni in cui la struttura di alcuni cicli rende non evidente quanto il numero di iterazioni cresca velocemente.
+Ecco alcuni dei casi più comuni:
+
+- Iterare $N$ volte, poi $N / 2$, poi $N / 4$ e così via ogni volta dimezzando il numero di iterazioni è $cal(O)(N)$ perché $N + N/2 + N/4 + N/8 + dots + 1 approx 2N$.
+
+- Iterare $N + N/2 + N/3 + N/4 + dots 1$ volte è $cal(O)(N log N)$ dal momento che la $sum_(i = 1)^N N/i approx N ln N$.
+
+```cpp
+for (int i = 1; i <= N; i++) {
+    for (int j = i; j <= N; j += i) {
+        // Questo blocco viene eseguito O(N log N) volte
+    }
+}
+```
+
+- Iterare $sum_(p <= N, p "primo")(N / p)$ dove $p$ è un primo è $cal(O)(N log log N)$, che nella pratica è quasi lineare dal momento che $log log 10^9 approx 3$.
+
+- Altri fatti utili da conoscere sono che il numero di fattori primi di un numero è $cal(O)(log N)$ e che il numero di primi è $cal(O)(N / (ln N))$.
+
+In generale puoi tenere a mente la tabella che segue come riferimento per la complessità target data la grandezza di $N$.
+
+#figure(
+  table(
+    columns: (auto, auto, auto),
+    align: (center + horizon, center + horizon, left + horizon),
+    stroke: 0.5pt,
+    inset: 8pt,
+    
+    table.header(
+      [*Limite di $N$*], [*Complessità Attesa*], [*Esempi Tipici di Algoritmi*]
+    ),
+    
+    [$N <= 11$], [$cal(O)(N!)$], [Permutazioni, Ricerca completa],
+    [$N <= 22$], [$cal(O)(2^N dot N)$], [Bitmask DP],
+    [$N <= 100$], [$cal(O)(N^4)$ o $cal(O)(N^3)$], [Floyd-Warshall, DP cubiche o quartiche],
+    [$N <= 1000$], [$cal(O)(N^2)$ o $cal(O)(N^2 log N)$], [DP quadratiche, Grafi densi],
+    [$N <= 10^5$ o $2 dot 10^5$], [$cal(O)(N log N)$], [Ordinamento, Segment Tree, Dijkstra],
+    [$N <= 10^6$ o $10^7$], [$cal(O)(N)$ o $cal(O)(N log log N)$], [Two Pointers, Sliding Window, Crivello],
+    [$N <= 10^(18)$], [$cal(O)(log N)$ o $cal(O)(1)$], [Ricerca Binaria sull'output, Matematica],
+  )
+)
+
+Non preoccuparti se non conosci gli algoritmi citati nella tabella, li imparerai man mano con la lettura di questa guida.
+In generale puoi tenere a mente che in un secondo puoi fare circa $10^8$ operazioni elementari.

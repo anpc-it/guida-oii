@@ -40,7 +40,8 @@ Draws a graph
 
 `nodes`: array of nodes position like ((0, 0), (3, 3), ...)
 
-`edges`: array of nodes indices pair 0-based like ((0, 1), (1, 2), ...). For each edge, you can specify a third number: the weight of the edge.
+`edges`: array of nodes indices pair 0-based like ((0, 1), (1, 2), ...). 
+For each edge, you can specify a third number: the weight of the edge.
 
 `rad`: radius of the nodes, default: `12pt`
 

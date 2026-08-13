@@ -20,7 +20,7 @@ Complichiamoci apparentemente la vita: rispondiamo non solo per una barra di lun
 Sia allora $"ricavo"(L)$ la risposta al problema per una barra di lunghezza $L$, per esempio $"ricavo"(0) = 0$. Se la Olinfo Srl taglia e vende un pezzo di lunghezza $i$, questa ricava $p_i + "ricavo"(L - i)$ e poiché un pezzo di una qualche lunghezza andrà pur tagliato, per ogni $L >= 1$ vale l'identità
 $ "ricavo"(L) = max{p_i + "ricavo"(L - i) | i = 1, dots, L}. $
 
-Un'implementazione ingenua di questa ricorenza è lenta ma corretta.
+Un'implementazione ingenua di questa ricorrenza è lenta ma corretta.
 ```cpp
 LL ricavo(int L) {
 	LL ans = 0;
@@ -31,9 +31,9 @@ LL ricavo(int L) {
 ```
 *Esercizio:* capire perché una chiamata a $"ricavo"(N)$ comporta esattamente $2^(N-1)$ chiamate a $"ricavo(0)"$ e un totale di $2^N$ chiamate a $"ricavo"$.
 
-La soluzione appena descritta è terribilmente inefficiente: calcoliamo un numero esponenziale in $N$ di volte gli stessi valori. Se una volta ottenuti i valori si memorizzassero, ognuno verrebbe calcolato al più una volta. È quindi naturale salvare le risposte ai sottoproblemi una volta calcolate: questa tecnica è detta #emph[memoizzazione].
+La soluzione appena descritta è terribilmente inefficiente: calcoliamo un numero esponenziale in $N$ di volte gli stessi valori. Se una volta ottenuti i valori si memorizzassero, ognuno verrebbe calcolato al più una volta. È quindi naturale salvare le risposte ai sottoproblemi una volta calcolate: questa tecnica è detta #emph[memoizzazione]#footnote[No, non è un errore di battitura. Si chiama _memoizzazione_ non _memorizzazione_.].
 
-Manteniamo opportuni array o mappe (se ci tieni -- sigh -- globali, ma non è necessario) a indicare (a) se abbiamo già calcolato la risposta per un dato $L$ e (b) qual è questa risposta già calcolata
+Manteniamo opportuni array o mappe a indicare (a) se abbiamo già calcolato la risposta per un dato $L$ e (b) qual è questa risposta già calcolata
 #footnote[Le due informazioni si possono accorpare se a un valore inutilizzato, come in questo caso $-1$, si dà il significato di "risposta non ancora calcolata".].
 In pratica modifichiamo leggermente l'implementazione della funzione $"ricavo"$.
 ```cpp
