@@ -111,5 +111,5 @@ Consideriamo ora questo problema:
 ])[
     Ci sono $N$ mozzarelle ($N$ è un numero pari). 
     Alla $i$-esima mozzarella Monica dà il voto $M_i$ e Paola il voto $P_i$. 
-    Dobbiamo dividere le mozzarelle in due gruppi da $N/2$ ciscuno in modo da massimizzare la somma dei voti nel rispettivo gruppo, cioè la somma dei voti che Monica dà alle sue $N/2$ mozzarelle + i voti che Paola dà alle altre $N/2$ mozzarelle.
+    Dobbiamo dividere le mozzarelle in due gruppi da $N/2$ ciascuno in modo da massimizzare la somma dei voti nel rispettivo gruppo, cioè la somma dei voti che Monica dà alle sue $N/2$ mozzarelle + i voti che Paola dà alle altre $N/2$ mozzarelle.
 ]

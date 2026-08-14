@@ -40,7 +40,8 @@ Draws a graph
 
 `nodes`: array of nodes position like ((0, 0), (3, 3), ...)
 
-`edges`: array of nodes indices pair 0-based like ((0, 1), (1, 2), ...). For each edge, you can specify a third number: the weight of the edge.
+`edges`: array of nodes indices pair 0-based like ((0, 1), (1, 2), ...). 
+For each edge, you can specify a third number: the weight of the edge.
 
 `rad`: radius of the nodes, default: `12pt`
 
@@ -77,8 +78,10 @@ Keys should be the 0-based indices of the nodes as strings.
   if w != none {
     content(
       (posA, 50%, posB), 
-      circle(stroke: none, fill: white, inset: 1pt)[
-        #text(size: rad)[$#w$]
+      rect(stroke: none, fill: white, inset: 3pt, radius: 5pt)[
+        #align(center + horizon)[
+          #text(size: rad)[$#w$]
+        ]
       ]
     )
   }

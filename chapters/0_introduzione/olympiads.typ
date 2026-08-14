@@ -168,3 +168,21 @@ Quando inviamo una soluzione, il giudice può restituire risultati diversi:
 Un risultato diverso da *Accepted* non significa sempre che l'algoritmo sia sbagliato. Ad esempio, un TLE indica spesso che serve un algoritmo più veloce.
 
 Nota: su #link("https://training.olinfo.it") "Memory Limit Exceeded" e "Runtime Error" sono combinati in un singolo verdetto: *Execution Killed*.
+
+=== Prima di scrivere il codice pensa
+
+Hai letto il problema e pensi di saperlo risolvere ma ti viene un forte mal di pancia dovuto alle catene infinite di `if ... else if ... else if ...` che la tua soluzione prevede. 
+È possibile che qualche osservazione in più semplifichi notevolmente l'implementazione del problema. Vediamo un esempio:
+
+Ci viene data una sequenza di lettere $A$ e $B$ (ad esempio $"ABBAABABA..."$) che sta a indicare quale dei due giocatori ha segnato ogni punto in una partita di tennis, con la garanzia che la sequenza rappresenti una partita valida.
+Dopo averci spiegato le regole del punteggio nel tennis, il problema ci chiede chi abbia vinto la partita.
+
+Facile vero? Basta tenere il conto dei punti, dei set e dei game e tenere in considerazione i vantaggi in caso di parità sul penultimo punto. 
+
+Molti si fermerebbero qua e non esiterebbero a cimentarsi nell'implementazione. 
+Fermandosi a riflettere un minuti in più, ci si potrebbe accorgere di un fatto molto interessante: indipendentemente dall'andamento della partita, questa non si può concludere con un punto del giocatore che ha perso. 
+In altre parole vince il giocatore che segna l'ultimo punto.
+
+Questo ci permette di accorciare il nostro codice da un numero indefinito di righe a una singola riga che controlla l'ultimo carattere della sequenza.
+
+

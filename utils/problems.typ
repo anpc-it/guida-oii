@@ -11,7 +11,7 @@
   outset: (bottom: 0.23em, top: 0.08em),
   radius: 0.2em,
   baseline: -0.05em,
-  text(number-type: "old-style", smallcaps(name))
+  text(number-type: "old-style", tracking: 0pt, upper(name))
 )
 
 #let problem(title, url: none, lbl: none, tags: (), solution: none, body) = {
@@ -30,7 +30,7 @@
       #text(weight: "bold")[#title]
       #if tags.len() > 0 {
         h(0.5em)
-        for tagname in tags [#tag(tagname)]
+        for tagname in tags { tag(tagname) }
       }
       #v(0.35em)
       #body
