@@ -201,7 +201,10 @@ Un esempio classico è l'albero binario di ricerca, struttura dati in cui ogni n
 Un'applicazione non banale della ricerca binaria è dare la risposta a un problema di minimo o di massimo.
 Consideriamo il seguente problema.
 
-#problem("Factory Machines", url: "https://cses.fi/problemset/task/1620", lbl: "factory-machines", tags: ("cses",), solution: [
+#problem("Factory Machines", url: "https://cses.fi/problemset/task/1620", lbl: "factory-machines", tags: ("cses",))[
+  Possediamo $N$ macchinari e il macchinario $i$ impiega $S_i$ secondi a produrre un oggetto.
+  Vogliamo produrre in totale $K$ oggetti. Quanto tempo ci impieghiamo al minimo?
+][
   Proviamo a risolvere un problema più facile: in un tempo $t$ quanti oggetti posso produrre?
   È facile vedere che ogni macchinario può produrre $floor(t / S_i)$ oggetti, dunque in totale ne possiamo produrre $sum_(i = 0)^(N - 1)floor(t / S_i)$.
 
@@ -240,71 +243,68 @@ Consideriamo il seguente problema.
   cout << l << '\n';
 
   ```
-])[
-  Possediamo $N$ macchinari e il macchinario $i$ impiega $S_i$ secondi a produrre un oggetto.
-  Vogliamo produrre in totale $K$ oggetti. Quanto tempo ci impieghiamo al minimo?
 ]
 
 In alcuni problemi, la funzione su cui facciamo ricerca binaria può diventare molto complessa, come nell'esempio che segue.
 La condizione che ci permette di fare ricerca binaria su una funzione è che questa sia monotona, non decrescente o non crescente nell'intervallo che ci interessa.
 
-#problem("Christmas lights", url: "https://training.olinfo.it/task/ois_lights", lbl: "christmas-lights", tags: ("ois", "2022-23"), solution: [
+#problem("Christmas lights", url: "https://training.olinfo.it/task/ois_lights", lbl: "christmas-lights", tags: ("ois", "2022-23"))[
+  Abbiamo una fila di $N$ luci colorate di $C$ colori diversi; il colore della luce $i$-esima è $A_i$ ($0 <= A_i < C <= N$).
+  Quanto è lungo il più corto sotto-array che contiene tutti i colori?
+][
   Assumiamo che la risposta sia $L$. Possiamo osservare due cose:
 
-- Tutti i sotto-array più corti di $L$ non contengono $C$ colori distinti, altrimenti la risposta non sarebbe $L$;
-- Per ogni lunghezza $K$ con $L <= K <= N$ esiste almeno un sotto-array che contiene tutti i colori. Basta considerare il sotto-array lungo $L$ che li contiene tutti ed espanderlo agli estremi finché non è lungo $K$.
+  - Tutti i sotto-array più corti di $L$ non contengono $C$ colori distinti, altrimenti la risposta non sarebbe $L$;
+  - Per ogni lunghezza $K$ con $L <= K <= N$ esiste almeno un sotto-array che contiene tutti i colori. Basta considerare il sotto-array lungo $L$ che li contiene tutti ed espanderlo agli estremi finché non è lungo $K$.
 
-Controllare se esiste un sotto-array di lunghezza $ell$ può contenere tutti i colori ci richiede tempo $cal(O)(N)$ nel seguente modo:
+  Controllare se esiste un sotto-array di lunghezza $ell$ può contenere tutti i colori ci richiede tempo $cal(O)(N)$ nel seguente modo:
 
-```cpp
-bool controlla(int l) {
-    vector<int> conta(C);
-    int colori_mancanti = C;
-    
-    for (int i = 0; i < l; i++) {
-        conta[A[i]]++;
-        if (conta[A[i]] == 1) colori_mancanti--;
-    }
-    
-    if (colori_mancanti == 0) return true;
-    
-    for (int i = l; i < N; i++) {
-        conta[A[i - l]]--;
-        if (conta[A[i - l]] == 0) colori_mancanti++;
-        
-        conta[A[i]]++;
-        if (conta[A[i]] == 1) colori_mancanti--;
+  ```cpp
+  bool controlla(int l) {
+      vector<int> conta(C);
+      int colori_mancanti = C;
+      
+      for (int i = 0; i < l; i++) {
+          conta[A[i]]++;
+          if (conta[A[i]] == 1) colori_mancanti--;
+      }
+      
+      if (colori_mancanti == 0) return true;
+      
+      for (int i = l; i < N; i++) {
+          conta[A[i - l]]--;
+          if (conta[A[i - l]] == 0) colori_mancanti++;
+          
+          conta[A[i]]++;
+          if (conta[A[i]] == 1) colori_mancanti--;
 
-        if (colori_mancanti == 0) return true;
-    }
-    return false;
-}
-```
+          if (colori_mancanti == 0) return true;
+      }
+      return false;
+  }
+  ```
 
-La funzione `controlla(int l)` restituisce `true` solo se esiste un sotto-array di lunghezza $ell$ che contiene tutti i colori.
+  La funzione `controlla(int l)` restituisce `true` solo se esiste un sotto-array di lunghezza $ell$ che contiene tutti i colori.
 
-Una soluzione quadratica potrebbe controllare tutti gli $ell$ da $C$ a $N$ e stampare il valore minimo per cui `controlla(l)` restituisce `true`.
+  Una soluzione quadratica potrebbe controllare tutti gli $ell$ da $C$ a $N$ e stampare il valore minimo per cui `controlla(l)` restituisce `true`.
 
-Tuttavia, per le osservazioni fatte in precedenza, vediamo che per un prefisso di valori fino ad $L$, `controlla(l)` restituisce `false`, mentre per il restante suffisso restituisce `true` e quindi possiamo fare ricerca binaria su questo punto.
+  Tuttavia, per le osservazioni fatte in precedenza, vediamo che per un prefisso di valori fino ad $L$, `controlla(l)` restituisce `false`, mentre per il restante suffisso restituisce `true` e quindi possiamo fare ricerca binaria su questo punto.
 
-Sappiamo che si trova tra $C$ e $N$, quindi proviamo a metà. Se ottengo `true` devo controllare nella metà sinistra, diversamente controllo nella metà destra.
+  Sappiamo che si trova tra $C$ e $N$, quindi proviamo a metà. Se ottengo `true` devo controllare nella metà sinistra, diversamente controllo nella metà destra.
 
-```cpp
-int left = C, right = N;
+  ```cpp
+  int left = C, right = N;
 
-while (left != right) {
-    int mid = (left + right) / 2;
-    if (controlla(mid)) 
-        right = mid;
-    else 
-        left = mid + 1;
-}
+  while (left != right) {
+      int mid = (left + right) / 2;
+      if (controlla(mid)) 
+          right = mid;
+      else 
+          left = mid + 1;
+  }
 
-cout << left << endl;
-```
+  cout << left << endl;
+  ```
 
   Quando ci viene richiesto di trovare _il massimo o il minimo valore per il quale vale una certa proprietà_ e questa proprietà vale solo per un prefisso o solo per un suffisso, allora è solitamente possibile fare una ricerca binaria sul punto in cui cambia la risposta.
-])[
-    Abbiamo una fila di $N$ luci colorate di $C$ colori diversi; il colore della luce $i$-esima è $A_i$ ($0 <= A_i < C <= N$).
-    Quanto è lungo il più corto sotto-array che contiene tutti i colori?
 ]

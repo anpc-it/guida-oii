@@ -1,3 +1,5 @@
+#import "palette.typ": *
+
 #let op-row(operation, complexity, details) = (operation, complexity, details)
 
 #let op-table(..rows) = {
@@ -18,7 +20,7 @@
       align: (center, center, left),
       fill: (x, y) =>
         if y == 0 { luma(75%) }
-        else { luma(97%) },
+        else { op_table_cell_bg },
       ..cells,
     )
   )

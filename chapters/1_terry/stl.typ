@@ -157,7 +157,12 @@ cout << s.size() << endl; // stampa 2
 ```
 
 Consideriamo un altro esempio pratico.
-#problem("Room Allocation", url: "https://cses.fi/problemset/task/1164", lbl: "room-allocation", tags: ("cses",), solution: [
+#problem("Room Allocation", url: "https://cses.fi/problemset/task/1164", lbl: "room-allocation", tags: ("cses",))[
+    L'Olinfo Hotel vuole ospitare $N$ clienti, l'$i$-esimo dei quali vuole alloggiare in una stanza dal giorno $L_i$ al giorno $R_i$. Una stanza non può essere occupata simultaneamente da più persone (cioè affinché due ospiti possano alloggiare nella stessa stanza, i loro intervalli $[L_i, R_i]$, $[L_j, R_j]$ devono essere disgiunti).
+    Qual è il minimo numero di stanze affinché l'Olinfo Hotel possa ospitare tutti? Se la risposta è $K$, stabilisci per ogni ospite un numero di stanza da $1$ a $K$.
+
+    $N <= 2 dot 10^5$, $1 <= L_i <= R_i <= 10^9$.
+][
   Intuitivamente, è ottimale ordinare gli eventi in ordine cronologico, per poi simulare la partenza e l'arrivo di ogni cliente nell'ordine giusto. A questo punto, ogni volta che arriva un cliente, è ottimale assegnargli la stanza libera con numero minimo.
 
   *Esercizio:* dimostra quest'ultimo fatto. In particolare, supponi di dare a un cliente una stanza con numero non minimo. A quel punto, la stanza con numero minimo o rimane sempre inutilizzata (e quindi non stai usando il numero minimo di stanze), oppure viene utilizzata da altri clienti in seguito (in questo caso, trova un'altra configurazione di stanze che funziona).
@@ -200,11 +205,6 @@ Consideriamo un altro esempio pratico.
       cout << u << ' ';
   cout << "\n";
   ```
-])[
-    L'Olinfo Hotel vuole ospitare $N$ clienti, l'$i$-esimo dei quali vuole alloggiare in una stanza dal giorno $L_i$ al giorno $R_i$. Una stanza non può essere occupata simultaneamente da più persone (cioè affinché due ospiti possano alloggiare nella stessa stanza, i loro intervalli $[L_i, R_i]$, $[L_j, R_j]$ devono essere disgiunti).
-    Qual è il minimo numero di stanze affinché l'Olinfo Hotel possa ospitare tutti? Se la risposta è $K$, stabilisci per ogni ospite un numero di stanza da $1$ a $K$.
-
-    $N <= 2 dot 10^5$, $1 <= L_i <= R_i <= 10^9$.
 ]
 
 

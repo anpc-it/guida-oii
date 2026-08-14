@@ -1,9 +1,4 @@
-#let tag_color = (
-  "oii": rgb("#5cacec"),
-  "ois": rgb("#b0a3d6"),
-  "pre-oii": rgb("#80d66a"),
-  "cses": rgb("#eecd5f"),
-)
+#import "palette.typ": *
 
 #let tag(name) = box(
   fill: tag_color.at(name, default: luma(220)),
@@ -14,7 +9,7 @@
   text(number-type: "old-style", tracking: 0pt, upper(name))
 )
 
-#let problem(title, url: none, lbl: none, tags: (), body, solution: none) = {
+#let problem(title, url: none, lbl: none, tags: (), body, solution) = {
   if lbl != none {
     title = [#title #label(lbl)]
   }
@@ -23,7 +18,7 @@
     width: 100%,
     above: 0.8em,
     below: 0.8em,
-    fill: luma(97%),
+    fill: problem_bg,
     inset: (left: 0.85em, right: 1em, top: 0.6em, bottom: 0.6em),
     stroke: (left: 2pt + rgb("#bac8ff")),
     [
@@ -41,7 +36,7 @@
         ]
       }
 
-      #if solution != none {
+      #if solution != [] {
         v(0.6em)
         text(weight: "bold")[Soluzione]
         v(0.2em)

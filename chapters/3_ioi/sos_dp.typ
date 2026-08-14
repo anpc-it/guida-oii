@@ -6,7 +6,9 @@
 == Sum over Subsets DP
 
 Consideriamo il seguente problema.
-#problem("Bit Problem", url: "https://cses.fi/problemset/task/1654", lbl: "bit-problem", tags: ("cses",), solution: [
+#problem("Bit Problem", url: "https://cses.fi/problemset/task/1654", lbl: "bit-problem", tags: ("cses",))[
+  Sono dati $M <= 10^6$ interi a $N = 20$ bit. Ci chiediamo, per ogni elemento $x$, il numero di elementi $y$ tali che $x | y = x$.
+][
   Osserviamo che vale $x | y = x <==> y subset.eq x$, con $x$, $y$ visti come insiemi delle posizioni dei bit $1$.
   Sia allora $a[x]$ la frequenza di $x$ nell'array. Per ogni elemento $x$, la risposta è la _sum over subsets_ $"sos"[x] := sum_(y subset.eq x) a[y]$.
   Implementare questa riformulazione del problema, senza ulteriori idee, porta a una soluzione $cal(O)(4^N)$.
@@ -105,6 +107,4 @@ Consideriamo il seguente problema.
   *Problema:* (avanzato) #link("https://oj.uz/problem/view/JOI18_snake_escaping")[JOI18 -- Snake Escaping].
   // facciamo una sezione apposta per gli Hint?
   // Hint: [spoiler]data una stringa $w \in \{0, 1, ?\}^L$, qual è la massima frequenza del simbolo che appare meno volte?[/spoiler]
- ])[
-  Sono dati $M <= 10^6$ interi a $N = 20$ bit. Ci chiediamo, per ogni elemento $x$, il numero di elementi $y$ tali che $x | y = x$.
 ]

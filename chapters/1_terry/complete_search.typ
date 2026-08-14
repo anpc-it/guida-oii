@@ -139,7 +139,10 @@ Per semplicità sono omessi i parametri $n$ e $k$ nelle chiamate successive alla
 
 Notiamo che gli array vengono generati in ordine lessicografico se i valori vengono localmente aggiunti in ordine lessicografico.
 
-#problem("Numero della cabala", url: "https://training.olinfo.it/task/ois_cabala", lbl: "cabala", tags: ("ois", "2016"), solution: [
+#problem("Numero della cabala", url: "https://training.olinfo.it/task/ois_cabala", lbl: "cabala", tags: ("ois", "2016"))[
+  Un numero è bello se ha al massimo $N <= 18$ cifre, è composto solo dalle cifre $3$, $6$ e $9$, non ci sono due cifre adiacenti uguali.
+  Siamo interessati al massimo resto di un numero bello diviso per $M$.
+][
   Un'osservazione utile è che scelta la prima cifra tra le $3$ disponibili, ogni cifra successiva ha solo due possibilità perché non può essere uguale a quella prima.
   Questo abbassa la complessità della ricerca completa da $cal(O)(3^N)$ a $cal(O)(2^N)$.
 
@@ -165,16 +168,18 @@ Notiamo che gli array vengono generati in ordine lessicografico se i valori veng
       return resto_massimo;
   }
   ```
-])[
-  Un numero è bello se ha al massimo $N <= 18$ cifre, è composto solo dalle cifre $3$, $6$ e $9$, non ci sono due cifre adiacenti uguali.
-  Siamo interessati al massimo resto di un numero bello diviso per $M$.
 ]
 
 Si lascia come esercizio il problema #link("https://training.olinfo.it/task/ois_solitario")
 
 Un altro esempio classico di problema che si risolve ricorsivamente è quello della torre di Hanoi.
 
-#problem("Tower of Hanoi", url: "https://cses.fi/problemset/task/2165/", lbl: "tower-of-hanoi", tags: ("cses",), solution: [
+#problem("Tower of Hanoi", url: "https://cses.fi/problemset/task/2165/", lbl: "tower-of-hanoi", tags: ("cses",))[
+  Ci sono 3 pile numerate da 1 a 3. 
+  All'inizio ci sono $N$ dischi nella pila di sinistra di dimensione, partendo da sopra, $1, 2, dots, N$.
+  Possiamo spostare solo il disco in cima per ogni pila a patto che la pila di destinazione sia vuota o abbia in cima un disco più grande di quello che spostiamo. 
+  Vogliamo stampare una sequenza di mosse per ricreare la pila di dischi a destra nel minimo numero di mosse.
+][
   A prima vista sembra un problema complesso, ma ragionando "ricorsivamente" si semplifica notevolmente.
 
   Facciamo finta di saper risolvere il problema per qualsiasi $n$, cioè di saper spostare $n <= N$ dischi da una pila di partenza a una di arrivo.
@@ -198,9 +203,4 @@ Un altro esempio classico di problema che si risolve ricorsivamente è quello de
   ```
   La chiamata `hanoi(N, 1, 3)` risolve il problema.
   Per individuare la pila di appoggio viene usata la formula $6 - "from" - "to"$.
-])[
-  Ci sono 3 pile numerate da 1 a 3. 
-  All'inizio ci sono $N$ dischi nella pila di sinistra di dimensione, partendo da sopra, $1, 2, dots, N$.
-  Possiamo spostare solo il disco in cima per ogni pila a patto che la pila di destinazione sia vuota o abbia in cima un disco più grande di quello che spostiamo. 
-  Vogliamo stampare una sequenza di mosse per ricreare la pila di dischi a destra nel minimo numero di mosse.
 ]

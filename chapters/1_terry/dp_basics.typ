@@ -10,7 +10,9 @@ In questo capitolo sviluppiamo una tecnica molto potente per affrontare due cate
 - problemi di *conteggio*, cioè contare le soluzioni che rispettano una certa condizione.
 
 Consideriamo il seguente esempio pratico.
-#problem("Rod Cutting", lbl: "rod-cutting", solution: [
+#problem("Rod Cutting", lbl: "rod-cutting")[
+	La Olinfo Srl compra barre di metallo molto lunghe per tagliarle e rivenderne pezzi più corti. Le barre possono essere lunghe un numero intero di metri da $1$ a $N$ e dalla vendita di una barra di $i$ metri si ricavano $p_i$ euro. Effettuare i tagli non ha alcun costo. Aiuta la Olinfo Srl a ricavare il massimo possibile dalla vendita dei pezzi ottenuti da una barra di lunghezza $N$ metri!
+][
   Complichiamoci apparentemente la vita: rispondiamo non solo per una barra di lunghezza $N$, ma per tutte le possibili lunghezze $L <= N$.
   Sia allora $"ricavo"(L)$ la risposta al problema per una barra di lunghezza $L$, per esempio $"ricavo"(0) = 0$. Se la Olinfo Srl taglia e vende un pezzo di lunghezza $i$, questa ricava $p_i + "ricavo"(L - i)$ e poiché un pezzo di una qualche lunghezza andrà pur tagliato, per ogni $L >= 1$ vale l'identità
   $ "ricavo"(L) = max{p_i + "ricavo"(L - i) | i = 1, dots, L}. $
@@ -50,8 +52,6 @@ Consideriamo il seguente esempio pratico.
       for (int i = 1; i <= L; ++i)
           ricavo[L] = max(ricavo[L], p[i] + ricavo[L - i]);
   ```
-])[
-	La Olinfo Srl compra barre di metallo molto lunghe per tagliarle e rivenderne pezzi più corti. Le barre possono essere lunghe un numero intero di metri da $1$ a $N$ e dalla vendita di una barra di $i$ metri si ricavano $p_i$ euro. Effettuare i tagli non ha alcun costo. Aiuta la Olinfo Srl a ricavare il massimo possibile dalla vendita dei pezzi ottenuti da una barra di lunghezza $N$ metri!
 ]
 
 *Esercizio:* capire perché una chiamata a $"ricavo"(N)$ comporta esattamente $2^(N-1)$ chiamate a $"ricavo(0)"$ e un totale di $2^N$ chiamate a $"ricavo"$.
@@ -75,7 +75,9 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
 // ]
 // )
 
-#problem("Coin Combinations I", url: "https://cses.fi/problemset/task/1635", lbl: "coin-comb-I", tags: ("cses",), solution: [
+#problem("Coin Combinations I", url: "https://cses.fi/problemset/task/1635", lbl: "coin-comb-I", tags: ("cses",))[
+  Dato un sistema monetario di $N$ monete con valore distinti $c_1, dots, c_N$ e una somma $X$, conta modulo $10^9 + 7$ le pile distinte di monete con somma $X$. Due pile composte dalle stesse monete in ordine diverso si considerano distinte.
+][
   Una ragionevole famiglia di sottoproblemi da risolvere in questo caso è, a sistema monetario fissato, l'insieme delle istanze con somma obiettivo $Y <= X$. Sia allora $"conta"[Y]$ il numero di modi di ottenere somma $Y$. Quante delle pile con somma $Y$ hanno in cima una moneta di valore $c_i$? Esattamente $"conta"[Y - c_i]$
   #footnote[Sembra vero. Per convincere gli scettici diremmo che l'operazione "aggiungi la moneta $c_i$ in cima" è una corrispondenza biunivoca tra le pile con somma $Y - c_i$ e quelle con somma $Y$ che terminano in $c_i$.].
   Per contare le pile con somma $Y$, quindi, possiamo sommare le pile con somma $Y$ e ultima moneta $c_i$ al variare di $c_i$:
@@ -99,11 +101,11 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
   ```
 
   La complessità temporale è $cal(O)(N X)$, quella spaziale $cal(O)(N + X)$.
-])[
-  Dato un sistema monetario di $N$ monete con valore distinti $c_1, dots, c_N$ e una somma $X$, conta modulo $10^9 + 7$ le pile distinte di monete con somma $X$. Due pile composte dalle stesse monete in ordine diverso si considerano distinte.
 ]
 
-#problem("Coin Combinations II", url: "https://cses.fi/problemset/task/1636", lbl: "coin-comb-II", tags: ("cses",), solution: [
+#problem("Coin Combinations II", url: "https://cses.fi/problemset/task/1636", lbl: "coin-comb-II", tags: ("cses",))[
+  Come Coin Combinations I, ma conta questa volta i _sottoinsiemi_ di monete: due pile ottenibili l'una dall'altra per permutazione si considerano ora equivalenti.
+][
   Cerchiamo innanzitutto una pila rappresentante per ogni sottoinsieme di monete: una scelta ragionevole è quella le cui monete sono ordinate per valore crescente. La famiglia di sottoproblemi in questo caso è "In quanti modi fondamentalmente distinti si ottiene somma $Y$ avendo a disposizione i primi $i$ tipi di monete?" al variare di $Y <= X$, $i <= N$. Fissati i casi base, vale la ricorsione $"conta"[Y][i] = "conta"[Y][i - 1] + "conta"[Y - c_i][i]$. L'implementazione diretta costa $cal(O)(N X)$ tempo e memoria, ma si può fare meglio di così! Se immaginiamo di aggiungere al sistema monetario una moneta alla volta otteniamo una soluzione $cal(O)(N X)$ tempo e $cal(O)(N + X)$ memoria:
   ```cpp
   vector<int> conta(X + 1);
@@ -114,15 +116,16 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
   ```
 
   Alla fine di ogni iterazione del primo `for`, il vettore `conta` contiene ad ogni posizione $Y$ il numero di modi di ottenere $Y$ con le prime $i$ monete. Nota che è importante l'ordine in cui si itera sugli $Y$: se il `for` fosse stato da $X$ a $c[i]$, avremmo risolto il problema con l'ulteriore restrizione di poter usare ogni moneta al più una volta.
-])[
-  Come Coin Combinations I, ma conta questa volta i _sottoinsiemi_ di monete: due pile ottenibili l'una dall'altra per permutazione si considerano ora equivalenti.
 ]
 
 // book shop (?), cses
 *Bonus:* più in generale, qual è la risposta se la $i$-esima moneta si può usare un massimo di $m_i$ volte? Si può fare meglio di complessità temporale $cal(O)(N sum_i m_i)$?
 #footnote[La risposta è... non lo so. Sicuramente se tutti gli $m_i$ sono uno in meno di una potenza di due, la risposta è sì.]
 
-#problem("Massima sottosequenza comune", url: "https://cses.fi/problemset/task/3403", lbl: "lcs", tags: ("cses",), solution: [
+#problem("Massima sottosequenza comune", url: "https://cses.fi/problemset/task/3403", lbl: "lcs", tags: ("cses",))[
+  Un'array si dice #emph[sottosequenza] di un altro array se il primo si può ottenere dal secondo eliminando alcuni elementi (possibilmente nessuno) senza cambiare l'ordine degli elementi rimanenti.
+  Dati due array $a_1, a_2, ..., a_n$ e $b_1, b_2, ..., b_m$ rispettivamente di $n$ e $m$ elementi, si trovi una sottosequenza comune di lunghezza massima.
+][
   Preoccupiamoci innanzitutto di trovare la lunghezza.
   Rispondiamo alla domanda per ogni possibile coppia prefisso del primo array e prefisso del secondo array: sia quindi $"lcs"[i][j]$ la lunghezza della massima sottosequenza comune tra i primi $i$ elementi di $a$ e i primi $j$ elementi di $b$.
 
@@ -169,16 +172,9 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
   for (int i = 0; i < lcs[n][m]; ++i)
       cout << ans[i] << " \n"[i == lcs[n][m] - 1];
   ```
-])[
-  Un'array si dice #emph[sottosequenza] di un altro array se il primo si può ottenere dal secondo eliminando alcuni elementi (possibilmente nessuno) senza cambiare l'ordine degli elementi rimanenti.
-  Dati due array $a_1, a_2, ..., a_n$ e $b_1, b_2, ..., b_m$ rispettivamente di $n$ e $m$ elementi, si trovi una sottosequenza comune di lunghezza massima.
 ]
 
-#problem("Monopoly Board Game", url: "https://training.olinfo.it/task/ois_monopoly", lbl: "ois_monopoly", tags: ("ois", "2022-23"), solution: [
-  Una valida famiglia di sottoproblemi da risolvere in questo caso è "qual è la risposta per $k$ turni se termino il $k$-esimo turno sulla casella $i$ con $l$ lanci". Alternativamente, il limite di tempo permette una soluzione più lenta ma più semplice i cui stati sono solo le coppie $k$, $i$ con $0 <= k <= K$ e $0 <= i < N$. Un'implementazione del primo approccio si trova #link("https://github.com/franfill1/training.olinfo.it-solutions/blob/master/src/ois_monopoly.cpp")[qui], una del secondo a #link("https://github.com/lorenzo-ferrari/olinfo/blob/main/src/ois_monopoly.cpp")[questo link].
-
-  Invitiamo a notare che per quanto la programmazione dinamica in questione abbia $cal(O)(N K)$ stati, i valori all'$(i+1)$-esimo turno dipendono esclusivamente da quelli all'$i$-esimo turno, quindi la soluzione si può implementare in $cal(O)(N)$ memoria.
-])[
+#problem("Monopoly Board Game", url: "https://training.olinfo.it/task/ois_monopoly", lbl: "ois_monopoly", tags: ("ois", "2022-23"))[
   Giochi a Monopoli su un tabellone circolare di $N$ caselle, numerate da $0$ a $N-1$ con le caselle $N-1$ e $0$ adiacenti.
   Ogni casella ha un valore di imposta $T_i$ associato. Ogni volta che un giocatore atterra su una casella, deve pagare il rispettivo valore di imposta
   (il valore può essere negativo, nel cui caso il giocatore riceve denaro).
@@ -186,6 +182,10 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
   poi paga l'imposta della casella su cui atterra. Se i due valori dei dadi sono uguali, dopo aver mosso e pagato, lancia nuovamente i dadi.
   Carlo può muovere al massimo tre volte in un singolo turno, dopodiché il suo turno termina automaticamente (anche se i due valori dei dadi sono uguali).
   Poiché non accetti di perdere, hai truccato i dati e controlli l'esito di tutti i lanci. Il tuo obiettivo è massimizzare la quantità di denaro che Carlo perde durante il gioco.
+][
+  Una valida famiglia di sottoproblemi da risolvere in questo caso è "qual è la risposta per $k$ turni se termino il $k$-esimo turno sulla casella $i$ con $l$ lanci". Alternativamente, il limite di tempo permette una soluzione più lenta ma più semplice i cui stati sono solo le coppie $k$, $i$ con $0 <= k <= K$ e $0 <= i < N$. Un'implementazione del primo approccio si trova #link("https://github.com/franfill1/training.olinfo.it-solutions/blob/master/src/ois_monopoly.cpp")[qui], una del secondo a #link("https://github.com/lorenzo-ferrari/olinfo/blob/main/src/ois_monopoly.cpp")[questo link].
+
+  Invitiamo a notare che per quanto la programmazione dinamica in questione abbia $cal(O)(N K)$ stati, i valori all'$(i+1)$-esimo turno dipendono esclusivamente da quelli all'$i$-esimo turno, quindi la soluzione si può implementare in $cal(O)(N)$ memoria.
 ]
 
 === Esercizi consigliati
