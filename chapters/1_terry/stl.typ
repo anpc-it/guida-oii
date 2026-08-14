@@ -157,56 +157,56 @@ cout << s.size() << endl; // stampa 2
 ```
 
 Consideriamo un altro esempio pratico.
-#problem("Room Allocation", url: "https://cses.fi/problemset/task/1164", lbl: "room-allocation", tags: ("cses",))[
+#problem("Room Allocation", url: "https://cses.fi/problemset/task/1164", lbl: "room-allocation", tags: ("cses",), solution: [
+  Intuitivamente, è ottimale ordinare gli eventi in ordine cronologico, per poi simulare la partenza e l'arrivo di ogni cliente nell'ordine giusto. A questo punto, ogni volta che arriva un cliente, è ottimale assegnargli la stanza libera con numero minimo.
+
+  *Esercizio:* dimostra quest'ultimo fatto. In particolare, supponi di dare a un cliente una stanza con numero non minimo. A quel punto, la stanza con numero minimo o rimane sempre inutilizzata (e quindi non stai usando il numero minimo di stanze), oppure viene utilizzata da altri clienti in seguito (in questo caso, trova un'altra configurazione di stanze che funziona).
+
+  Come trovare la stanza libera con numero minimo? Se controlliamo le stanze una a una, impieghiamo $cal(O)(N)$ per cliente nel caso pessimo (ad esempio, se l'unica stanza libera è l'ultima): serve una struttura dati più veloce. Un `set` è particolarmente adatto perché supporta l'estrazione dell'elemento minimo in tempo $cal(O)(log N)$.
+
+  Vorremmo quindi inizializzare un set che contiene tutte le stanze libere, ma non sappiamo quante sono. In ogni caso, usiamo al massimo $N$ stanze, per cui possiamo inizializzare il set con tutti gli interi da $1$ a $N$. Ora:
+  - ogni volta che un nuovo cliente arriva, estraiamo (e rimuoviamo) il minimo elemento dal set;
+  - ogni volta che un cliente lascia l'hotel, aggiungiamo nel set il suo numero di stanza.
+
+  *Attenzione:* ogni giorno, è importante processare prima gli arrivi e poi le partenze, altrimenti un cliente potrebbe lasciare una stanza e un altro cliente potrebbe occuparla il giorno stesso.
+
+  Segue una possibile implementazione. Nota che stiamo ordinando gli eventi prima per tempo, e a parità di tempo per tipo (prima gli arrivi, poi le partenze).
+
+  ```cpp
+  int n; cin >> n;
+  vector<array<int, 3>> eventi;
+  for (int i = 0, l, r; i < n; i++) {
+      cin >> l >> r;
+      eventi.push_back({l, 0, i});
+      eventi.push_back({r, 1, i});
+  }
+  set<int> libere;
+  for (int i = 1; i <= n; i++)
+      libere.insert(i);
+
+  sort(begin(eventi), end(eventi));
+  vector<int> stanza(n, -1);
+  for (auto [tempo, tipo, cliente] : eventi) {
+      if (tipo == 0) {
+          stanza[cliente] = *begin(libere);
+          libere.erase(begin(libere));
+      } else {
+          libere.insert(stanza[cliente]);
+      }
+  }
+
+  cout << *max_element(begin(stanza), end(stanza)) << "\n";
+  for (auto u : stanza)
+      cout << u << ' ';
+  cout << "\n";
+  ```
+])[
     L'Olinfo Hotel vuole ospitare $N$ clienti, l'$i$-esimo dei quali vuole alloggiare in una stanza dal giorno $L_i$ al giorno $R_i$. Una stanza non può essere occupata simultaneamente da più persone (cioè affinché due ospiti possano alloggiare nella stessa stanza, i loro intervalli $[L_i, R_i]$, $[L_j, R_j]$ devono essere disgiunti).
     Qual è il minimo numero di stanze affinché l'Olinfo Hotel possa ospitare tutti? Se la risposta è $K$, stabilisci per ogni ospite un numero di stanza da $1$ a $K$.
 
     $N <= 2 dot 10^5$, $1 <= L_i <= R_i <= 10^9$.
 ]
 
-
-Intuitivamente, è ottimale ordinare gli eventi in ordine cronologico, per poi simulare la partenza e l'arrivo di ogni cliente nell'ordine giusto. A questo punto, ogni volta che arriva un cliente, è ottimale assegnargli la stanza libera con numero minimo.
-
-*Esercizio:* dimostra quest'ultimo fatto. In particolare, supponi di dare a un cliente una stanza con numero non minimo. A quel punto, la stanza con numero minimo o rimane sempre inutilizzata (e quindi non stai usando il numero minimo di stanze), oppure viene utilizzata da altri clienti in seguito (in questo caso, trova un'altra configurazione di stanze che funziona).
-
-Come trovare la stanza libera con numero minimo? Se controlliamo le stanze una a una, impieghiamo $cal(O)(N)$ per cliente nel caso pessimo (ad esempio, se l'unica stanza libera è l'ultima): serve una struttura dati più veloce. Un `set` è particolarmente adatto perché supporta l'estrazione dell'elemento minimo in tempo $cal(O)(log N)$.
-
-Vorremmo quindi inizializzare un set che contiene tutte le stanze libere, ma non sappiamo quante sono. In ogni caso, usiamo al massimo $N$ stanze, per cui possiamo inizializzare il set con tutti gli interi da $1$ a $N$. Ora:
-- ogni volta che un nuovo cliente arriva, estraiamo (e rimuoviamo) il minimo elemento dal set;
-- ogni volta che un cliente lascia l'hotel, aggiungiamo nel set il suo numero di stanza.
-
-*Attenzione:* ogni giorno, è importante processare prima gli arrivi e poi le partenze, altrimenti un cliente potrebbe lasciare una stanza e un altro cliente potrebbe occuparla il giorno stesso.
-
-Segue una possibile implementazione. Nota che stiamo ordinando gli eventi prima per tempo, e a parità di tempo per tipo (prima gli arrivi, poi le partenze).
-
-```cpp
-int n; cin >> n;
-vector<array<int, 3>> eventi;
-for (int i = 0, l, r; i < n; i++) {
-    cin >> l >> r;
-    eventi.push_back({l, 0, i});
-    eventi.push_back({r, 1, i});
-}
-set<int> libere;
-for (int i = 1; i <= n; i++)
-    libere.insert(i);
-
-sort(begin(eventi), end(eventi));
-vector<int> stanza(n, -1);
-for (auto [tempo, tipo, cliente] : eventi) {
-    if (tipo == 0) {
-        stanza[cliente] = *begin(libere);
-        libere.erase(begin(libere));
-    } else {
-        libere.insert(stanza[cliente]);
-    }
-}
-
-cout << *max_element(begin(stanza), end(stanza)) << "\n";
-for (auto u : stanza)
-    cout << u << ' ';
-cout << "\n";
-```
 
 === `priority_queue`
 inclusa in `<queue>`

@@ -201,60 +201,55 @@ Un esempio classico è l'albero binario di ricerca, struttura dati in cui ogni n
 Un'applicazione non banale della ricerca binaria è dare la risposta a un problema di minimo o di massimo.
 Consideriamo il seguente problema.
 
-#problem("Factory Machines", url: "https://cses.fi/problemset/task/1620", lbl: "factory-machines", tags: ("cses"))[
+#problem("Factory Machines", url: "https://cses.fi/problemset/task/1620", lbl: "factory-machines", tags: ("cses",), solution: [
+  Proviamo a risolvere un problema più facile: in un tempo $t$ quanti oggetti posso produrre?
+  È facile vedere che ogni macchinario può produrre $floor(t / S_i)$ oggetti, dunque in totale ne possiamo produrre $sum_(i = 0)^(N - 1)floor(t / S_i)$.
+
+  Per comodità diciamo $f(t) = sum_(i = 0)^(N - 1)floor(t / S_i)$.
+
+  A questo punto potremmo provare tutti i $t$ da $0$ in poi e fermarci quando il numero di oggetti che si possono produrre è almeno $K$.
+  Notiamo però che se $T$ è il tempo minimo che ci serve per produrre $K$ oggetti, vuol dire che per tutti i tempi $t < T$ potremmo produrre meno di $K$ oggetti, mentre per tutti i $t >= T$ ne produrremo almeno $K$ oggetti.
+
+  ```cpp
+  ll f(ll t) {
+      ll sum = 0;
+      for (ll s: S) {
+          sum += t / s;
+          if (sum > 1e9)
+              return sum;
+      }
+      return sum;
+  }
+  ```
+
+  Visto che per i nostri scopi il numero di oggetti potrebbe diventare molto grande restituiamo la somma appena supera il valore massimo di $K$. Ricordiamoci di cominciare con un valore di $r$ adeguatamente alto. Questo cambia da problema a problema.
+
+  Date queste premesse, è possibile fare una ricerca binaria sul punto in cui $f(t)$ diventa maggiore o uguale a $K$.
+
+  ```cpp
+  ll l = 0, r = 1e18;
+
+  while (r != l) {
+      ll m = (r + l) / 2;
+      if (f(m) < K)
+          l = m + 1;
+      else
+          r = m;
+  }
+
+  cout << l << '\n';
+
+  ```
+])[
   Possediamo $N$ macchinari e il macchinario $i$ impiega $S_i$ secondi a produrre un oggetto.
   Vogliamo produrre in totale $K$ oggetti. Quanto tempo ci impieghiamo al minimo?
 ]
 
-Proviamo a risolvere un problema più facile: in un tempo $t$ quanti oggetti posso produrre?
-È facile vedere che ogni macchinario può produrre $floor(t / S_i)$ oggetti, dunque in totale ne possiamo produrre $sum_(i = 0)^(N - 1)floor(t / S_i)$. 
-
-Per comodità diciamo $f(t) = sum_(i = 0)^(N - 1)floor(t / S_i)$.
-
-A questo punto potremmo provare tutti i $t$ da $0$ in poi e fermarci quando il numero di oggetti che si possono produrre è almeno $K$.
-Notiamo però che se $T$ è il tempo minimo che ci serve per produrre $K$ oggetti, vuol dire che per tutti i tempi $t < T$ potremmo produrre meno di $K$ oggetti, mentre per tutti i $t >= T$ ne produrremo almeno $K$ oggetti. 
-
-```cpp
-ll f(ll t) {
-    ll sum = 0;
-    for (ll s: S) {
-        sum += t / s;
-        if (sum > 1e9) 
-            return sum;
-    }
-    return sum;
-}
-```
-
-Visto che per i nostri scopi il numero di oggetti potrebbe diventare molto grande restituiamo la somma appena supera il valore massimo di $K$. Ricordiamoci di cominciare con un valore di $r$ adeguatamente alto. Questo cambia da problema a problema.
-
-Date queste premesse, è possibile fare una ricerca binaria sul punto in cui $f(t)$ diventa maggiore o uguale a $K$.
-
-```cpp
-ll l = 0, r = 1e18;
-
-while (r != l) {
-    ll m = (r + l) / 2;
-    if (f(m) < K) 
-        l = m + 1;
-    else
-        r = m;
-}
-
-cout << l << '\n';
-
-```
-
-In alcuni problemi, la funzione su cui facciamo ricerca binaria può diventare molto complessa, come nell'esempio che segue. 
+In alcuni problemi, la funzione su cui facciamo ricerca binaria può diventare molto complessa, come nell'esempio che segue.
 La condizione che ci permette di fare ricerca binaria su una funzione è che questa sia monotona, non decrescente o non crescente nell'intervallo che ci interessa.
 
-#problem("Christmas lights", url: "https://training.olinfo.it/task/ois_lights", lbl: "christmas-lights", tags: ("ois", "2022-23"), 
-[
-  Abbiamo una fila di $N$ luci colorate di $C$ colori diversi; il colore della luce $i$-esima è $A_i$ ($0 <= A_i < C <= N$). 
-  Quanto è lungo il più corto sotto-array che contiene tutti i colori?
-])
-
-Assumiamo che la risposta sia $L$. Possiamo osservare due cose:
+#problem("Christmas lights", url: "https://training.olinfo.it/task/ois_lights", lbl: "christmas-lights", tags: ("ois", "2022-23"), solution: [
+  Assumiamo che la risposta sia $L$. Possiamo osservare due cose:
 
 - Tutti i sotto-array più corti di $L$ non contengono $C$ colori distinti, altrimenti la risposta non sarebbe $L$;
 - Per ogni lunghezza $K$ con $L <= K <= N$ esiste almeno un sotto-array che contiene tutti i colori. Basta considerare il sotto-array lungo $L$ che li contiene tutti ed espanderlo agli estremi finché non è lungo $K$.
@@ -308,4 +303,8 @@ while (left != right) {
 cout << left << endl;
 ```
 
-Quando ci viene richiesto di trovare _il massimo o il minimo valore per il quale vale una certa proprietà_ e questa proprietà vale solo per un prefisso o solo per un suffisso, allora è solitamente possibile fare una ricerca binaria sul punto in cui cambia la risposta. 
+  Quando ci viene richiesto di trovare _il massimo o il minimo valore per il quale vale una certa proprietà_ e questa proprietà vale solo per un prefisso o solo per un suffisso, allora è solitamente possibile fare una ricerca binaria sul punto in cui cambia la risposta.
+])[
+    Abbiamo una fila di $N$ luci colorate di $C$ colori diversi; il colore della luce $i$-esima è $A_i$ ($0 <= A_i < C <= N$).
+    Quanto è lungo il più corto sotto-array che contiene tutti i colori?
+]
