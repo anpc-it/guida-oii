@@ -14,7 +14,7 @@
   text(number-type: "old-style", tracking: 0pt, upper(name))
 )
 
-#let problem(title, url: none, lbl: none, tags: (), solution: none, body) = {
+#let problem(title, url: none, lbl: none, tags: (), body, solution: none) = {
   if lbl != none {
     title = [#title #label(lbl)]
   }

@@ -29,12 +29,6 @@
 #show outline.entry.where(level: 1): strong
 #show math.equation.where(block: false): box
 #show raw.where(block: true): set text(size: 7pt)
-#show raw.where(block: true): it => block(
-  inset: (x: 0.35em, y: 0.25em),
-  radius: 0.5em,
-  stroke: 0.5pt + luma(85%),
-  it,
-)
 
 #outline(depth: 2)
 #pagebreak(weak: true)
