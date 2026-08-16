@@ -5,3 +5,6 @@ dp.*
 *.pdf
 .DS_Store
 .vscode
+
+# shiroa HTML output
+dist/

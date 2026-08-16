@@ -1,10 +1,15 @@
+#import "/templates/page.typ": project
+#import "/utils/render.typ": is-web
+
+#let render = if is-web { project.with(title: "Grafi") } else { it => it }
+#show: render
+
 #import "../../utils/problems.typ": *
 #import "../../utils/examples.typ": *
 #import "../../utils/draw_graph.typ": *
-#import "@preview/cetz:0.4.2": *
-#import "@preview/cetz-plot:0.1.2": *
-#import "@preview/codly:1.3.0": *
-#import "@preview/codly-languages:0.1.1": *
+#import "../../utils/cetz.typ": canvas
+#import "@preview/cetz:0.4.2": vector
+#import "../../utils/ref.typ": crossref
 
 
 == Grafi
@@ -318,7 +323,7 @@ Prima di procedere, diciamo che un grafo è _*connesso*_ se ogni coppia di nodi 
   caption: [Le componenti connesse sono evidenziate con colori diversi.]
 )
 
-Ora che sappiamo visitare il grafo, possiamo anche contare il numero di isole su una mappa, come nel problema #link(<graph_problems>)[Find the Treasure (ois_islands)].
+Ora che sappiamo visitare il grafo, possiamo anche contare il numero di isole su una mappa, come nel problema #crossref(<graph_problems>, "/chapters/4_editorials/graph_problems.typ", [Find the Treasure (ois_islands)]).
 
 Un'altra applicazione delle visite è dire se un grafo contiene o meno dei _cicli_, cioè dei cammini che partono e arrivano allo stesso nodo senza passare due volte per lo stesso arco, o ancora l'ordinamento topologico di un grafo diretto acilico, che tratteremo più avanti.
 
@@ -481,7 +486,7 @@ Come ti puoi aspettare, questa implementazione dell'algoritmo di Prim ha la stes
 
   #let nodes = ((0.25, 1.5), (1.5, 0), (1.5, 3), (2.75, 1.5), (4, 0), (4, 3), (5.25, 1.5))
   #for i in range(nodes.len()) {
-    nodes.at(i) = scale(nodes.at(i), 0.8)
+    nodes.at(i) = vector.scale(nodes.at(i), 0.8)
   }
   //#let edges = ((0, 1, 7), (0, 2, 2), (2, 3, 3), (1, 3, 1), (2, 5, 5), (1, 4, 8), (3, 6, 4), (4, 6, 2), (5, 6, 2))
   #let edges = ()
@@ -567,7 +572,7 @@ Una domanda naturale è come facciamo a controllare che due nodi siano in compon
 
   #let nodes = ((0.25, 1.5), (1.5, 0), (1.5, 3), (2.75, 1.5), (4, 0), (4, 3), (5.25, 1.5))
   #for i in range(nodes.len()) {
-    nodes.at(i) = scale(nodes.at(i), 0.8)
+    nodes.at(i) = vector.scale(nodes.at(i), 0.8)
   }
   //#let edges = ((0, 1, 7), (0, 2, 2), (2, 3, 3), (1, 3, 1), (2, 5, 5), (1, 4, 8), (3, 6, 4), (4, 6, 2), (5, 6, 2))
   #let edges = ()

@@ -1,4 +1,9 @@
-#import "../../config.typ"
+#import "/templates/page.typ": project
+#import "/utils/render.typ": is-web
+
+#let render = if is-web { project.with(title: "Debugging") } else { it => it }
+#show: render
+
 #import "../../utils/examples.typ": *
 
 == Debugging <debugging>

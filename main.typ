@@ -103,5 +103,10 @@
 #include "chapters/4_editorials/graph_problems.typ"
 
 
+= Debug //debug
+
+#include "chapters/5_debug/debug_tests.typ"
+
+
 #pagebreak()
 #include "sources.typ"

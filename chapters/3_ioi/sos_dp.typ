@@ -1,5 +1,10 @@
-#import "@preview/codly:1.3.0": *
-#import "@preview/codly-languages:0.1.1": *
+#import "/templates/page.typ": project
+#import "/utils/render.typ": is-web
+
+#let render = if is-web { project.with(title: "Sum over Subsets DP") } else { it => it }
+#show: render
+
+#import "../../utils/code.typ": code, local
 #import "../../utils/problems.typ": *
 
 
@@ -13,7 +18,7 @@ Consideriamo il seguente problema.
   Sia allora $a[x]$ la frequenza di $x$ nell'array. Per ogni elemento $x$, la risposta è la _sum over subsets_ $"sos"[x] := sum_(y subset.eq x) a[y]$.
   Implementare questa riformulazione del problema, senza ulteriori idee, porta a una soluzione $cal(O)(4^N)$.
 
-  #codly(
+  #code(
     header: [*Approccio naive $cal(O)(4^N)$*],
   )
   ```cpp
@@ -29,7 +34,7 @@ Consideriamo il seguente problema.
   Si può fare meglio di così: per ogni $x$, posso iterare solo sugli $y subset.eq x$. In questo modo il numero totale di iterazioni è uguale a $S = \#{(x,y) | y subset.eq x subset.eq {1, ..., N}} = 3^N$.
 
 
-  #codly(
+  #code(
     header: [*Approccio $cal(O)(3^N)$*],
   )
   ```cpp
@@ -89,7 +94,7 @@ Consideriamo il seguente problema.
   Lo stesso approccio funziona per un numero arbitrario di dimensioni e -- tenetevi forte -- il problema di partenza si può formulare esattamente in questi termini!
   Nel nostro caso la griglia è $N$-dimensionale e ogni coordinata è $0$ o $1$. (Equivalentemente, lavoriamo sui vertici dell'ipercubo in $N$ dimensioni.) Ogni elemento di ${0, dots, 2^N - 1}$ corrisponde a una $N$-upla di coordinate binarie, quindi un punto sulla griglia. Vale $y subset.eq x$ se e solo se le coordinate di $y$ sono minori o uguali delle coordinate di $x$ (proprio come nelle somme prefisse bidimensionali).
 
-  #codly(
+  #code(
     header: [*Approccio $cal(O)(N dot 2^N)$*],
   )
   ```cpp
