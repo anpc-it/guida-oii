@@ -29,7 +29,7 @@ jobs:
 
       - name: Install shiroa
         run: |
-          curl -LsSf https://github.com/Myriad-Dreamin/shiroa/releases/download/v0.4.0-rc2/shiroa-x86_64-unknown-linux-gnu.tar.gz | tar xz
+          curl -LsSf https://github.com/Myriad-Dreamin/shiroa/releases/download/v0.4.0-rc2/shiroa-x86_64-unknown-linux-gnu.tar.gz | tar xz --strip-components=1
           sudo mv shiroa /usr/local/bin/
 
       - name: Build static HTML
