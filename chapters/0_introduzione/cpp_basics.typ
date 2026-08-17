@@ -1,5 +1,11 @@
-#import "@preview/codly:1.3.0": *
-#import "@preview/codly-languages:0.1.1": *
+#import "/templates/page.typ": project
+#import "/utils/render.typ": is-web
+
+#let render = if is-web { project.with(title: "Introduzione a C++") } else { it => it }
+#show: render
+
+#import "../../utils/code.typ": code
+#import "../../utils/ref.typ": crossref
 
 
 == Concetti base di programmazione in C++
@@ -26,7 +32,7 @@ int main() {
 
 Questo programma per ora non produce alcun output. Proviamo a stampare una stringa di testo, per esempio `Ciao Dario!`.
 
-#codly(
+#code(
   header: [*ciao_dario.cpp*],
 )
 ```cpp
@@ -51,7 +57,7 @@ Ora che abbiamo scritto il nostro programma, è giunto il momento di compilarlo!
         
 // TODO: fact check the last sentence
 
-    2. (*Consigliato*) Tramite *terminale* si può avere un controllo più granulare sulla compilazione (che, come vedremo nel #link(<debugging>, "capitolo sul Debugging"), può tornare molto utile).
+    2. (*Consigliato*) Tramite *terminale* si può avere un controllo più granulare sulla compilazione (che, come vedremo nel #crossref(<debugging>, "/chapters/0_introduzione/debugging.typ", "capitolo sul Debugging"), può tornare molto utile).
         - *Windows*: Possiamo installare `g++` tramite #link("https://dev.to/prastha/install-mingw-w64-on-windows-11-2025-november-acg", `MinGW`) o `MSYS2`. Compiliamo il sorgente con \ 
         ```sh 
         g++ ilnomedeltuofile.cpp

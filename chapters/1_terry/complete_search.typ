@@ -1,8 +1,12 @@
-#import "@preview/cetz:0.4.2": canvas, draw
-#import "@preview/codly:1.3.0": *
-#import "@preview/codly-languages:0.1.1": *
-#import "@preview/tdtr:0.6.1" : *
+#import "/templates/page.typ": project
+#import "/utils/render.typ": is-web
+
+#let render = if is-web { project.with(title: "Ricorsione e ricerca completa") } else { it => it }
+#show: render
+
+#import "../../utils/tdtr.typ": *
 #import "../../utils/problems.typ": *
+#import "../../utils/ref.typ": crossref
 
 == Ricorsione e ricerca completa
 
@@ -27,7 +31,7 @@ Questa funzione vuole evidentemente calcolare la somma dei primi $n$ numeri (con
 
 Questa funzione ha complessità $cal(O)(n)$ perché chiamare `somma_primi_n_numeri(n)` comporta la chiamata della stessa funzione con parametro $n-1$, poi $n-2$ e così via fino a $0$.
 
-Un altro esempio è la funzione per calcolare il fattoriale mostrata nel #link(<factorial>)[capitolo introduttivo al C++].
+Un altro esempio è la funzione per calcolare il fattoriale mostrata nel #crossref(<factorial>, "/chapters/0_introduzione/cpp_basics.typ", [capitolo introduttivo al C++]).
 
 In entrambi questi esempi è presente un caso base e un caso generale.
 Una funzione ricorsiva senza caso base non terminerebbe mai l'esecuzione e continuerebbe a chiamarsi all'infinito.

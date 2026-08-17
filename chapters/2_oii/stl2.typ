@@ -1,13 +1,18 @@
-#import "@preview/codly:1.3.0": *
-#import "@preview/codly-languages:0.1.1": *
+#import "/templates/page.typ": project
+#import "/utils/render.typ": is-web
+
+#let render = if is-web { project.with(title: "Altre funzionalità della STL") } else { it => it }
+#show: render
+
 #import "../../utils/problems.typ": *
 #import "../../utils/tables.typ": *
+#import "../../utils/ref.typ": crossref
 
 
 == Altre funzionalità della STL
 
 // TODO: update this link once the book is done
-Le strutture dati introdotte nel #link(<stl>)[capitolo precedente della STL] sono tra le più utilizzate, ma la STL offre molte altre funzionalità utili, che presentiamo di seguito.
+Le strutture dati introdotte nel #crossref(<stl>, "/chapters/1_terry/stl.typ", [capitolo precedente della STL]) sono tra le più utilizzate, ma la STL offre molte altre funzionalità utili, che presentiamo di seguito.
 
 === Funzioni della STL
 incluse in `<algorithm>`

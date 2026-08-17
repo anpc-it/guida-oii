@@ -1,5 +1,10 @@
-#import "@preview/codly:1.3.0": *
-#import "@preview/codly-languages:0.1.1": *
+#import "/templates/page.typ": project
+#import "/utils/render.typ": is-web
+
+#let render = if is-web { project.with(title: "Complessità computazionale") } else { it => it }
+#show: render
+
+// (nessuna dipendenza non-standard)
 
 
 == Complessità computazionale <complexity>

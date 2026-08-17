@@ -1,6 +1,10 @@
-#import "../../config.typ"
-#import "@preview/codly:1.3.0": *
-#import "@preview/codly-languages:0.1.1": *
+#import "/templates/page.typ": project
+#import "/utils/render.typ": is-web
+
+#let render = if is-web { project.with(title: "Cos'è una gara di informatica") } else { it => it }
+#show: render
+
+#import "../../utils/ref.typ": crossref
 
 
 == Cos'è una gara di informatica
@@ -129,7 +133,7 @@ Se proviamo effettivamente a scrivere queste due soluzioni in C++ e misuriamo qu
   ) 
 )
 
-Come possiamo notare, per $N = 10^9$ la prima soluzione è più di $500.000$ volte più lenta! Questo è dovuto a un semplice fatto: i computer impiegano del tempo a svolgere le operazioni. Questo argomento verrà ripreso in dettaglio nel #link(<complexity>)[capitolo sulla complessità computazionale], per ora però teniamo a mente che esistono soluzioni più o meno veloci che risolvono lo stesso problema.
+Come possiamo notare, per $N = 10^9$ la prima soluzione è più di $500.000$ volte più lenta! Questo è dovuto a un semplice fatto: i computer impiegano del tempo a svolgere le operazioni. Questo argomento verrà ripreso in dettaglio nel #crossref(<complexity>, "/chapters/1_terry/complexity.typ", [capitolo sulla complessità computazionale]), per ora però teniamo a mente che esistono soluzioni più o meno veloci che risolvono lo stesso problema.
 
 In modo simile, esistono soluzioni che utilizzano più o meno memoria. La memoria del computer serve a conservare i dati che il programma sta usando: variabili, array, stringhe e strutture dati. Anche la memoria disponibile è limitata e il giudice può interrompere una soluzione che ne utilizza troppa.
 
