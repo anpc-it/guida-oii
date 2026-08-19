@@ -6,6 +6,7 @@
 
 #import "../../utils/code.typ": code
 #import "../../utils/ref.typ": crossref
+#import "../../utils/exercises.typ": exercise
 
 
 == Concetti base di programmazione in C++
@@ -188,10 +189,11 @@ Dato che `long long` è più lungo da scrivere, possiamo definire un _alias_ all
 //Prima di salutarci, sappi che tante scelte convenienti quando si fa programmazione competitiva sono da evitare, per mille motivi, in altri ambiti#footnote[Vedi il punto 7 di #link("https://www.comp.nus.edu.sg/~stevenha/cs3233.html").]. Al prossimo capitolo.
 
 === Problemi consigliati
-- #link("https://training.olinfo.it/task/massimo")
-- #link("https://training.olinfo.it/task/ois_biglietti")
-- #link("https://training.olinfo.it/task/terry/download")
-- #link("https://training.olinfo.it/task/catalogo")
+
+#exercise("Trova il massimo", "https://training.olinfo.it/task/massimo", diff: 1)
+#exercise("Filmati e canzoni", "https://training.olinfo.it/task/terry/download", diff: 1)
+#exercise("Biglietti a Milano", "https://training.olinfo.it/task/ois_biglietti", diff: 2)
+#exercise("Late for work", "https://training.olinfo.it/task/ois_time", diff: 2)
 
 === Una nota per la programmazione competitiva
 
