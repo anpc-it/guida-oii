@@ -7,7 +7,7 @@
 #import "../../utils/ref.typ": crossref
 
 
-== Cos'è una gara di informatica
+== Cos'è una gara di informatica <olympiads>
 
 In una gara di informatica si risolvono problemi scrivendo programmi. A ogni problema corrisponde un compito preciso: dato un certo input, il programma deve produrre l'output richiesto.
 
@@ -98,7 +98,7 @@ Il giudice si aspetta il formato indicato nella sezione Output, quindi bisogna s
 7
 ```
 
-Gli esempi servono a capire il formato dell'output richiesto ed a testare la tua soluzione, ma il giudice testerà la tua soluzione con molti altri input nascosti. 
+Gli esempi servono a capire il formato dell'output richiesto ed a testare la tua soluzione, ma il giudice testerà la tua soluzione con *molti altri input nascosti*. 
 
 Nota che questo non è l'unico formato di problemi possibile: esistono anche i problemi _output only_ e i problemi _interattivi_:
 
@@ -152,11 +152,11 @@ I vincoli aiutano quindi a rispondere a una domanda fondamentale: _quanto tempo 
 I subtask servono proprio a questo. Se hai una soluzione corretta, ma che usa troppo tempo, memoria, o risolve solo casi specifici del problema originale, i subtask fanno avere comunque un punteggio parziale. Facciamo un esempio:
 
 Supponiamo che i limiti per un generico problema siano $N <= 10^18$, dei subtask plausibili possono essere:
-- $N = 1$ 
-- $N <= 100$
-- $N <= 10^6$
+- $N = 1$ ($10$ punti)
+- $N <= 100$ ($40$ punti)
+- $N <= 10^6$ ($50$ punti)
 
-Se la nostra soluzione sfora il tempo massimo per, ad esempio, $N = 1000$, otterremo comunque i punteggi del primo e secondo subtask.
+Se la nostra soluzione sfora il tempo massimo per, ad esempio, $N >= 1000$, otterremo comunque i punteggi del primo e secondo subtask ($10+40 = 50$ punti).
 
 === I risultati della valutazione
 

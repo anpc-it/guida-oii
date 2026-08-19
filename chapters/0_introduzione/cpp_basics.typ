@@ -51,7 +51,7 @@ In C++ le varie dichiarazioni delle librerie vanno incluse nella compilazione tr
 Nota: in futuro useremo spesso `'\n'` al posto di `endl`, perché inserisce una nuova riga senza forzare lo svuotamento del buffer, operazione solitamente molto lenta. Il buffer viene comunque svuotato automaticamente, per esempio quando è pieno o quando lo stream viene chiuso.
 
 Ora che abbiamo scritto il nostro programma, è giunto il momento di compilarlo! Per compilare il sorgente ci sono due modi principali:
-    1. Tramite l'*IDE* in cui stiamo lavorando, è spesso possibile compilare ed eseguire il programma premendo un tasto (o una combinazione/sequenza). Ad esempio, su _Visual Studio Code_ `F5`, su _Code::Blocks_ `F9`, su _Dev-C++_ `F11`. 
+    1. Tramite l'*IDE* in cui stiamo lavorando è spesso possibile compilare ed eseguire il programma premendo un tasto (o una combinazione/sequenza). Ad esempio, su _Visual Studio Code_ `F5`, su _Code::Blocks_ `F9`, su _Dev-C++_ `F11`. 
     
         Lo staff delle OII ha messo a disposizione un IDE online (#link("https://editor.olinfo.it")) per compilare ed eseguire il codice senza installare nulla sul proprio computer. Per quanto questo IDE sia comodo all'inizio, è consigliabile installare un IDE sul proprio computer per svariate ragioni, tra cui la possibilità di fare _debugging_ in maniera più efficace e il fatto che l'editor online non sarà disponibile durante la finale delle OII.
         

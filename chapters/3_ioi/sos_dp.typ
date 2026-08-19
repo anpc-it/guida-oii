@@ -8,7 +8,7 @@
 #import "../../utils/problems.typ": *
 
 
-== Sum over Subsets DP
+== Sum over Subsets DP <sos_dp>
 
 Consideriamo il seguente problema.
 #problem("Bit Problem", url: "https://cses.fi/problemset/task/1654", lbl: "bit-problem", tags: ("cses",))[

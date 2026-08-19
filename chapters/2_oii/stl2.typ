@@ -9,7 +9,7 @@
 #import "../../utils/ref.typ": crossref
 
 
-== Altre funzionalità della STL
+== Altre funzionalità della STL <stl2>
 
 // TODO: update this link once the book is done
 Le strutture dati introdotte nel #crossref(<stl>, "/chapters/1_terry/stl.typ", [capitolo precedente della STL]) sono tra le più utilizzate, ma la STL offre molte altre funzionalità utili, che presentiamo di seguito.
