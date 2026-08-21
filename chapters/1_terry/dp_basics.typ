@@ -5,6 +5,7 @@
 #show: render
 
 #import "../../utils/problems.typ": *
+#import "../../utils/exercises.typ": exercise
 
 
 == Programmazione dinamica
@@ -18,10 +19,16 @@ Consideriamo il seguente esempio pratico.
 	La Olinfo Srl compra barre di metallo molto lunghe per tagliarle e rivenderne pezzi più corti. Le barre possono essere lunghe un numero intero di metri da $1$ a $N$ e dalla vendita di una barra di $i$ metri si ricavano $p_i$ euro. Effettuare i tagli non ha alcun costo. Aiuta la Olinfo Srl a ricavare il massimo possibile dalla vendita dei pezzi ottenuti da una barra di lunghezza $N$ metri!
 ][
   Complichiamoci apparentemente la vita: rispondiamo non solo per una barra di lunghezza $N$, ma per tutte le possibili lunghezze $L <= N$.
-  Sia allora $"ricavo"(L)$ la risposta al problema per una barra di lunghezza $L$, per esempio $"ricavo"(0) = 0$. Se la Olinfo Srl taglia e vende un pezzo di lunghezza $i$, questa ricava $p_i + "ricavo"(L - i)$ e poiché un pezzo di una qualche lunghezza andrà pur tagliato, per ogni $L >= 1$ vale l'identità
+  Sia allora $"ricavo"(L)$ la risposta al problema per una barra di lunghezza $L$, per esempio $"ricavo"(0) = 0$.
+
+  Se la Olinfo Srl ha una barra lunga $L$, e vende un pezzo di lunghezza $i$, questa ricava $p_i + "ricavo"(L - i)$.
+
+  Prendiamoci un attimo per digerire questa formula: quello che stiamo affermando è che se voglio tagliare un pezzo di lunghezza $i$ dalla barra lunga $L$, allora il massimo possibile ricavo da questa scelta è $p_i$, ovvero il guadagno della scelta stessa, sommato a $"ricavo"(L-i)$, ovvero la soluzione ottimale per una barra lunga $L-i$.
+
+  A questo punto siamo in grado di definire $"ricavo"(L)$: dato che tagliare un pezzo lungo $i$ genera un ricavo di $p_i + "ricavo"(L-i)$, possiamo provare tutti gli $i <= L$ e tenere quello fa guadagnare di più. Formalmente:
   $ "ricavo"(L) = max{p_i + "ricavo"(L - i) | i = 1, dots, L}. $
 
-  Un'implementazione ingenua di questa ricorrenza è lenta ma corretta.
+  Questa è un'implementazione di questa formula, lenta ma corretta:
   ```cpp
   LL ricavo(int L) {
       LL ans = 0;
@@ -33,8 +40,9 @@ Consideriamo il seguente esempio pratico.
 
   La soluzione appena descritta è terribilmente inefficiente: calcoliamo un numero esponenziale in $N$ di volte gli stessi valori. Se una volta ottenuti i valori si memorizzassero, ognuno verrebbe calcolato al più una volta. È quindi naturale salvare le risposte ai sottoproblemi una volta calcolate: questa tecnica è detta #emph[memoizzazione]#footnote[No, non è un errore di battitura. Si chiama _memoizzazione_ non _memorizzazione_.].
 
-  Manteniamo opportuni array o mappe (se ci tieni -- sigh -- globali, ma non è necessario) a indicare (a) se abbiamo già calcolato la risposta per un dato $L$ e (b) qual è questa risposta già calcolata
-  #footnote[Le due informazioni si possono accorpare se a un valore inutilizzato, come in questo caso $-1$, si dà il significato di "risposta non ancora calcolata".].
+  Manteniamo opportuni array o mappe a indicare
+  + se abbiamo già calcolato la risposta per un dato $L$
+  + qual è questa risposta già calcolata #footnote[Le due informazioni si possono accorpare se, a un valore inutilizzato (come $-1$ in questo caso), si dà il significato di "risposta non ancora calcolata".].
   In pratica modifichiamo leggermente l'implementazione della funzione $"ricavo"$.
   ```cpp
   LL ricavo(int L) {
@@ -49,7 +57,7 @@ Consideriamo il seguente esempio pratico.
 
   Un'osservazione tanto semplice ha effetti straordinari sulla complessità, che da esponenziale scende a $cal(O)(N^2)$.
 
-  In questo e altri casi in cui esiste un naturale concetto di "taglia" di un sottoproblema possiamo calcolare le risposte ai vari sottoproblemi in maniera #emph[iterativa]:
+  In questo e altri casi in cui esiste un naturale concetto di "taglia" di un sottoproblema possiamo calcolare le risposte ai vari sottoproblemi anche in maniera _iterativa_:
   ```cpp
   vector<LL> ricavo(N + 1); // inizializzato a zero
   for (int L = 1; L <= N; ++L)
@@ -60,11 +68,10 @@ Consideriamo il seguente esempio pratico.
 
 *Esercizio:* capire perché una chiamata a $"ricavo"(N)$ comporta esattamente $2^(N-1)$ chiamate a $"ricavo(0)"$ e un totale di $2^N$ chiamate a $"ricavo"$.
 
-Facciamo un passo indietro e generalizziamo: più spesso di quanto forse non crederesti la soluzione di un problema si ricava più o meno facilmente da soluzioni per istanze "più piccole" dello stesso problema... che a loro volta si spezzano in istanze più piccole e così via, finché non rimangono istanze banali dette #emph[casi base]. Dai casi base, in maniera iterativa o ricorsiva, si costruiscono le soluzioni ai sottoproblemi che intendiamo risolvere. Nota l'analogia con l'induzione matematica.
+Facciamo un passo indietro e generalizziamo: spesso la soluzione di un problema si ricava più o meno facilmente da soluzioni per istanze "più piccole" dello stesso problema... che a loro volta si spezzano in istanze più piccole e così via, finché non rimangono istanze banali dette #emph[casi base]. Dai casi base, in maniera iterativa o ricorsiva, si costruiscono le soluzioni ai sottoproblemi che intendiamo risolvere. Nota l'analogia con l'induzione matematica.
 
-La programmazione dinamica è un concetto naturale, la sfida è identificare la famiglia di sottoproblemi da risolvere (di cui il problema originale farà parte) e capire come applicarla. Il modo migliore per imparare la programmazione dinamica è vedere qualche esempio e risolvere (da sé) un buon numero di problemi.
+La programmazione dinamica è un concetto naturale, la sfida è identificare la famiglia di sottoproblemi da risolvere (di cui il problema originale farà parte) e capire come applicarla. Il modo migliore per imparare la programmazione dinamica è vedere qualche esempio e risolvere un buon numero di problemi.
 
-*Attenzione!* Nelle sezioni che seguono troverai spiegate le soluzioni di alcuni problemi.
 
 // No: c'è su algobadge
 // == Treni
@@ -123,8 +130,8 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
 ]
 
 // book shop (?), cses
-*Bonus:* più in generale, qual è la risposta se la $i$-esima moneta si può usare un massimo di $m_i$ volte? Si può fare meglio di complessità temporale $cal(O)(N sum_i m_i)$?
-#footnote[La risposta è... non lo so. Sicuramente se tutti gli $m_i$ sono uno in meno di una potenza di due, la risposta è sì.]
+// *Bonus:* più in generale, qual è la risposta se la $i$-esima moneta si può usare un massimo di $m_i$ volte? Si può fare meglio di complessità temporale $cal(O)(N sum_i m_i)$?
+// #footnote[La risposta è... non lo so. Sicuramente se tutti gli $m_i$ sono uno in meno di una potenza di due, la risposta è sì.]
 
 #problem("Massima sottosequenza comune", url: "https://cses.fi/problemset/task/3403", lbl: "lcs", tags: ("cses",))[
   Un'array si dice #emph[sottosequenza] di un altro array se il primo si può ottenere dal secondo eliminando alcuni elementi (possibilmente nessuno) senza cambiare l'ordine degli elementi rimanenti.
@@ -194,24 +201,29 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
 
 === Esercizi consigliati
 
-Innanzitutto ti consigliamo di risolvere i problemi della sezione "dp" su #link("https://training.olinfo.it/algobadge")[algobadge]. Dopodiché, se hai bisogno di altro _classicismo_, proponiamo la sezione "Dynamic Programming" di #link("cses.fi/problemset"). Proponiamo qui sotto problemi più croccanti e di vari livelli di difficoltà (non minori di algobadge).
+Consigliamo innanzitutto di dare un'occhiata ai problemi della sezione "Dynamic Programming" su _CSES_: #link("https://cses.fi/problemset/").
 
-// preoii_treni e ois_nonna stanno già su algobadge:
-// - #link("https://training.olinfo.it/task/preoii_treni")
-// - #link("https://training.olinfo.it/task/ois_nonna")
-- #link("https://training.olinfo.it/task/tai_cct2")
-- #link("https://training.olinfo.it/task/zigzag")
-- #link("https://training.olinfo.it/task/preoii_yutaka")
-- #link("https://training.olinfo.it/task/oii_coda")
-- #link("https://training.olinfo.it/task/oii_bastioni")
-- #link("https://training.olinfo.it/task/oii_orticoltura")
-- #link("https://cses.fi/problemset/task/1665")[Coding Company]
-- #link("https://training.olinfo.it/task/ois_tulips")
-- #link("https://training.olinfo.it/task/preoii_pokemongo")
+Anche _Atcoder_ offre una raccolta di problemi di programmazione dinamica molto valida: #link("https://atcoder.jp/contests/dp").
+
+#v(10pt)
+
+#exercise("Pranzo dalla nonna", "https://training.olinfo.it/task/ois_nonna", diff: 1)
+#exercise("Treni", "https://training.olinfo.it/task/preoii_treni", diff: 2)
+#exercise("ZigZag", "https://training.olinfo.it/task/zigzag", diff: 2)
+#exercise("Sushi variegato", "https://training.olinfo.it/task/preoii_yutaka",diff: 2)
+#exercise("Corsa Contro il Tempo 2", "https://training.olinfo.it/task/tai_cct2", diff: 3)
+#exercise("Episodio III: la coda per il buffet","https://training.olinfo.it/task/oii_coda", diff: 3)
+#exercise("Tulip Bouquets", "https://training.olinfo.it/task/ois_tulips", diff: 3)
+// - #link("https://training.olinfo.it/task/oii_bastioni")
+// - #link("https://training.olinfo.it/task/oii_orticoltura")
+// - #link("https://cses.fi/problemset/task/1665")[Coding Company]
+// - #link("https://training.olinfo.it/task/preoii_pokemongo")
 
 
+/*
 *_Commenti:_* tra quelli elencati, i problemi preferiti della persona che sta scrivendo sono oii_coda e Coding Company, ma anche preoii_yutaka è molto bello. Non tutti i problemi sopra si risolvono pensando esclusivamente in termini di programmazione dinamica. Un esempio: per zigzag e ois_tulips fa comodo avere prima visto #link("https://cses.fi/problemset/task/1645")[Nearest Smaller Values] in $cal(O)(N)$
 #footnote[È una tecnica comune a cui vale la pena pensare. Se siete bloccati per troppo tempo, chiedete e il link da cui imparare vi sarà dato.],
 // #link("https://cp-algorithms.com/data_structures/stack_queue_modification.html")
 che vi apre la piacevolissima strada secondaria di #link("https://cses.fi/problemset/task/1142")[Advertisement] e #link("https://cses.fi/problemset/task/1147")[Maximum Building I]
 #footnote[Se vuoi percorrere questa strada, l'unico indizio che ti diamo è: "pensa molto forte al problema precedente".].
+*/

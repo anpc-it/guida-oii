@@ -5,11 +5,12 @@
 #show: render
 
 #import "../../utils/problems.typ": *
+#import "../../utils/exercises.typ": *
 
 
 == Problemi greedy
 
-Come suggerisce il nome, nei problemi che vedremo tra poco la strategia vincente è comportarsi da avari che in ogni momento prendono per sé quanti più soldi possibile. 
+Come suggerisce il nome, nei problemi che vedremo tra poco la strategia vincente è comportarsi da avari, ovvero in ogni momento scegliere la soluzione localmente ottima.
 Analizziamo ad esempio la seguente situazione:
 
 #problem("Gelati costosi", url: "https://training.olinfo.it/task/pre-egoi-gelato", lbl: "gelati-costosi")[
@@ -40,8 +41,8 @@ Analizziamo ad esempio la seguente situazione:
 Un possibile criterio che ci suggerisce che il problema si possa risolvere in modo greedy è che le scelte che facciamo siano indipendenti tra loro. 
 In questo caso chiedere ad un amico non pone vincoli sugli amici ai quali potremo chiedere successivamente.
 
-Il miglior metro per capire se in un problema si possa applicare un approccio greedy è però l'esperienza. 
-Vediamo quindi un altro problema.
+Ad ogni modo, il miglior metro per capire se in un problema si possa applicare un approccio greedy è però l'esperienza.
+Vediamo quindi altri problemi:
 
 #problem("Viaggio in taxi", url: "https://training.olinfo.it/task/ois_taxi", lbl: "viaggio-in-taxi", tags: ("ois", "2014-15"))[
     Dobbiamo passare per $N$ città in fila (numerate da $0$ a $N - 1$), equidistanti tra loro, ed arrivare alla fine nella città numero $N$. 
@@ -71,8 +72,6 @@ Vediamo quindi un altro problema.
   ```
 ]
 
-Consideriamo ora questo problema:
-
 #problem("Mozzarelle di bufala", url: "https://training.olinfo.it/task/oii_bufale", lbl: "mozzarelle-di-bufala", tags: ("oii", "2013"))[
     Ci sono $N$ mozzarelle ($N$ è un numero pari). 
     Alla $i$-esima mozzarella Monica dà il voto $M_i$ e Paola il voto $P_i$. 
@@ -88,8 +87,7 @@ Consideriamo ora questo problema:
 
   Per fare ciò ordiniamo le mozzarelle per la differenza tra il voto che dà Monica e quello che dà Paola.
 
-  Diciamo che $D_i = M_i - P_i$, allora le mozzarelle con $D_i$ alto sono più buone per Monica che per Paola e viceversa, se $D_i$ è piccolo sarà più conveniente darle a Paola.
-
+  Diciamo che $D_i = M_i - P_i$, allora le mozzarelle con $D_i$ alto sono più buone per Monica che per Paola e viceversa, se $D_i$ è piccolo sarà più conveniente darle a Paola. Questa soluzione si rivela essere ottimale.
   ```cpp
   long long solve(int N, int* M, int* P) {
       vector<pair<int, int>> D(N);
@@ -115,5 +113,12 @@ Consideriamo ora questo problema:
 
   - $D$ contiene anche l'indice cui la differenza si riferisce in modo da poter risalire alla mozzarella una volta ordinate le differenze.
   - $D$ è ordinato in ordine crescente quindi le prime mozzarelle saranno quelle con $D_i$ più basso, da assegnare a Paola.
-  - Sarebbe possibile risolvere il problema in tempo lineare trovando la $N/2$-esima differenza con l'algoritmo `nth-element` della STL per trovare il valore della differenza secondo cui dividere le mozzarelle. Questa soluzione è lasciata come esercizio.
+  - Fun fact: Sarebbe possibile risolvere il problema in $cal(O)(N)$ trovando la $N/2$-esima differenza con l'algoritmo `nth-element` della STL per trovare il valore della differenza secondo cui dividere le mozzarelle.
 ]
+
+I problemi greedy possono apparire semplici, tuttavia in certi casi trovare la strategia localmente ottima non è per nulla triviale (vedi gli esercizi suggeriti).
+
+=== Problemi consigliati
+#exercise("Bus Excursion", "https://training.olinfo.it/task/ois_excursion2", diff: 1)
+#exercise("Library of Binaria", "https://training.olinfo.it/task/ois_binaria", diff: 2)
+#exercise("Il pozzo", "https://training.olinfo.it/task/pozzo", diff: 3)

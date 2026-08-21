@@ -1,5 +1,6 @@
 #import "/templates/page.typ": project
 #import "/utils/render.typ": is-web
+#import "/utils/exercises.typ": exercise
 
 #let render = if is-web { project.with(title: "Standard Template Library (STL)") } else { it => it }
 #show: render
@@ -330,172 +331,12 @@ string s;
 getline(cin, s);
 ```
 
+=== Problemi consigliati
 
-/*
-A volte possiamo combinare due strutture dati per ottenere una struttura dati più potente. Consideriamo il seguente esempio.
+#exercise("Tieni aggiornato il catalogo", "https://training.olinfo.it/task/catalogo", diff: 1)
+#exercise("Soste in autostrada", "https://training.olinfo.it/task/autogrill", diff: 1)
+#exercise("Quantum Brackets", "https://training.olinfo.it/task/ois_brackets", diff: 2)
 
-#problem("Sorting Queries", url: "https://atcoder.jp/contests/abc217/tasks/abc217_e", lbl: "sorting-queries",
-[
-  Dato un array inizialmente vuoto $A$, supporta $Q$ query dei seguenti tipi:
-  - `1 x`: inserisci $x$ alla fine di $A$;
-  - `2`: stampa l'elemento all'inizio di $A$, e cancellalo;
-  - `3`: ordina $A$ in ordine crescente.
-  
-  $Q <= 2 dot 10^5$, $0 <= x <= 10^9$.
-]
-)
-
-Partiamo da un problema più semplice: cosa succede se ogni volta che inseriamo un elemento subito dopo ordiniamo $A$ in ordine crescente? In quel caso, le operazioni diventerebbero:
-
-- `1+3 x`: inserisci $x$ in $A$, mantenendolo ordinato;
-- `2`: stampa il minimo di $A$, e cancellalo.
-
-...per cui basterebbe usare un set. Anzi, poiché dobbiamo supportare rimozioni solo dell'elemento minimo, anche solo una coda di priorità.
-
-Tuttavia nel problema iniziale abbiamo un prefisso crescente di elementi seguito da alcuni elementi "in coda", i quali attendono una query di tipo `3` per entrare nel prefisso crescente. Idea! Possiamo spezzare $A$ in un prefisso gestito con una coda di priorità, e un suffisso gestito con una coda.
-
-In particolare le operazioni diventano:
-
-- `1 x`: inserisci $x$ alla fine della queue;
-- `2`: se la coda di priorità non è vuota, stampa l'elemento minimo nella priority queue e cancellalo, altrimenti stampa l'elemento all'inizio della queue e cancellalo;
-- `3`: rimuovi tutti gli elementi dalla queue e travasali nella coda di priorità.
-
-Le query di tipo `3` possono sembrare lente (dopo tutto una singola query potrebbe richiedere $cal(Theta)(Q log Q)$, se la queue contiene $cal(Theta)(Q)$ elementi). Tuttavia ogni elemento viene versato al più una volta nella coda di priorità, indi per cui le query di tipo `3` richiedono _complessivamente_ $cal(O)(Q log Q)$, che va bene.
-*/
-// rivisto fino a qui
-
-// Nel seguente problema, vedremo un esempio di programmazione dinamica ottimizzata con una coda di priorità.
-// 
-// #problem("Learning to Paint", url: "https://codeforces.com/problemset/problem/1942/D", lbl: "learning-to-paint",
-// [
-//   Vuoi colorare alcune caselle in una striscia di $N$ caselle. In questo modo si formano alcuni blocchi massimali colorati $[L_i, R_i]$. Per ognuno di questi blocchi, il tuo punteggio aumenta di $A[L_i][R_i]$. Quali sono i $K$ massimi punteggi che puoi ottenere? (Non sono necessariamente distinti) 
-// 
-//   $N <= 10^3$, $K <= min(2^N, 5 dot 10^3)$, $-10^6 <= A[i][j] <= 10^6$
-// ]
-// )
-// 
-// Partiamo nuovamente da un problema più semplice: trovare solo il massimo punteggio ($K = 1$). In questo caso è sufficiente calcolare $"dp"[i] =$ massimo punteggio colorando solo le caselle fino a $i$. Per ogni $i$, abbiamo due casi:
-// 
-// - non colorare $i$ (punteggio $"dp"[i-1]$);
-// - colorare $i$: in quel caso, scegliamo anche l'estremo $j$ del blocco a cui appartiene $i$ (punteggio $"dp"[j-2] + A[j][i]$).
-// 
-// Dato che per ogni $i$ proviamo $cal(O)(N)$ valori di $j$, impieghiamo $cal(O)(N^2)$ in tutto.
-// 
-// Adesso vogliamo risolvere il problema per $K$ generico. Possiamo iniziare salvando $"dp"[i]$ un vector contenente i $K$ massimi punteggi (ordinati in ordine decrescente) che possiamo ottenere colorando solo le caselle fino a $i$. Purtroppo, se per ogni $i$ iteriamo su $j < i$ e scorriamo tutto il vector $"dp"[j-2]$, impieghiamo almeno $cal(O)(N K)$ per ogni $i$, e almeno $cal(O)(N^2K)$ in tutto.
-// 
-// Notiamo che la maggior parte degli elementi dei vector $"dp"[j]$ sono inutili: ci basta trovare i $K$ elementi con $"dp"[j-2]["pos"] + A[j][i]$ massimo. In particolare, il massimo dovrà avere $"pos" = 0$ (perché i $"dp"[j-2]$ sono ordinati in ordine decrescente). Quindi inizialmente i candidati massimi sono quelli con $"pos" = 0$ (che sono solo $cal(O)(N)$); poi, se $"dp"[j-2][0] + A[j][i]$ è un massimo, sblocchiamo il candidato $"dp"[j-2][1] + A[j][i]$.
-// 
-// Quindi in ogni momento abbiamo $N$ candidati, e dobbiamo trovare il massimo, e in base alla sua posizione aggiungere un nuovo candidato, cioè quello con $"pos"$ successiva. Tutto questo può essere fatto con una priority queue.
-// 
-// Per ogni $i$, inseriamo $cal(O)(N+K)$ elementi nella priority queue, impiegando $cal(O)((N+K) log N)$. Quindi la soluzione è $cal(O)(N(N+K) log N)$.
-// 
-// Ecco un'implementazione. Nota che
-// 
-// - se inizializziamo $A[i+1][i] = 0$, non ci serve gestire i casi "non coloriamo $i$" e "coloriamo $i$" separatamente;
-// - per comodità, vogliamo accedere a $"dp"[-1]$, e possiamo farlo usando questo trucco: https://codeforces.com/blog/entry/70472
-// 
-// ```cpp
-//     int n, k; cin >> n >> k;
-//     vector a(n + 2, vector<int>(n + 2, 0));
-//     for (int i = 1; i <= n; i++) {
-//         for (int j = i; j <= n; j++) {
-//             cin >> a[i][j];
-//         }
-//     }
-// 
-//     vector<vector<int>> DP(n + 2);
-//     auto dp = [&](int x) -> vector<int>& {
-//         return DP[x + 1];
-//     };
-// 
-//     dp(-1).push_back(0);
-//     for (int i = 0; i <= n; i++) {
-//         priority_queue<array<int, 3>> pq;
-//         for (int j = 1; j <= i + 1; j++) {
-//             pq.push({dp(j - 2).front() + a[j][i], j, 0});
-//         }
-//         while (!pq.empty() && dp(i).size() < k){
-//             auto [val, j, pos] = pq.top(); pq.pop();
-//             dp(i).push_back(val); pos++;
-//             if (pos < dp(j - 2).size()) {
-//                 pq.push({dp(j - 2)[pos] + a[j][i], j, pos});
-//             }
-//         }
-//     }
-// 
-//     for (auto u : dp(n)) cout << u << ' ';
-//     cout << nl;
-// ```
-// 
-// === Stack e nearest smaller element
-// 
-// #problem("Heavy Intervals", url: "https://codeforces.com/problemset/problem/1909/C", lbl: "heavy-intervals",
-// [
-//   Dati $N$ intervalli $[L_i, R_i]$ con costo $C_i$ per unità di lunghezza, puoi permutare gli $L_i$ tra loro, puoi permutare gli $R_i$ tra loro, e puoi permutare i $C_i$ tra loro. Alla fine vuoi ottenere intervalli validi (con $L_i <= R_i$) minimizzando il costo totale $sum C_i (R_i - L_i)$.
-// 
-//   $N <= 10^5$, $1 <= L_i <= R_i <= 2 dot 10^5$, $1 <= C_i <= 10^7$
-// ]
-// )
-// 
-// Intuitivamente, conviene assegnare $C_i$ più piccoli a intervalli più corti. Inoltre, più sono "sbilanciate" le lunghezze, più diminuisce il costo. Quindi possiamo iterare sugli estremi degli intervalli in ordine crescente di posizione, e ogni volta che troviamo un estremo destro lo accoppiamo con l'estremo sinistro più vicino.
-// 
-// *Esercizio*: dimostra la correttezza di quanto appena enunciato.
-// 
-// L'idea sopra può essere simulata facilmente con un set, ma in realtà in questo caso è sufficiente usare uno stack che contiene gli estremi sinistri non ancora accoppiati.
-// 
-// - Quando troviamo un estremo destro, lo accoppiamo con l'elemento in cima allo stack, che rimuoviamo dallo stack;
-// - quando troviamo un estremo sinistro, lo inseriamo in cima allo stack.
-// 
-// In pratica, invece dello stack possiamo usare un vector (che supporta tutte le operazioni di uno stack, con la stessa complessità).
-// 
-// ```cpp
-//     int n; cin >> n;
-//     vector<array<int, 2>> eventi;
-//     vector<int> c(n, 0);
-//     for (int i = 1; i <= n; i++) {
-//         int l; cin >> l; eventi.push_back({l, 0});
-//     }
-//     for (int i = 1; i <= n; i++) {
-//         int r; cin >> r; eventi.push_back({r, 1});
-//     }
-//     for (int i = 0; i < n; i++) cin >> c[i];
-// 
-//     sort(eventi.begin(), eventi.end());
-//     sort(c.begin(), c.end());
-// 
-//     vector<int> st, lunghezze;
-//     for (auto [pos, tipo] : eventi) {
-//         if (tipo == 0) {
-//             st.push_back(pos);
-//         } else {
-//             lunghezze.push_back(pos - st.back());
-//             st.pop_back();
-//         }
-//     }
-// 
-//     sort(lunghezze.rbegin(), lunghezze.rend());
-//     LL ans = 0;
-//     for (int i = 0; i < n; i++) ans += (LL)lunghezze[i] * c[i];
-//     cout << ans << "\n";
-// ```
-// 
-// #problem("Advertisement", url: "https://cses.fi/problemset/task/1142", lbl: "advertisement",
-// [
-//   Una recinzione è costituita da $N$ blocchi verticali. La larghezza di ciascun blocco è $1$ e l'altezza dell'$i$-esimo blocco è $A_i$.
-//   Vuoi fissare un cartellone pubblicitario rettangolare (con i lati paralleli a quelli dei blocchi) alla recinzione. Qual è l'area massima che può avere il cartellone?
-// 
-//   $N <= 2 dot 10^5, 1 <= A_i <= 10^9$
-// ]
-// )
-// 
-// Il lato superiore del cartellone deve toccare uno dei bordi dei blocchi (altrimenti possiamo estendere il cartellone). Dato che abbiamo $N$ blocchi, una possibile idea è provarli tutti. Cosa succede se il cartellone tocca il bordo superiore dell'$i$-esimo blocco?
-// 
-// Possiamo estendere il cartellone a destra e a sinistra, finché non incontriamo un blocco di lunghezza $< A_i$. Quindi dobbiamo trovare, per ogni $i$, i valori $< A_i$ più vicini a $i$, alla sua sinistra e alla sua destra. Questo è un problema standard che si può risolvere in vari modi.
-// 
-// - Possiamo usare un set che contiene gli indici dei valori più piccoli. Iteriamo sugli $A_i$ in ordine crescente di valore, inserendo la posizione $i$ nel set; nel frattempo, possiamo controllare l'elemento subito dopo $i$ nel set, che corrisponde alla posizione dell'elemento $< A_i$ più vicino a $i$ alla sua destra.
-// - Possiamo ottenere una soluzione ancora più efficiente usando uno stack, come illustrato qui: #link("https://cp-algorithms.com/data_structures/stack_queue_modification.html")
-// 
-// === Problemi consigliati
 // 
 // Se hai bisogno di _classicismo_, proponiamo la sezione "Sorting and Searching" di #link("cses.fi/problemset"). Proponiamo qui sotto problemi più croccanti e di vari livelli di difficoltà (non minori di algobadge)
 // #footnote[Se hai già visto tutti gli esercizi consigliati, probabilmente questa lezione non fa per te.]. In fondo alla pagina riportiamo un hint per ogni problema.

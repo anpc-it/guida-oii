@@ -188,13 +188,6 @@ Dato che `long long` è più lungo da scrivere, possiamo definire un _alias_ all
 // disclaimer
 //Prima di salutarci, sappi che tante scelte convenienti quando si fa programmazione competitiva sono da evitare, per mille motivi, in altri ambiti#footnote[Vedi il punto 7 di #link("https://www.comp.nus.edu.sg/~stevenha/cs3233.html").]. Al prossimo capitolo.
 
-=== Problemi consigliati
-
-#exercise("Trova il massimo", "https://training.olinfo.it/task/massimo", diff: 1)
-#exercise("Filmati e canzoni", "https://training.olinfo.it/task/terry/download", diff: 1)
-#exercise("Biglietti a Milano", "https://training.olinfo.it/task/ois_biglietti", diff: 2)
-#exercise("Late for work", "https://training.olinfo.it/task/ois_time", diff: 2)
-
 === Una nota per la programmazione competitiva
 
 Quando gareggi hai tempo limitato per scrivere le tue soluzioni. Per questo motivo è comune adottare strategie per rendere più fluida la scrittura del codice ed eventualmente ridurre il numero di caratteri necessari a esprimere lo stesso concetto. Considera il seguente esempio.
@@ -219,3 +212,11 @@ int main() {
 
 In questo esempio non è importante comprendere il codice riga per riga; ciò che conta è il concetto:
 quando si gareggia, spesso conviene abbandonare le "buone pratiche" insegnate a lezione per favorire un'implementazione più rapida ed efficiente.
+
+=== Problemi consigliati
+
+#exercise("Trova il massimo", "https://training.olinfo.it/task/massimo", diff: 1)
+#exercise("Filmati e canzoni", "https://training.olinfo.it/task/terry/download", diff: 1)
+#exercise("Biglietti a Milano", "https://training.olinfo.it/task/ois_biglietti", diff: 2)
+#exercise("Late for work", "https://training.olinfo.it/task/ois_time", diff: 2)
+#exercise("Dangerous Parkour", "https://training.olinfo.it/task/ois_parkour", diff: 3)

@@ -62,7 +62,7 @@ Molti problemi algoritmici si possono formulare in termini di _grafi_. Chiamiamo
 
 In generale possiamo modellare con un grafo un insieme di entità (dette *nodi*) tra le quali sussistono relazioni di qualche tipo (dette *archi*). 
 
-Sono grafi gli incroci di una città collegati dalle strade, gli esami necessari per laurearsi e le dipendenze del tipo "l'esame $a$ va dato prima dell'esame $b$", l'insieme dei vostri amici e le relazioni di amicizia tra di loro e tanti altri oggetti. 
+Sono esempi di grafi gli incroci di una città collegati dalle strade, gli esami necessari per laurearsi e le dipendenze del tipo "l'esame $a$ va dato prima dell'esame $b$", l'insieme dei vostri amici e le relazioni di amicizia tra di loro e tanti altri oggetti.
 
 Formalmente, un grafo $G$ è una coppia $(V, E)$ dove $V$ è un insieme di _nodi_ (o _vertici_) e $E$ è un (multi)insieme di _archi_, cioè coppie di nodi. 
 Un arco può essere diretto, cioè una strada a senso unico, o non diretto, cioè una strada a doppio senso. Archi diretti e non diretti corrispondono a coppie ordinate e non ordinate.
@@ -631,4 +631,3 @@ L'albero risultante da questo altro algoritmo è lo stesso di Prim ma non è sem
 La garanzia che abbiamo è che entrambi producano un albero ricoprente il cui peso è minimo tra tutti i possibili alberi ricoprenti.
 
 // TODO: === Ordinamento topologico (direi nella sezione OII non terry)
-

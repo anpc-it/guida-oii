@@ -6,6 +6,7 @@
 
 #import "../../utils/tdtr.typ": *
 #import "../../utils/problems.typ": *
+#import "../../utils/exercises.typ": exercise
 #import "../../utils/ref.typ": crossref
 
 == Ricorsione e ricerca completa
@@ -50,7 +51,7 @@ int fib(int n) {
 
 In questo caso però la complessità non è più lineare in $n$ ma esponenziale#footnote[Vedremo in un capitolo successivo come rendere questa funzione lineare in $n$.].
 
-Ci sono casi in cui la ricerca completa è l'unico modo per risolvere un problema: un esempio è stampare tutti gli array di lunghezza $n$ composti da soli numeri (eventualmente anche ripetuti) da $1$ a $k$.
+Ci sono casi in cui la ricerca completa è l'unico modo per risolvere un problema: un esempio è stampare tutti i possibili array di lunghezza $n$ composti da numeri compresi tra $1$ a $k$ (eventualmente anche ripetuti).
 
 #grid(
   columns: (2fr, 1fr),
@@ -89,8 +90,8 @@ Ci sono casi in cui la ricerca completa è l'unico modo per risolvere un problem
 L'output mostrato a fianco è l'output della chiamata `rec(3, 2, {})`;
 Il vettore $V$ passato tra i parametri è un vettore di appoggio che riempiremo con le varie chiamate (notare che, con qualche accorgimento, è possibile passare $V$ per riferimento per non crearne una copia a ogni chiamata).
 
-Se $V$ è grande $n$ abbiamo finito.
-Diversamente vogliamo mettere uno alla volta tutti i possibili valori alla fine di $V$ ricorrendo poi sulla restante parte dell'array.
+Se $V$ ha $n$ elementi, abbiamo finito e possiamo stampare il contenuto del vettore.
+Altrimenti vogliamo mettere uno alla volta tutti i possibili valori alla fine di $V$ ricorrendo poi sulla restante parte dell'array.
 Per rendere più chiaro lo schema delle chiamate ricorsive è possibile farne una rappresentazione ad albero in cui ogni nodo è una chiamata e ogni foglia contiene uno dei possibili array generati.
 Per semplicità sono omessi i parametri $n$ e $k$ nelle chiamate successive alla prima. 
 
@@ -174,8 +175,6 @@ Notiamo che gli array vengono generati in ordine lessicografico se i valori veng
   ```
 ]
 
-Si lascia come esercizio il problema #link("https://training.olinfo.it/task/ois_solitario")
-
 Un altro esempio classico di problema che si risolve ricorsivamente è quello della torre di Hanoi.
 
 #problem("Tower of Hanoi", url: "https://cses.fi/problemset/task/2165/", lbl: "tower-of-hanoi", tags: ("cses",))[
@@ -208,3 +207,8 @@ Un altro esempio classico di problema che si risolve ricorsivamente è quello de
   La chiamata `hanoi(N, 1, 3)` risolve il problema.
   Per individuare la pila di appoggio viene usata la formula $6 - "from" - "to"$.
 ]
+
+=== Problemi consigliati
+
+#exercise("Tris in solitaria", "https://training.olinfo.it/task/ois_solitario", diff: 2)
+#exercise("Tris in solitaria 2", "https://training.olinfo.it/task/solitario2", diff: 3)

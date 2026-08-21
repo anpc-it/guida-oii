@@ -1,5 +1,6 @@
 #import "/templates/page.typ": project
 #import "/utils/render.typ": is-web
+#import "/utils/ref.typ": crossref
 
 #let render = if is-web { project.with(title: "Complessità computazionale") } else { it => it }
 #show: render
@@ -9,22 +10,44 @@
 
 == Complessità computazionale <complexity>
 
-Dati due algoritmi che risolvono lo stesso problema, siamo interessati a capire quale dei due sia il migliore in base alle nostre necessità. Poiché il nostro algoritmo deve risolvere il problema in un dato tempo, vogliamo quantificarne l'_efficienza_.
+In questo capitolo parleremo di complessità computazionale, ovvero un modo per misurare approssimativamente quante operazioni vengono eseguite dal nostro programma al variare della dimensione dell'input. Come abbiamo visto nel #crossref(<olympiads>, "/chapters/0_introduzione/olympiads.typ", "capitolo introduttivo delle olimpiadi"), i problemi hanno spesso un limite di tempo (e di memoria) da rispettare. Risulta quindi molto utile essere in grado di confrontare due programmi, stimare qual è più veloce e quante operazioni verranno svolte.
 
-È ragionevole assumere il tempo impiegato sia proporzionale al numero di operazioni eseguite. Il fattore di proporzionalità cambia da macchina a macchina, per questo conviene dare una stima _asintotica_ del numero di operazioni. In altre parole, analizziamo come cresce il numero di operazioni al crescere della dimensione dell'input, ignorando fattori costanti.
-#footnote[Classicamente questa si esprime in numero di bit. Nei nostri casi cosa intendiamo sarà chiaro dal contesto.]
+Introduciamo un po' di notazione: con $cal(O)(g(n))$ indichiamo che il numero di operazioni è limitato superiormente da una quantità proporzionale a $g(n)$, quando $n$ diventa grande. Nota che $g(n)$ non indica il numero esatto di operazioni, ma dà una stima di quanto velocemente può crescere il numero di operazioni al variare di $n$.
 
-Sia $g(n)$ il massimo numero di operazioni di un dato algoritmo al variare degli input di dimensione $n$. Se $g(n)$ cresce non più velocemente di $n^2$, si dice che "$g$ è O grande di $n^2$", scritto $g(n) in cal(O)(n^2)$ o con un abuso di notazione $g(n) = cal(O)(n^2)$.//#footnote[Formalmente, data $f : NN -> NN$ si definisce la classe di funzioni
+Per esempio, per un algoritmo che esegue $3 n + 17$ operazioni usiamo $g(n) = n$, e quindi $cal(O)(n)$: il $3$ è un fattore costante e il $17$ è un termine costante. Entrambi cambiano il numero esatto di operazioni, ma non il modo in cui questo numero cresce. Questa descrizione viene chiamata *complessità computazionale* o *complessità asintotica*. #footnote[Classicamente questa si esprime in numero di bit. Nei nostri casi cosa intendiamo sarà chiaro dal contesto.]
+
+Ad esempio:
+- $cal(O)(1)$: il numero di operazioni è indipendente da $n$. Per esempio, leggere il primo elemento di un vettore ha complessità $cal(O)(1)$.
+- $cal(O)(n)$: il numero di operazioni cresce linearmente rispetto al numero di elementi. Per esempio, invertire un vettore ha complessità $cal(O)(n)$ perché ci sono $n$ elementi da spostare.
+- $cal(O)(n^2)$: il numero di operazioni cresce come $n^2$. Per esempio, confrontare ogni elemento di un vettore con tutti gli altri richiede circa $n^2$ operazioni.
+
+Nota che consideriamo sempre il massimo numero possibile di operazioni perché due input della stessa dimensione possono richiedere quantità diverse di lavoro. Ad esempio, supponiamo di avere un algoritmo che ha complessità $cal(O)(n^2)$ solo quando $n$ è multiplo di $10$, altrimenti per tutti gli altri casi $cal(O)(n)$: diremo comunque che l'algoritmo ha complessità $cal(O)(n^2)$.
+
+Per correttezza, forniamo una definizione più formale di complessità computazionale (facoltativa, ma interessante e utile per comprendere meglio l'argomento):
+=== Definizione formale
+
+Sia $g(n)$ il massimo numero di operazioni di un algoritmo sugli input di dimensione $n$.
+
+Dire che $g(n) in cal(O)(f(n))$ significa che il rapporto tra $g(n)$ e $f(n)$ rimane limitato quando $n$ diventa molto grande. Supponiamo che $f(n)$ sia positiva per $n$ sufficientemente grande. Formalmente,
+
+$ limsup_(n -> infinity) frac(g(n), f(n)) < infinity. $
+
+Nota come secondo questa definizione è corretto affermare che $n^2 in cal(O)(n^3)$, perché
+
+$ lim_(n -> infinity) frac(n^2, n^3) = 0. $
+
+In generale, tra più limiti superiori corretti si preferisce quello più piccolo e più preciso.
+
+Per esempio, $n$, $n + 4$ e $3 n + 17$ appartengono tutte alla classe $cal(O)(n)$. Anche $42 + (-1)^n$ appartiene a $cal(O)(n)$, ma appartiene anche a $cal(O)(1)$, perché vale sempre $41$ oppure $43$.
+
+//#footnote[Formalmente, data $f : NN -> NN$ si definisce la classe di funzioni
 //$ cal(O)(f(n)) = { g: NN -> NN | exists n_0, c in NN thick "tali che" thick forall n >= n_0 thick g(n) <= c f(n) }. $]
-// 
-
-Formalmente, una funzione $g(n)$ si dice $cal(O)(f(n))$ se esistono due costanti $c$ e $n_0$ tali che $g(n) < c dot f(n)$ per tutti gli $n > n_0$.
-
-Per esempio le funzioni che a $n$ associano rispettivamente $n$, $n + 4$, $3 n + 17$ e $42 + (-1)^n$ appartengono tutte alla classe $cal(O)(n)$, ma di queste solo $42 + (-1)^n$ appartiene a $cal(O)(1)$.
+//
 
 //Per completezza definiamo anche le classi $Omega(f(n))$ e $Theta(f(n))$ ponendo $g in Omega(f(n))$ sse $f in cal(O)(g(n))$ e $g in Theta(f(n))$ sse allo stesso tempo $g in cal(O)(f(n))$ e $g in Omega(f(n))$.
 
-Facciamo degli esempi. Dato un array di $n$ interi $a_0, a_1, ..., a_(n - 1)$, consideriamo il problema di trovare la massima somma di un sottoarray#footnote[Ricorda che un sottoarray di un array $a = [a_0, ..., a_(n - 1)]$ è un'array del tipo $[a_l, ..., a_r]$ per qualche scelta di $0 <= l <= r < n$.] (anche vuoto) di $a$.
+=== Esempi
+Dato un array di $n$ interi $a_0, a_1, ..., a_(n - 1)$, consideriamo il problema di trovare la massima somma di un sottoarray#footnote[Ricorda che un sottoarray di un array $a = [a_0, ..., a_(n - 1)]$ è un'array del tipo $[a_l, ..., a_r]$ per qualche scelta di $0 <= l <= r < n$.] (anche vuoto) di $a$.
 
 #grid(
   columns: (1fr, 1fr),
@@ -110,7 +133,7 @@ Determina per esercizio la complessità dei seguenti pezzi di codice.
   ]
 )
 
-=== Esempi notevoli
+=== Ultimi consigli e casi notevoli
 
 Spesso ci si trova a dover stimare la complessità di un algoritmo in situazioni in cui la struttura di alcuni cicli rende non evidente quanto il numero di iterazioni cresca velocemente.
 Ecco alcuni dei casi più comuni:
@@ -127,9 +150,9 @@ for (int i = 1; i <= N; i++) {
 }
 ```
 
-- Iterare $sum_(p <= N, p "primo")(N / p)$ dove $p$ è un primo è $cal(O)(N log log N)$, che nella pratica è quasi lineare dal momento che $log log 10^9 approx 3$.
+//- Iterare $sum_(p <= N, p "primo")(N / p)$ dove $p$ è un primo è $cal(O)(N log log N)$, che nella pratica è quasi lineare dal momento che $log log 10^9 approx 3$.
 
-- Altri fatti utili da conoscere sono che il numero di fattori primi di un numero è $cal(O)(log N)$ e che il numero di primi è $cal(O)(N / (ln N))$.
+- Altri fatti utili da conoscere sono che il numero di fattori primi di un numero è $cal(O)(log N)$ e che il numero di primi minori di $N$ è $cal(O)(N / (ln N))$.
 
 In generale puoi tenere a mente la tabella che segue come riferimento per la complessità target data la grandezza di $N$.
 
