@@ -30,9 +30,9 @@ Consideriamo il seguente esempio pratico.
 
   Questa è un'implementazione di questa formula, lenta ma corretta:
   ```cpp
-  LL ricavo(int L) {
-      LL ans = 0;
-      for (int i = 1; i <= L; ++i)
+  ll ricavo(int L) {
+      ll ans = 0;
+      for (int i = 1; i <= L; i++)
           ans = max(ans, p[i] + ricavo(L - i));
       return ans;
   }
@@ -45,11 +45,11 @@ Consideriamo il seguente esempio pratico.
   + qual è questa risposta già calcolata #footnote[Le due informazioni si possono accorpare se, a un valore inutilizzato (come $-1$ in questo caso), si dà il significato di "risposta non ancora calcolata".].
   In pratica modifichiamo leggermente l'implementazione della funzione $"ricavo"$.
   ```cpp
-  LL ricavo(int L) {
+  ll ricavo(int L) {
       if (memo[L] != -1)
           return memo[L];
-      LL ans = 0;
-      for (int i = 1; i <= L; ++i)
+      ll ans = 0;
+      for (int i = 1; i <= L; i++)
           ans = max(ans, p[i] + ricavo(L - i));
       return memo[L] = ans;
   }
@@ -59,9 +59,9 @@ Consideriamo il seguente esempio pratico.
 
   In questo e altri casi in cui esiste un naturale concetto di "taglia" di un sottoproblema possiamo calcolare le risposte ai vari sottoproblemi anche in maniera _iterativa_:
   ```cpp
-  vector<LL> ricavo(N + 1); // inizializzato a zero
-  for (int L = 1; L <= N; ++L)
-      for (int i = 1; i <= L; ++i)
+  vector<ll> ricavo(N + 1); // inizializzato a zero
+  for (int L = 1; L <= N; L++)
+      for (int i = 1; i <= L; i++)
           ricavo[L] = max(ricavo[L], p[i] + ricavo[L - i]);
   ```
 ]
@@ -105,8 +105,8 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
   ```cpp
   vector<int> conta(x + 1);
   conta[0] = 1;
-  for (int y = 1; y <= x; ++y)
-      for (int i = 0; i < n; ++i)
+  for (int y = 1; y <= x; y++)
+      for (int i = 0; i < n; i++)
           if (y >= c[i])
               conta[y] = (conta[y] + conta[y - c[i]]) % mod;
   ```
@@ -121,8 +121,8 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
   ```cpp
   vector<int> conta(X + 1);
   conta[0] = 1;
-  for (int i = 0; i < N; ++i)
-      for (int y = c[i]; y <= X; ++y)
+  for (int i = 0; i < N; i++)
+      for (int y = c[i]; y <= X; y++)
           conta[y] = (conta[y] + conta[y - c[i]]) % mod;
   ```
 
@@ -153,8 +153,8 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
   Una possibile implementazione è la seguente:
   ```cpp
   vector<vector<int>> lcs(n + 1, vector<int>(m + 1));
-  for (int i = 1; i <= n; ++i) {
-      for (int j = 1; j <= m; ++j) {
+  for (int i = 1; i <= n; i++) {
+      for (int j = 1; j <= m; j++) {
           if (a[i] == b[j])
               lcs[i][j] = 1 + lcs[i - 1][j - 1];
           else
@@ -180,7 +180,7 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
       }
   }
   reverse(begin(ans), end(ans));
-  for (int i = 0; i < lcs[n][m]; ++i)
+  for (int i = 0; i < lcs[n][m]; i++)
       cout << ans[i] << " \n"[i == lcs[n][m] - 1];
   ```
 ]

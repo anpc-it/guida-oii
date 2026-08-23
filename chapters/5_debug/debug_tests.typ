@@ -142,7 +142,8 @@ Codice con nome del file:
 using namespace std;
 
 int main() {
-    int n; cin >> n;
+    int n;
+    cin >> n;
     vector<int> a(n);
     for (int &x : a) cin >> x;
     sort(a.begin(), a.end());
@@ -245,4 +246,3 @@ for (int i = 0; i < n; i++)
 === Note a piè di pagina
 
 Un testo con una nota#footnote[Questa è una nota a piè di pagina, con $cal(O)(1)$ incluso.].
-

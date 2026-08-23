@@ -58,11 +58,11 @@ Dato un array di $n$ interi $a_0, a_1, ..., a_(n - 1)$, consideriamo il problema
   ],
   [
     ```cpp
-    LL ans = 0;
-    for (int i = 0; i < n; ++i) {
-        for (int j = i; j < n; ++j) {
-            LL sum = 0;
-            for (int k = i; k <= j; ++k)
+    ll ans = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = i; j < n; j++) {
+            ll sum = 0;
+            for (int k = i; k <= j; k++)
                 sum += a[k];
             ans = max(ans, sum);
         }
@@ -74,10 +74,10 @@ Dato un array di $n$ interi $a_0, a_1, ..., a_(n - 1)$, consideriamo il problema
   ],
   [
     ```cpp
-    LL ans = 0;
-    for (int i = 0; i < n; ++i) {
-        LL sum = 0;
-        for (int j = i; j < n; ++j) {
+    ll ans = 0;
+    for (int i = 0; i < n; i++) {
+        ll sum = 0;
+        for (int j = i; j < n; j++) {
             sum += a[j];
             ans = max(ans, sum);
         }
@@ -89,9 +89,9 @@ Dato un array di $n$ interi $a_0, a_1, ..., a_(n - 1)$, consideriamo il problema
   ],
   [
     ```cpp
-    LL ans = 0;
-    LL prf = 0, min_prf = 0;
-    for (int i = 0; i < n; ++i) {
+    ll ans = 0;
+    ll prf = 0, min_prf = 0;
+    for (int i = 0; i < n; i++) {
         prf += a[i];
         min_prf = min(min_prf, prf);
         ans = max(ans, prf - min_prf);
@@ -114,7 +114,7 @@ Determina per esercizio la complessità dei seguenti pezzi di codice.
   align: left + horizon,
   [
     ```cpp
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         int cur = i;
         while (cur != 0)
             cur /= 2;
@@ -124,10 +124,9 @@ Determina per esercizio la complessità dei seguenti pezzi di codice.
   [
     ```cpp
     int x = 0;
-    for (int i = 1; i <= n; ++i) {
-        for (int j = i; j <= n; j += i) {
-            ++x;
-        }
+    for (int i = 1; i <= n; i++) {
+        for (int j = i; j <= n; j += i)
+            x++;
     }
     ```
   ]

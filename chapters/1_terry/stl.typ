@@ -38,7 +38,7 @@ Un iteratore è un oggetto che punta ad uno specifico elemento della struttura d
 vector<int> a = {10, 20, 30};
 auto it = a.begin(); // it punta a 10
 cout << *it << endl; // stampa 10
-++it;                 // it punta a 20
+it++;                 // it punta a 20
 cout << *it << endl;  // stampa 20
 ```
 
@@ -148,9 +148,8 @@ s.insert(1);
 s.insert(3);
 s.insert(1); // non ha effetto, 1 è già presente
 
-for (int x : s) {
+for (int x : s)
   cout << x << " "; // stampa: 1 3 5 (ordinati)
-}
 cout << endl;
 
 if (s.find(3) != s.end()) {
@@ -183,7 +182,8 @@ Consideriamo un altro esempio pratico.
   Segue una possibile implementazione. Nota che stiamo ordinando gli eventi prima per tempo, e a parità di tempo per tipo (prima gli arrivi, poi le partenze).
 
   ```cpp
-  int n; cin >> n;
+  int n;
+  cin >> n;
   vector<array<int, 3>> eventi;
   for (int i = 0, l, r; i < n; i++) {
       cin >> l >> r;
@@ -319,9 +319,8 @@ cout << s << endl;             // stampa: grazie dario!
 cout << s.substr(7, 5) << endl; // stampa: dario
 
 auto pos = s.find("dario");
-if (pos != string::npos) {
+if (pos != string::npos)
   cout << pos << endl;         // stampa 7
-}
 ```
 
 Nota bene: usare `cin` per leggere una stringa può causare problemi se essa contiene spazi. In particolare, `cin` legge l'input fino a quando non trova uno spazio o la riga è terminata, quindi la stringa verrebbe "spezzata" ad ogni spazio. Se vogliamo leggere una riga per intero possiamo usare `getline` come illustrato nell'esempio:

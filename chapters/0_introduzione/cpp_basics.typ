@@ -104,7 +104,7 @@ int main() {
     cin >> n;
     
     vector<int> a(n);
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i < n; i++)
         cin >> a[i];
 
     for (int i = n - 1; i >= 0; --i)
@@ -125,8 +125,10 @@ Vediamo ora un esempio leggermente più articolato:
 using namespace std;
 
 void solve() {
-    int a; cin >> a;
-    int b; cin >> b;
+    int a;
+    cin >> a;
+    int b;
+    cin >> b;
     cout << a + b << "\n";
 }
 
@@ -134,8 +136,9 @@ int main() {
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
 
-    int T; cin >> T;
-    for (int caso = 1; caso <= T; ++caso) {
+    int T;
+    cin >> T;
+    for (int caso = 1; caso <= T; caso++) {
         cout << "Case #" << caso << ": ";
         solve();
     }

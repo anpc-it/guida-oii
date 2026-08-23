@@ -80,10 +80,12 @@ Una lista di adiacenza da una lista di archi si costruisce come segue.
 
 ```cpp
 int main() {
-    int n; cin >> n; // numero di nodi
-    int m; cin >> m; // numero di archi
+    int n; // numero di nodi
+    cin >> n;
+    int m; // numero di archi
+    cin >> m;
     vector<vector<int>> adj(n);
-    for (int i = 0, a, b; i < m; ++i) {
+    for (int i = 0, a, b; i < m; i++) {
         cin >> a >> b;
         adj[a].push_back(b); // a -> b
         adj[b].push_back(a); // b -> a
@@ -134,7 +136,7 @@ while (!Q.empty()) {
     int u = Q.front();
     Q.pop();
     cout << "Processo il nodo " << u << "\n";
-    for (int v: adj[u]) {
+    for (int v : adj[u]) {
         if (vis[v])
             continue;
         vis[v] = true;
@@ -334,7 +336,7 @@ Consideriamo ora grafi pesati, cioè dove ogni arco ha un _peso_ (o _costo_) ass
 In questo caso, nella lista di adiacenza memorizziamo anche il peso di ogni arco come segue.
 ```cpp
 vector<vector<pair<int, int>>> adj(n);   // {nodo di arrivo, peso dell'arco}
-for (int i = 0, a, b, w; i < m; ++i) {
+for (int i = 0, a, b, w; i < m; i++) {
     cin >> a >> b >> w;                   // arco a->b di peso w
     adj[a].push_back({b, w});
 }
@@ -366,12 +368,12 @@ Segue un'implementazione dell'algoritmo di Dijkstra.
 
 int main() {
     // leggi il grafo
-    constexpr LL INF = 1e15;
+    constexpr ll INF = 1e15;
     int sorgente = 0;
 
-    vector<LL> dist(n, INF);
-    priority_queue<pair<LL, int>,
-                    vector<pair<LL, int>>,
+    vector<ll> dist(n, INF);
+    priority_queue<pair<ll, int>,
+                    vector<pair<ll, int>>,
                     greater<>> Q;  // {dist[u], u}
 
     dist[sorgente] = 0;
@@ -392,7 +394,7 @@ int main() {
         }
     }
 
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i < n; i++)
         cout << "La distanza minima da " << sorgente << " a " << i << " e' " << dist[i] << "\n";
 }
 ```
@@ -432,15 +434,15 @@ Anche se inizialmente non si direbbe, l'implementazione è molto simile a quella
 Il cuore del programma cambia come segue.
 
 ```cpp
-vector<LL> cost(n, INF);
-priority_queue<pair<LL, int>,
-                vector<pair<LL, int>>,
+vector<ll> cost(n, INF);
+priority_queue<pair<ll, int>,
+                vector<pair<ll, int>>,
                 greater<>> Q;  // {cost[u], u}
 
 cost[0] = 0;
 Q.push({0, 0});
 
-LL peso_totale = 0;
+ll peso_totale = 0;
 
 while (!Q.empty()) {
     auto [d, u] = Q.top();

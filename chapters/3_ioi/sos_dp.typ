@@ -25,9 +25,9 @@ Consideriamo il seguente problema.
   int n = 20;
   vector<int> a(1 << n);
   vector<int> sos(1 << n);
-  for (int x = 0; x < (1 << n); ++x)
-      for (int y = 0; y < (1 << n); ++y)
-          if (x | y == x)
+  for (int x = 0; x < (1 << n); x++)
+      for (int y = 0; y < (1 << n); y++)
+          if ((x | y) == x)
               sos[x] += a[y];
   ```
 
@@ -38,7 +38,7 @@ Consideriamo il seguente problema.
     header: [*Approccio $cal(O)(3^N)$*],
   )
   ```cpp
-  for (int x = 1; x < (1 << n); ++x) {
+  for (int x = 1; x < (1 << n); x++) {
       for (int y = x; y >= 0; y = (y - 1) & x) {
           sos[x] += a[y];
           if (y == 0)
@@ -99,8 +99,8 @@ Consideriamo il seguente problema.
   )
   ```cpp
   vector<int> sos(1 << n); // inizialmente sos[i] = a[i]
-  for (int i = 0; i < n; ++i)
-      for (int mask = 0; mask < (1 << n); ++mask)
+  for (int i = 0; i < n; i++)
+      for (int mask = 0; mask < (1 << n); mask++)
           if (mask & (1 << i))
               sos[mask] += sos[mask ^ (1 << i)];
   ```

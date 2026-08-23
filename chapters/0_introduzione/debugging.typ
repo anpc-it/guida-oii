@@ -31,9 +31,8 @@ int main() {
     cin >> a >> b;
     int risposta = 1;
 
-    for(int i = 1; i <= b; i++) {
+    for(int i = 1; i <= b; i++)
         risposta = risposta * a;
-    }
     cout << risposta << endl;
 }
 ```
@@ -97,9 +96,9 @@ Come possiamo vedere, alla decima iterazione del ciclo la risposta diventa negat
 using namespace std;
 
 int main() {
-    long long a,b;
+    ll a,b;
     cin >> a >> b;
-    long long risposta = 1;
+    ll risposta = 1;
 
     for(int i = 1; i <= b; i++) {
         risposta = risposta * a;
@@ -160,9 +159,8 @@ int doppio(int x) {
 ```cpp
 int massimo = a[0];
 
-for (int i = 1; i < n; ++i) {
+for (int i = 1; i < n; i++)
     int massimo = max(massimo, a[i]);
-}
 
 cout << massimo << "\n";
 ```

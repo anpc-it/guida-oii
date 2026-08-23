@@ -17,11 +17,13 @@
 
 	```cpp
 	int main() {
-		int r; cin >> r;
-		int c; cin >> c;
+		int r;
+		cin >> r;
+		int c;
+		cin >> c;
 		vector<vector<int>> land(r, vector<int>(c));
-		for (int i = 0; i < r; ++i)
-			for (int j = 0; j < c; ++j)
+		for (int i = 0; i < r; i++)
+			for (int j = 0; j < c; j++)
 				cin >> land[i][j];
 
 		auto exists = [&](int x, int y) -> bool {
@@ -35,7 +37,7 @@
 			if (!land[x][y])
 				return;
 			vis[x][y] = true;
-			for (int i = 0; i < 4; ++i) {
+			for (int i = 0; i < 4; i++) {
 				int nx = x + dx[i];
 				int ny = y + dy[i];
 				if (exists(nx, ny) && !vis[nx][ny])
@@ -43,20 +45,20 @@
 			}
 		};
 
-		for (int y = 0; y < c; ++y) {
+		for (int y = 0; y < c; y++) {
 			dfs(dfs, 0, y);
 			dfs(dfs, r - 1, y);
 		}
-		for (int x = 0; x < r; ++x) {
+		for (int x = 0; x < r; x++) {
 			dfs(dfs, x, 0);
 			dfs(dfs, x, c - 1);
 		}
 
 		int count_islands = 0;
-		for (int x = 1; x < r - 1; ++x)
-			for (int y = 1; y < c - 1; ++y)
+		for (int x = 1; x < r - 1; x++)
+			for (int y = 1; y < c - 1; y++)
 				if (land[x][y] && !vis[x][y]) {
-					++count_islands;
+					count_islands++;
 					dfs(dfs, x, y);
 				}
 

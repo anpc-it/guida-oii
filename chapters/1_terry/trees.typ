@@ -154,7 +154,7 @@ Come per i grafi generici, un albero può essere esplorato attraverso _BFS_ e _D
 ```cpp
 void dfs(int i, int parent) {
     // esploro il nodo i
-    for (int j: adj[i])
+    for (int j : adj[i])
         if (j != parent)
             dfs(j, i);
 }
@@ -183,9 +183,8 @@ Vediamo un problema in cui serve visitare ricorsivamente l'albero.
 
   int dfs(int i) {
       int sottoalbero = 0;
-      for (int j: adj[i]) {
+      for (int j : adj[i])
           sottoalbero += dfs(j);
-      }
       totale += sottoalbero;
       return sottoalbero + 1;
   }

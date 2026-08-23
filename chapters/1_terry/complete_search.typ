@@ -60,7 +60,7 @@ Ci sono casi in cui la ricerca completa è l'unico modo per risolvere un problem
     ```cpp
     void rec(int n, int k, vector<int> V) {
         if (V.size() == n) {
-            for (int v: V) 
+            for (int v : V)
                 cout << v << ' ';
             cout << '\n';
             return;
@@ -155,18 +155,18 @@ Notiamo che gli array vengono generati in ordine lessicografico se i valori veng
   Visto che il problema ha più testcase, è riportata solo la funzione `solve(int N, int M)` che risolve un singolo testcase.
 
   ```cpp
-  long long resto_massimo, limite;
+  ll resto_massimo, limite;
 
-  void rec(long long x, long long M) {
+  void rec(ll x, ll M) {
       if (x >= limite) return;
       resto_massimo = max(resto_massimo, x % M);
 
       int ultima_cifra = x % 10;
-      for (int cifra: {3, 6, 9})
+      for (int cifra : {3, 6, 9})
           if (ultima_cifra != cifra)
               rec(10 * x + cifra, M);
   }
-  int solve(int N, long long M) {
+  int solve(int N, ll M) {
       resto_massimo = 0;
       limite = pow(10, N);
       rec(0, M);

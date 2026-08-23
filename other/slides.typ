@@ -50,12 +50,12 @@
 
   ```cpp
   // Versione Memoizzata (Top-Down)
-  long long ricavo(int L) {
+  ll ricavo(int L) {
       if (L == 0) return 0;
       if (memo[L] != -1) return memo[L]; // Già calcolato
       
-      long long ans = 0;
-      for (int i = 1; i <= L; ++i) {
+      ll ans = 0;
+      for (int i = 1; i <= L; i++) {
           ans = max(ans, p[i] + ricavo(L - i));
       }
       return memo[L] = ans;
@@ -69,10 +69,10 @@
   Invece della ricorsione, possiamo riempire la tabella dal basso verso l'alto.
 
   ```cpp
-  vector<long long> dp(N + 1, 0);
+  vector<ll> dp(N + 1, 0);
 
-  for (int L = 1; L <= N; ++L) {     // Per ogni lunghezza
-      for (int i = 1; i <= L; ++i) { // Prova ogni taglio
+  for (int L = 1; L <= N; L++) {     // Per ogni lunghezza
+      for (int i = 1; i <= L; i++) { // Prova ogni taglio
           dp[L] = max(dp[L], p[i] + dp[L - i]);
       }
   }
@@ -91,7 +91,7 @@
 
   ```cpp
   dp[0] = 1;
-  for (int y = 1; y <= X; ++y) {   // Ciclo esterno: SOMMA
+  for (int y = 1; y <= X; y++) {   // Ciclo esterno: SOMMA
       for (int c : coins) {        // Ciclo interno: MONETE
           if (y >= c) {
               dp[y] = (dp[y] + dp[y - c]) % MOD;
@@ -111,7 +111,7 @@
   ```cpp
   dp[0] = 1;
   for (int c : coins) {            // Ciclo esterno: MONETE
-      for (int y = 1; y <= X; ++y) { // Ciclo interno: SOMMA
+      for (int y = 1; y <= X; y++) { // Ciclo interno: SOMMA
           if (y >= c) {
               dp[y] = (dp[y] + dp[y - c]) % MOD;
           }
@@ -136,8 +136,8 @@
 // --- SLIDE 8 ---
 #slide(title: "LCS: Codice C++")[
   ```cpp
-  for (int i = 1; i <= n; ++i) {
-      for (int j = 1; j <= m; ++j) {
+  for (int i = 1; i <= n; i++) {
+      for (int j = 1; j <= m; j++) {
           if (a[i] == b[j]) {
               dp[i][j] = 1 + dp[i-1][j-1];
           } else {

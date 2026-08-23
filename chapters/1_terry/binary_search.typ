@@ -221,7 +221,7 @@ Consideriamo il seguente problema.
   ```cpp
   ll f(ll t) {
       ll sum = 0;
-      for (ll s: S) {
+      for (ll s : S) {
           sum += t / s;
           if (sum > 1e9)
               return sum;

@@ -27,7 +27,7 @@ Analizziamo ad esempio la seguente situazione:
       sort(begin(P), end(P));
       int risposta = 0;
       while (C > 0) {
-          ++risposta;
+          risposta++;
           C -= P.back();
           P.pop_back();
       }
@@ -60,10 +60,9 @@ Vediamo quindi altri problemi:
   int viaggia(int N, vector<int> C) {
       int costo_totale = 0;
       int costo_attuale = INT_MAX;
-      for (int i = 0; i < N; ++i) {
-          if (costo_attuale > C[i]) {
+      for (int i = 0; i < N; i++) {
+          if (costo_attuale > C[i])
               costo_attuale = C[i];
-          }
           costo_totale += costo_attuale;
           costo_attuale += 1;
       }
@@ -89,15 +88,15 @@ Vediamo quindi altri problemi:
 
   Diciamo che $D_i = M_i - P_i$, allora le mozzarelle con $D_i$ alto sono più buone per Monica che per Paola e viceversa, se $D_i$ è piccolo sarà più conveniente darle a Paola. Questa soluzione si rivela essere ottimale.
   ```cpp
-  long long solve(int N, int* M, int* P) {
+  ll solve(int N, int* M, int* P) {
       vector<pair<int, int>> D(N);
-      for (int i = 0; i < N; ++i) {
+      for (int i = 0; i < N; i++) {
           D[i] = {M[i] - P[i], i};
       }
       sort(begin(D), end(D));
 
-      long long somma = 0;
-      for (int i = 0; i < N; ++i) {
+      ll somma = 0;
+      for (int i = 0; i < N; i++) {
           int idx = D[i].second;
           if (i < N / 2) {
               somma += P[idx];
