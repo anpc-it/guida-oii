@@ -44,23 +44,23 @@ Vediamo un esempio di problema molto semplice:
   width: 90%,
 )[
   #set align(left)
-==== Descrizione
+*Descrizione*
 
 Dati due interi $a$ e $b$, stampa il maggiore dei due.
 
-==== Input
+*Input*
 
 L'unica riga contiene due interi $a$ e $b$, separati da uno spazio.
 
-==== Output
+*Output*
 
 Stampa il maggiore tra $a$ e $b$.
 
-==== Vincoli
+*Vincoli*
 
 $-10^9 <= a, b <= 10^9$.
 
-==== Esempi
+*Esempi*
 
 #grid(
   columns: (1fr, 1fr),
@@ -188,5 +188,3 @@ Fermandosi a riflettere un minuti in più, ci si potrebbe accorgere di un fatto 
 In altre parole vince il giocatore che segna l'ultimo punto.
 
 Questo ci permette di accorciare il nostro codice da un numero indefinito di righe a una singola riga che controlla l'ultimo carattere della sequenza.
-
-

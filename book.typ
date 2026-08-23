@@ -24,7 +24,7 @@
     - #chapter("chapters/1_terry/dp_basics.typ", section: "2.6")[Programmazione dinamica]
     - #chapter("chapters/1_terry/graphs.typ", section: "2.7")[Grafi]
     - #chapter("chapters/1_terry/trees.typ", section: "2.8")[Alberi]
-
+    /*
     = Argomenti avanzati
     - #chapter("chapters/2_oii/stl2.typ", section: "3.1")[Altre funzionalità della STL]
 
@@ -36,6 +36,7 @@
 
     = Debug
     - #chapter("chapters/5_debug/debug_tests.typ", section: "6.1")[Debug]
+    */
   ])
 
 #import "/templates/page.typ": project

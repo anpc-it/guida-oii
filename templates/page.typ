@@ -28,10 +28,10 @@
 ) = themes;
 #let theme-box = theme-box.with(themes: themes)
 
-#let main-font = ("Charter", "Source Han Serif SC", "Libertinus Serif")
-#let code-font = ("BlexMono Nerd Font Mono", "DejaVu Sans Mono")
+#let main-font = ("Crimson Text", "Libertinus Serif")
+#let code-font = "DejaVu Sans Mono"
 
-#let main-size = if is-web-target { 16pt } else { 10.5pt }
+#let main-size = if is-web-target { 18pt } else { 10.5pt }
 #let heading-sizes = if is-web-target {
   (2, 1.5, 1.17, 1, 0.83).map(it => it * main-size)
 } else {
@@ -41,11 +41,8 @@
 
 // Temporary fix, all themes look weird and broken. Also search doesn't work.
 // TODO: (low priority) in the future fix this
-#let extra-css = ```css
-#theme-toggle, #theme-list, #search-toggle, #search-wrapper {
-  display: none;
-}
-```
+#let extra-css = raw(read("./styles.css"), lang: "css")
+
 // force light theme
 #let extra-js = ```js
 try { localStorage.setItem("shiroa-theme", "light"); } catch (e) {}
@@ -81,9 +78,29 @@ try { localStorage.setItem("shiroa-theme", "light"); } catch (e) {}
     panic("Unknown web theme: " + web-theme)
   }
 
-  set text(font: main-font, size: main-size, fill: main-color, lang: "en")
+  set text(
+    font: main-font,
+    size: main-size,
+    fill: main-color,
+    lang: "en",
+    weight: "regular",
+  )
+
+
+  show math.equation: set text(font: "STIX Two Math") // generic thick math font
 
   show: markup-rules.with(..common, themes: themes, heading-sizes: heading-sizes, list-indent: list-indent, main-size: main-size)
+  show heading: set text(font: "EB Garamond 12")
+  show heading: it => if is-web-target {
+      set text(size: heading-sizes.at(it.level))
+      block(
+        spacing: 0.7em * 1.5 * 1.2,
+        below: 0.7em * 1.2,
+        it,
+      )
+    } else {
+      it
+    }
   show: equation-rules.with(..common, theme-box: theme-box)
   show: code-block-rules.with(..common, themes: themes, code-font: code-font)
 
