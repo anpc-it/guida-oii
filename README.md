@@ -1,16 +1,16 @@
 # Guida alle Olimpiadi di Informatica
 
+
+
 ## Contenuti (non in ordine)
 
-- [ ] Introduzione
-  - [ ] Risolvere un problema algoritmico (esempio facile ma non ovvio)
-  - [ ] Come e dove allenarsi. Altre risorse.
+- [x] Introduzione
   - [x] Introduzione a C++
   - [x] Come compilare
-  - [ ] Come debuggare, sanitizer
+  - [x] Come debuggare, sanitizer
 
 
-- [ ] Terry (Argomenti di base)
+- [x] Terry (Argomenti di base)
   - [x] Complessità computazionale
   - [x] Introduzione a STL
   - [x] Ricerca binaria

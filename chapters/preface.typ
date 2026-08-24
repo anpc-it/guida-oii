@@ -7,11 +7,15 @@
 
 Questa guida intende essere una risorsa per le persone che si avvicinano al mondo della programmazione competitiva, in particolare alla selezione territoriale e alla fase nazionale delle Olimpiadi Italiane di Informatica (OII).
 
+#v(20pt)
+
 La guida è strutturata nel seguente modo:
-- *Capitolo $0$*: Introduzione alle olimpiadi di informatica, al C++ e ai problemi algoritmici.
-- *Capitolo $1$*: Conoscenze di base. Questo capitolo mira a preparare uno studente ad affrontare la selezione territoriale.
-- *Capitolo $2$*: Conoscenze avanzate. Questo capitolo mira a preparare uno studente ad affrontare la finale nazionale. 
-- *Capitolo $3$*: Contenuti extra. Queste conoscenze non sono richieste nelle fasi nazionali, ma possono essere utili per affrontare problemi specifici o gare internazionali.
+- *Capitolo $1$*: Introduzione alle olimpiadi di informatica, al C++ e ai problemi algoritmici.
+- *Capitolo $2$*: Conoscenze di base. Questo capitolo mira a preparare uno studente ad affrontare la selezione territoriale.
+- *Capitolo $3$*: Conoscenze avanzate. Questo capitolo mira a preparare uno studente ad affrontare la finale nazionale.
+- *Capitolo $4$*: Contenuti extra. Queste conoscenze non sono richieste nelle fasi nazionali, ma possono essere utili per affrontare problemi specifici o gare internazionali.
+
+#v(20pt)
 
 Nota che queste indicazioni vanno prese con le pinze: seppur è possibile ottenere punteggio pieno alle varie fasi basandosi sulle conoscenze spiegate nei rispettivi capitoli, avere conoscenze extra dei capitoli che seguono può spesso tornare molto utile. Inoltre, queste indicazioni sono relative all'edizione 2025-2026 e precedenti, ma non è detto che rimangano uguali in futuro.
 
