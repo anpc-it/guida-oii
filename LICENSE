@@ -1,0 +1,15 @@
+# License
+
+This project uses a dual-licensing approach to protect the educational content while allowing unrestricted use of the code templates.
+
+## Written Content and Guide Source Code (Typst)
+All written text, diagrams, illustrations, and the underlying Typst source code used to generate the guide are licensed under the **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)** license. 
+
+To view a copy of this license, visit: http://creativecommons.org/licenses/by-nc-sa/4.0/
+
+## C++ Code Snippets
+All C++ code snippets (inline code and `.cpp` files) are dedicated to the public domain under the **CC0 1.0 Universal (CC0 1.0) Public Domain Dedication**. 
+
+You can freely copy, modify, and use the code snippets in your projects and competitive programming contests without any attribution or restrictions.
+
+To view a copy of this license, visit: http://creativecommons.org/publicdomain/zero/1.0/
