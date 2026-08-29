@@ -1,6 +1,5 @@
 #import "/templates/page.typ": project
 #import "/utils/render.typ": is-web
-#import "/utils/author.typ": author-card
 
 #let render = if is-web { project.with(title: "Prefazione") } else { it => it }
 #show: render
@@ -18,34 +17,6 @@ La guida è strutturata nel seguente modo:
 #v(20pt)
 
 Nota che queste indicazioni vanno prese con le pinze: seppur è possibile ottenere punteggio pieno alle varie fasi basandosi sulle conoscenze spiegate nei rispettivi capitoli, avere conoscenze extra dei capitoli che seguono può spesso tornare molto utile. Inoltre, queste indicazioni sono relative all'edizione 2025-2026 e precedenti, ma non è detto che rimangano uguali in futuro.
-
-I principali autori della guida sono:
-
-#author-card(
-  name: "Matteo Arcari",
-  bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-)
-
-#author-card(
-  name: "Andrea Coato",
-  bio: "Studente del secondo anno di Ingegneria Informatica alla Scuola Superiore Sant'Anna di Pisa. Ha vinto una medaglia d'oro alle OII 2024, ed è stato selezionato come membro della squadra IOI 2025.",
-  email: "andrea.coato@santannapisa.it",
-)
-
-#author-card(
-  name: "Lorenzo Ferrari",
-  bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-)
-
-#author-card(
-  name: "Francesco Vercellesi",
-  bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-)
-
-#author-card(
-  name: "Luca Versari",
-  bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-)
 
 === Come contribuire
 
