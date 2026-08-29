@@ -29,7 +29,20 @@ Questo testo nasce come una semplice raccolta di materiale didattico, scritta ne
 Se trovi utile questa guida e vuoi dare una mano a portare avanti progetti simili, ci farebbe davvero piacere un piccolo supporto all'*Associazione Nazionale Programmazione Competitiva (ANPC)*, ad esempio devolvendo il *5x1000*:
 
 #align(center)[
-  #block(
+  #if is-web {
+    block(
+    fill: luma(247),
+    inset: (x: 14pt, y: 10pt),
+    radius: 4pt,
+    stroke: 0.5pt + luma(220),
+    [
+      *Associazione Nazionale Programmazione Competitiva (ANPC)* \
+      #text(size: 20pt, fill: rgb("475569"))[Codice Fiscale: _*97979100159*_] \
+      #text(size: 16pt, fill: rgb("475569"))[“Sostegno degli Enti del Terzo Settore iscritti nel RUNTS”]
+    ],
+  )
+  } else {
+    block(
     fill: luma(247),
     inset: (x: 14pt, y: 10pt),
     radius: 4pt,
@@ -40,6 +53,7 @@ Se trovi utile questa guida e vuoi dare una mano a portare avanti progetti simil
       #text(size: 11pt, fill: rgb("475569"))[“Sostegno degli Enti del Terzo Settore iscritti nel RUNTS”]
     ],
   )
+  }
 ]
 
 Speriamo che queste pagine ti siano d'aiuto nel tuo percorso. Buono studio e buon divertimento!
