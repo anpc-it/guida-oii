@@ -33,4 +33,4 @@ jobs:
           sudo mv shiroa /usr/local/bin/
 
       - name: Build static HTML
-        run: shiroa build -d dist
+        run: shiroa build -d dist --path-to-root /guida-oii/
