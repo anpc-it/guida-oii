@@ -11,7 +11,7 @@
 
 In una gara di informatica si risolvono problemi scrivendo programmi. A ogni problema corrisponde un compito preciso: dato un certo input, il programma deve produrre l'output richiesto.
 
-Per partecipare alle gare di informatica non è necessario sapere usare un programma già pronto #footnote([Per questo esiste #link("https://excel-esports.com")]), non si deve costruire un computer, tanto meno programmare dei robot. Una gara di informatica consiste nel trovare un _algoritmo_, cioè una sequenza finita di istruzioni che risolva correttamente tutti i casi di input previsti dal problema.
+Per partecipare alle gare di informatica non è necessario saper usare un programma già pronto #footnote([Per questo esiste #link("https://excel-esports.com")]), non si deve costruire un computer, tanto meno programmare dei robot. Una gara di informatica consiste nel trovare un _algoritmo_, cioè una sequenza finita di istruzioni che risolva correttamente tutti i casi di input previsti dal problema.
 
 Le gare di informatica hanno quindi due aspetti distinti: 
 
@@ -21,9 +21,9 @@ Le gare di informatica hanno quindi due aspetti distinti:
 === Le Olimpiadi Italiane di Informatica
 
 // TODO: foto OII
-Le OII sono una competizione rivolta agli studenti delle scuole secondarie superiori. Il percorso di selezione comprende diverse fasi, dalla selezione scolastica, alla selezione territoriale, fino alla gara nazionale. Le regole precise, le date e i criteri di selezione possono cambiare di anno in anno: per informazioni aggiornate consultare il sito ufficiale delle OII: #link("https://olimpiadi-informatica.it/").
+Le OII sono una competizione rivolta agli studenti delle scuole secondarie superiori. Il percorso di selezione comprende diverse fasi: dalla selezione scolastica alla selezione territoriale, fino alla gara nazionale. Le regole precise, le date e i criteri di selezione possono cambiare di anno in anno: per informazioni aggiornate consultare il sito ufficiale delle OII: #link("https://olimpiadi-informatica.it/").
 
-Dalla fase territoriale in poi l'obiettivo è lo stesso: leggere i dati forniti, elaborare una risposta e stamparla nel formato richiesto. La teoria richiesta per cominciare a partecipare alle olimpiadi di informatica è molto ridotta: basta saper scrivere codice in un linguaggio di programmazione a scelta (preferibilmente C++, ne parleremo nei capitoli futuri). La teoria spiegata in questo libro comprende principalmente strumenti e tecniche che possono essere applicate in molti problemi diversi, e che rendono la soluzione più efficiente o facile da tradurre in codice.
+Dalla fase territoriale in poi, l'obiettivo è lo stesso: leggere i dati forniti, elaborare una risposta e stamparla nel formato richiesto. La teoria richiesta per cominciare a partecipare alle olimpiadi di informatica è molto ridotta: basta saper scrivere codice in un linguaggio di programmazione a scelta (preferibilmente C++, ne parleremo nei capitoli futuri). La teoria spiegata in questo libro comprende principalmente strumenti e tecniche che possono essere applicate in molti problemi diversi, e che rendono la soluzione più efficiente o più facile da tradurre in codice.
 
 === Com'è fatto un problema
 
@@ -84,7 +84,7 @@ Gli esempi mostrano solo alcuni casi semplici, mentre una soluzione deve funzion
 
 Durante una gara il programma non conversa con una persona. Un sistema automatico, chiamato _giudice_, avvia il tuo programma, gli fornisce l'input e controlla l'output.
 
-La comunicazione tra il programma e il giudice avviene solitamente sull'_input standard_ e _output standard_. In C++ questi due canali sono normalmente gestiti da `std::cin` e `std::cout`, come vedremo più avanti. Il programma deve terminare da solo: non deve chiedere conferma all'utente e non deve stampare messaggi aggiuntivi come `Inserisci un numero`.
+La comunicazione tra il programma e il giudice avviene solitamente tramite l'_input standard_ e l'_output standard_. In C++ questi due canali sono normalmente gestiti da `std::cin` e `std::cout`, come vedremo più avanti. Il programma deve terminare da solo: non deve chiedere conferma all'utente e non deve stampare messaggi aggiuntivi come `Inserisci un numero`.
 
 Per il problema precedente, un output come questo non sarebbe corretto:
 
@@ -98,27 +98,27 @@ Il giudice si aspetta il formato indicato nella sezione Output, quindi bisogna s
 7
 ```
 
-Gli esempi servono a capire il formato dell'output richiesto ed a testare la tua soluzione, ma il giudice testerà la tua soluzione con *molti altri input nascosti*. 
+Gli esempi servono a capire il formato dell'output richiesto e a testare la tua soluzione, ma il giudice testerà la tua soluzione con *molti altri input nascosti*. 
 
 Nota che questo non è l'unico formato di problemi possibile: esistono anche i problemi _output only_ e i problemi _interattivi_:
 
-- _output only_: Sono problemi in cui l'utente scarica tutti i test di input, anche quelli segreti, e li processa sulla propria macchina. Gli input possono essere _statici_ o _dinamici_: nel primo caso sono uguali per tutti gli utenti e non cambiano nel tempo, nell'altro sono diversi per ogni utente e vengono rigenerati dopo un intervallo di tempo oppure se viene inviata un soluzione. 
+- _output only_: Sono problemi in cui l'utente scarica tutti i file di test di input, anche quelli segreti, e li elabora sulla propria macchina. Gli input possono essere _statici_ o _dinamici_: nel primo caso sono uguali per tutti gli utenti e non cambiano nel tempo, nell'altro sono diversi per ogni utente e vengono rigenerati dopo un intervallo di tempo oppure se viene inviata una soluzione. 
   
-  Nella *fase territoriale* delle OII il fomato dei problemi è *_output only dinamico_*.
+  Nella *fase territoriale* delle OII il formato dei problemi è *_output only dinamico_*.
 
-- _interattivi_: Un problema interattivo prevede che la soluzione dell'utente comunichi con un altra soluzione (o con se stessa) tramite specifiche funzioni. Questa classe di problemi è abbastanza rara: compare a volte tra i problemi della fase finale delle OII, oppure in gare internazionali.
+- _interattivi_: Un problema interattivo prevede che la soluzione dell'utente comunichi con un'altra soluzione (o con se stessa) tramite specifiche funzioni. Questa classe di problemi è abbastanza rara: compare a volte tra i problemi della fase finale delle OII, oppure in gare internazionali.
 // TODO: fare un capitolo sugli interattivi e linkarlo qua
 
 === Vincoli di tempo e di memoria
 
-Oltre a dover risolvere il problema correttamente, la tua soluzione dovrà rispettare degli ulteriori vincoli sul _tempo di esecuzione_ e _memoria_. Andiamo con ordine e consideriamo il seguente problema:
+Oltre a dover risolvere il problema correttamente, la tua soluzione dovrà rispettare degli ulteriori vincoli sul _tempo di esecuzione_ e sulla _memoria_. Andiamo con ordine e consideriamo il seguente problema:
 
-"Dato un intero positivo $N$ calcolare la somma di tutti i numeri da $1$ a $N$".
+"Dato un intero positivo $N$, calcolare la somma di tutti i numeri da $1$ a $N$."
 
 - *Soluzione 1*: Eseguiamo la somma $1 + 2 + ... + N$ e stampiamo in output il risultato. Questa soluzione è assolutamente corretta, ma calcola la somma eseguendo $N-1$ somme diverse.  
 - *Soluzione 2*: Usiamo la formula chiusa $(N (N+1))/2$ e stampiamo questo valore. Anche questa soluzione è corretta, ma esegue solo $3$ operazioni, indipendentemente dal valore di $N$. 
 
-Se proviamo effettivamente a scrivere queste due soluzioni in C++ e misuriamo quanto tempo ci impiegano ad eseguire per valori diversi di $N$ otteniamo questa tabella: #footnote([Il tempo di esecuzione dipende dal computer su cui viene eseguito il programma. In questo caso un _MacBook Pro M4 Max (16-core CPU)_ compilato con clang versione _21.0.0_, _C++17_. ])
+Se proviamo effettivamente a scrivere queste due soluzioni in C++ e misuriamo quanto tempo impiegano a essere eseguite per valori diversi di $N$, otteniamo questa tabella: #footnote([Il tempo di esecuzione dipende dal computer su cui viene eseguito il programma. In questo caso un _MacBook Pro M4 Max (16-core CPU)_ compilato con clang versione _21.0.0_, _C++17_.])
 
 #figure(
   table(
@@ -133,30 +133,30 @@ Se proviamo effettivamente a scrivere queste due soluzioni in C++ e misuriamo qu
   ) 
 )
 
-Come possiamo notare, per $N = 10^9$ la prima soluzione è più di $500.000$ volte più lenta! Questo è dovuto a un semplice fatto: i computer impiegano del tempo a svolgere le operazioni. Questo argomento verrà ripreso in dettaglio nel #crossref(<complexity>, "/chapters/1_terry/complexity.typ", [capitolo sulla complessità computazionale]), per ora però teniamo a mente che esistono soluzioni più o meno veloci che risolvono lo stesso problema.
+Come possiamo notare, per $N = 10^9$ la prima soluzione è più di $500.000$ volte più lenta! Questo è dovuto a un semplice fatto: i computer impiegano del tempo a svolgere le operazioni. Questo argomento verrà ripreso in dettaglio nel #crossref(<complexity>, "/chapters/1_terry/complexity.typ", [capitolo sulla complessità computazionale]); per ora, però, teniamo a mente che esistono soluzioni più o meno veloci che risolvono lo stesso problema.
 
 In modo simile, esistono soluzioni che utilizzano più o meno memoria. La memoria del computer serve a conservare i dati che il programma sta usando: variabili, array, stringhe e strutture dati. Anche la memoria disponibile è limitata e il giudice può interrompere una soluzione che ne utilizza troppa.
 
 Supponiamo di avere un vettore di $N$ interi salvati in memoria durante l'esecuzione.
 Un intero occupa normalmente $4$ byte, quindi questo vettore richiede circa $4N$ byte: circa $4$ MB per $N = 10^6$ e circa $4$ GB per $N = 10^9$.
 
-Per farci un'idea, limiti di tempo e memoria comunemente usati sono $1$ secondo e $256$ MB di memoria ( $approx 60$ milioni di interi), ma possono variare per problema ogni problema. 
+Per farci un'idea, limiti di tempo e memoria comunemente usati sono $1$ secondo e $256$ MB di memoria ($approx 60$ milioni di interi), ma possono variare da problema a problema. 
 
 === I vincoli
 // TODO: this section is poorly written and somewhat unclear, needs rewriting
 
-Supponiamo che un problema chieda di verificare se in una lista compare un certo valore. Se la lista contiene al massimo cento elementi, anche controllare tutte le posizioni può essere sufficiente. Se invece può contenerne un miliardo, lo stesso approccio potrebbe essere troppo lento o richiedere troppa memoria.
+Supponiamo che un problema chieda di verificare se in una lista compaia un certo valore. Se la lista contiene al massimo cento elementi, anche controllare tutte le posizioni può essere sufficiente. Se invece può contenerne un miliardo, lo stesso approccio potrebbe essere troppo lento o richiedere troppa memoria.
 
-I vincoli aiutano quindi a rispondere a una domanda fondamentale: _quanto tempo e memoria posso permettermi di consumare?_
+I vincoli aiutano quindi a rispondere a una domanda fondamentale: _quanto tempo e quanta memoria posso permettermi di consumare?_
 
-I subtask servono proprio a questo. Se hai una soluzione corretta, ma che usa troppo tempo, memoria, o risolve solo casi specifici del problema originale, i subtask fanno avere comunque un punteggio parziale. Facciamo un esempio:
+I subtask servono proprio a questo. Se si ha una soluzione corretta che tuttavia richiede troppo tempo o troppa memoria, oppure risolve solo casi particolari del problema originale, i subtask permettono comunque di ottenere un punteggio parziale. Facciamo un esempio:
 
-Supponiamo che i limiti per un generico problema siano $N <= 10^18$, dei subtask plausibili possono essere:
+Supponiamo che i limiti per un generico problema siano $N <= 10^18$; dei subtask plausibili possono essere:
 - $N = 1$ ($10$ punti)
 - $N <= 100$ ($40$ punti)
 - $N <= 10^6$ ($50$ punti)
 
-Se la nostra soluzione sfora il tempo massimo per, ad esempio, $N >= 1000$, otterremo comunque i punteggi del primo e secondo subtask ($10+40 = 50$ punti).
+Se la nostra soluzione sfora il tempo massimo per, ad esempio, $N >= 1000$, otterremo comunque i punteggi del primo e secondo subtask ($10 + 40 = 50$ punti).
 
 === I risultati della valutazione
 
@@ -173,18 +173,18 @@ Un risultato diverso da *Accepted* non significa sempre che l'algoritmo sia sbag
 
 Nota: su #link("https://training.olinfo.it") "Memory Limit Exceeded" e "Runtime Error" sono combinati in un singolo verdetto: *Execution Killed*.
 
-=== Prima di scrivere il codice pensa
+=== Prima di scrivere il codice, pensa
 
-Hai letto il problema e pensi di saperlo risolvere ma ti viene un forte mal di pancia dovuto alle catene infinite di `if ... else if ... else if ...` che la tua soluzione prevede. 
+Hai letto il problema e pensi di saperlo risolvere, ma ti viene il mal di pancia al pensiero delle infinite catene di `if ... else if ... else if ...` che la tua soluzione prevede. 
 È possibile che qualche osservazione in più semplifichi notevolmente l'implementazione del problema. Vediamo un esempio:
 
-Ci viene data una sequenza di lettere $A$ e $B$ (ad esempio $"ABBAABABA..."$) che sta a indicare quale dei due giocatori ha segnato ogni punto in una partita di tennis, con la garanzia che la sequenza rappresenti una partita valida.
+Ci viene data una sequenza di lettere $A$ e $B$ (ad esempio `"ABBAABABA..."`) che sta a indicare quale dei due giocatori ha segnato ogni punto in una partita di tennis, con la garanzia che la sequenza rappresenti una partita valida.
 Dopo averci spiegato le regole del punteggio nel tennis, il problema ci chiede chi abbia vinto la partita.
 
-Facile vero? Basta tenere il conto dei punti, dei set e dei game e tenere in considerazione i vantaggi in caso di parità sul penultimo punto. 
+Facile, vero? Basterebbe tenere il conto dei punti, dei set e dei game, considerando i vantaggi in caso di parità sul penultimo punto. 
 
-Molti si fermerebbero qua e non esiterebbero a cimentarsi nell'implementazione. 
-Fermandosi a riflettere un minuti in più, ci si potrebbe accorgere di un fatto molto interessante: indipendentemente dall'andamento della partita, questa non si può concludere con un punto del giocatore che ha perso. 
-In altre parole vince il giocatore che segna l'ultimo punto.
+Molti si fermerebbero qui e si cimenterebbero subito nell'implementazione. 
+Fermandosi a riflettere un minuto in più, ci si potrebbe accorgere di un fatto molto interessante: indipendentemente dall'andamento della partita, questa non si può concludere con un punto del giocatore che ha perso. 
+In altre parole, vince il giocatore che segna l'ultimo punto.
 
 Questo ci permette di accorciare il nostro codice da un numero indefinito di righe a una singola riga che controlla l'ultimo carattere della sequenza.

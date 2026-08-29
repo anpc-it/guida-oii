@@ -12,16 +12,16 @@
 == Altre funzionalità della STL <stl2>
 
 // TODO: update this link once the book is done
-Le strutture dati introdotte nel #crossref(<stl>, "/chapters/1_terry/stl.typ", [capitolo precedente della STL]) sono tra le più utilizzate, ma la STL offre molte altre funzionalità utili, che presentiamo di seguito.
+Le strutture dati introdotte nel #crossref(<stl>, "/chapters/1_terry/stl.typ", [capitolo precedente sulla STL]) sono tra le più utilizzate, ma la STL offre molte altre funzionalità utili, che presentiamo di seguito.
 
 === Funzioni della STL
 incluse in `<algorithm>`
 
 Segue una lista delle funzioni della STL più comunemente usate, con la relativa complessità:
 #op-table(
-  op-row([`sort(l, r)`], [$cal(O)(N log N)$], [Ordina il range $[l, r)$]),
-  op-row([`reverse(l, r)`], [$cal(O)(N)$], [Inverte l'ordine del range $[l, r)$]),
-  op-row([`max_element(l, r)` \ `min_element(l, r)`], [$cal(O)(N)$], [Restituisce un iteratore rispettivamente all'elemento massimo o minimo del range $[l, r)$]),
+  op-row([`sort(l, r)`], [$cal(O)(N log N)$], [Ordina il range $[l, r)$.]),
+  op-row([`reverse(l, r)`], [$cal(O)(N)$], [Inverte l'ordine del range $[l, r)$.]),
+  op-row([`max_element(l, r)` \ `min_element(l, r)`], [$cal(O)(N)$], [Restituisce un iteratore rispettivamente all'elemento massimo o minimo del range $[l, r)$.]),
   op-row([`lower_bound(l, r, x)` \ `upper_bound(l, r, x)`], [$cal(O)(log N)$], [Restituisce un iteratore rispettivamente al primo elemento $>= x$ o $> x$ nel range $[l, r)$. I valori nel range devono necessariamente essere ordinati.]),
 )
 
@@ -113,10 +113,10 @@ inclusa in `<unordered_map>`
 `unordered_map` memorizza coppie chiave-valore come `map`, ma non mantiene le chiavi ordinate. Internamente è implementata tramite una tabella hash, che permette operazioni in tempo costante in media.
 
 #op-table(
-  op-row([`insert({k, v})`], [$cal(O)(1)$ media], [Inserisce la coppia chiave-valore. Se la chiave `k` è già presente, `insert` non ha effetto, mentre `[k] = v` sovrascrive il valore associato.]),
-  op-row([`erase(k)`], [$cal(O)(1)$ media], [Rimuove la coppia con chiave `k`. Se `k` non è presente l'operazione non ha effetto.]),
-  op-row([`find(k)`], [$cal(O)(1)$ media], [Trova la chiave `k` e restituisce un _iteratore_ alla coppia corrispondente. Se `k` non è presente restituisce un iteratore uguale a `end()`.]),
-  op-row([`[k]`], [$cal(O)(1)$ media], [Restituisce (o crea, se non esiste) un riferimento al valore associato alla chiave `k`. _Attenzione_: accedere con `[k]` a una chiave non presente la _inserisce automaticamente_ con un valore di default.]),
+  op-row([`insert({k, v})`], [$cal(O)(1)$ in media], [Inserisce la coppia chiave-valore. Se la chiave `k` è già presente, `insert` non ha effetto, mentre `[k] = v` sovrascrive il valore associato.]),
+  op-row([`erase(k)`], [$cal(O)(1)$ in media], [Rimuove la coppia con chiave `k`. Se `k` non è presente, l'operazione non ha effetto.]),
+  op-row([`find(k)`], [$cal(O)(1)$ in media], [Trova la chiave `k` e restituisce un _iteratore_ alla coppia corrispondente. Se `k` non è presente, restituisce un iteratore uguale a `end()`.]),
+  op-row([`[k]`], [$cal(O)(1)$ in media], [Restituisce (o crea, se non esiste) un riferimento al valore associato alla chiave `k`. _Attenzione_: accedere con `[k]` a una chiave non presente la _inserisce automaticamente_ con un valore di default.]),
   op-row([`begin()` / `end()`], [$cal(O)(1)$], [Restituiscono iteratori all'inizio e alla fine della `unordered_map` in un ordine non specificato.]),
   op-row([`clear()`], [$cal(O)(N)$], [Rimuove tutti gli elementi.]),
 )
@@ -129,9 +129,9 @@ inclusa in `<unordered_set>`
 `unordered_set` immagazzina una serie di elementi senza duplicati esattamente come `set`, ma senza mantenerli ordinati. Anche questa struttura internamente usa una tabella hash.
 
 #op-table(
-  op-row([`insert(x)`], [$cal(O)(1)$ media], [Inserisce l'elemento `x` nel set.]),
-  op-row([`erase(x)`], [$cal(O)(1)$ media], [Rimuove l'elemento `x` dal set. Se `x` non è presente l'operazione non ha effetto.]),
-  op-row([`find(x)`], [$cal(O)(1)$ media], [Trova l'elemento `x` e restituisce un _iteratore_ ad esso. Se `x` non è presente restituisce un iteratore uguale a `end()`.]),
+  op-row([`insert(x)`], [$cal(O)(1)$ in media], [Inserisce l'elemento `x` nel set.]),
+  op-row([`erase(x)`], [$cal(O)(1)$ in media], [Rimuove l'elemento `x` dal set. Se `x` non è presente, l'operazione non ha effetto.]),
+  op-row([`find(x)`], [$cal(O)(1)$ in media], [Trova l'elemento `x` e restituisce un _iteratore_ a esso. Se `x` non è presente, restituisce un iteratore uguale a `end()`.]),
   op-row([`begin()` / `end()`], [$cal(O)(1)$], [Restituiscono iteratori all'inizio e alla fine dell'`unordered_set` in un ordine non specificato.]),
   op-row([`clear()`], [$cal(O)(N)$], [Rimuove tutti gli elementi.]),
 )
@@ -140,10 +140,9 @@ inclusa in `<unordered_set>`
 === `bitset`
 inclusa in `<bitset>`
 
-`bitset<N>` rappresenta una sequenza di `N` bit, dove `N` deve essere conosciuto a tempo di compilazione. È utile quando dobbiamo memorizzare molti valori booleani oppure manipolare direttamente una maschera di bit. Rispetto ad un `vector<bool>` offre prestazioni migliori.
+`bitset<N>` rappresenta una sequenza di `N` bit, dove `N` deve essere conosciuto a tempo di compilazione. È utile quando dobbiamo memorizzare molti valori booleani oppure manipolare direttamente una maschera di bit. Rispetto a un `vector<bool>` offre prestazioni migliori.
 
-Il bit in posizione `0` è quello meno significativo. La struttura supporta le
-seguenti operazioni principali:
+Il bit in posizione `0` è quello meno significativo. La struttura supporta le seguenti operazioni principali:
 
 #op-table(
   op-row([`[i]` / `test(i)`], [$cal(O)(1)$], [Restituisce il valore del bit in posizione `i`.]),
@@ -152,12 +151,12 @@ seguenti operazioni principali:
   op-row([`flip(i)`], [$cal(O)(1)$], [Inverte il bit in posizione `i`.]),
   op-row([`flip()`], [$cal(O)(N)$], [Inverte tutti i bit.]),
   op-row([`count()`], [$cal(O)(N)$], [Restituisce il numero di bit impostati a `1`.]),
-   op-row([`to_ulong()` / `to_ullong()`], [$cal(O)(N)$], [Convertono il `bitset` rispettivamente in un `unsigned long` o in un `unsigned long long` (se possibile, altrimenti restituisce un errore).]),
+   op-row([`to_ulong()` / `to_ullong()`], [$cal(O)(N)$], [Convertono il `bitset` rispettivamente in un `unsigned long` o in un `unsigned long long` (se possibile, altrimenti restituiscono un errore).]),
   op-row([`any()` / `none()`], [$cal(O)(N)$], [Controllano rispettivamente se almeno un bit oppure nessun bit è impostato a `1`.]),
    op-row([`set()` / `reset()`], [$cal(O)(N)$], [Impostano oppure azzerano tutti i bit.]),
 )
 
-È possibile usare gli operatori bit a bit `&`, `|` e `^` tra due `bitset` della stessa dimensione. Sono inoltre disponibili gli operatori di shift `<<` e `>>`, che spostano tutti i bit verso sinistra o verso destra. Queste operazioni hanno complessità $cal(O)(N)$ ed eseguono  circa $~ceil(N / 64)$ operazioni.
+È possibile usare gli operatori bit a bit `&`, `|` e `^` tra due `bitset` della stessa dimensione. Sono inoltre disponibili gli operatori di shift `<<` e `>>`, che spostano tutti i bit verso sinistra o verso destra. Queste operazioni hanno complessità $cal(O)(N)$ ed eseguono circa $ceil(N / 64)$ operazioni su interi a 64 bit.
 
 ```cpp
 bitset<8> b;

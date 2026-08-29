@@ -20,7 +20,7 @@
 
 // --- SLIDE 1 ---
 #slide(title: "Cos'è la Programmazione Dinamica?")[
-  La DP è una tecnica per risolvere problemi complessi rompendoli in sottoproblemi più semplici. Si applica principalmente a:
+  La DP è una tecnica per risolvere problemi complessi scomponendoli in sottoproblemi più semplici. Si applica principalmente a:
 
   1. **Problemi di Ottimizzazione**
      - Trovare la soluzione migliore (minimo costo, massimo guadagno).
@@ -78,7 +78,7 @@
   }
   ```
   
-  Questo evita il rischio di *Stack Overflow* per $N$ grandi.
+  Questo evita il rischio di *Stack Overflow* per $N$ grande.
 ]
 
 // --- SLIDE 5 ---
@@ -151,7 +151,7 @@
 ]
 
 // --- SLIDE 9 ---
-#slide(title: "Conclusioni ed Esercizi")[
+#slide(title: "Conclusioni ed esercizi")[
   **Consigli Pratici:**
   - Definisci chiaramente lo "stato" (cosa descrive la situazione corrente?).
   - Cerca i casi base.
