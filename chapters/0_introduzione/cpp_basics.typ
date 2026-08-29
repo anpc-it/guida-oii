@@ -75,21 +75,22 @@ Ora che abbiamo scritto il nostro programma, è giunto il momento di compilarlo!
         ```sh
         ./a.out
         ```
-
-#figure(
-  box(
-    fill: luma(20%),
-    inset: 5pt,
-    align(left, text(luma(90%), size: 8pt, font: "JetBrains Mono")[
-      > g++ ciao_dario.cpp \
-      > ls \
-      #text(olive)[a.out] ciao_dario.cpp \
-      > ./a.out \
-      Ciao Dario!
-    ],
-  )),
-  caption: "Esempio di compilazione su Linux."
-)
+#if not is-web {
+    figure(
+    box(
+        fill: luma(20%),
+        inset: 5pt,
+        align(left, text(luma(90%), size: 8pt, font: "JetBrains Mono")[
+        > g++ ciao_dario.cpp \
+        > ls \
+        #text(olive)[a.out] ciao_dario.cpp \
+        > ./a.out \
+        Ciao Dario!
+        ],
+    )),
+    caption: "Esempio di compilazione su Linux."
+    )
+}
 
 === Esempi
 

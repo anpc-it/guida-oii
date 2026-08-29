@@ -212,3 +212,4 @@ Un altro esempio classico di problema che si risolve ricorsivamente è quello de
 
 #exercise("Tris in solitaria", "https://training.olinfo.it/task/ois_solitario", diff: 2)
 #exercise("Tris in solitaria 2", "https://training.olinfo.it/task/solitario2", diff: 3)
+#exercise("Geometric Mean","https://training.olinfo.it/task/ois_geometricmean",diff: 3)

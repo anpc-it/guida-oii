@@ -87,10 +87,9 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
 // )
 
 #problem("Coin Combinations I", url: "https://cses.fi/problemset/task/1635", lbl: "coin-comb-I", tags: ("cses",))[
-  Dato un sistema monetario di $N$ monete con valore distinti $c_1, dots, c_N$ e una somma $X$, conta modulo $10^9 + 7$ le pile distinte di monete con somma $X$. Due pile composte dalle stesse monete in ordine diverso si considerano distinte.
+  Dato un sistema monetario di $N$ monete con valore distinti $c_1, dots, c_N$ e una somma $X$, conta le pile distinte di monete con somma $X$, modulo $10^9 + 7$. Due pile composte dalle stesse monete in ordine diverso si considerano distinte.
 ][
-  Una ragionevole famiglia di sottoproblemi da risolvere in questo caso è, a sistema monetario fissato, l'insieme delle istanze con somma obiettivo $Y <= X$. Sia allora $"conta"[Y]$ il numero di modi di ottenere somma $Y$. Quante delle pile con somma $Y$ hanno in cima una moneta di valore $c_i$? Esattamente $"conta"[Y - c_i]$
-  #footnote[Sembra vero. Per convincere gli scettici diremmo che l'operazione "aggiungi la moneta $c_i$ in cima" è una corrispondenza biunivoca tra le pile con somma $Y - c_i$ e quelle con somma $Y$ che terminano in $c_i$.].
+  Una ragionevole famiglia di sottoproblemi da risolvere in questo caso è, a sistema monetario fissato, l'insieme delle istanze con somma obiettivo $Y <= X$. Sia allora $"conta"[Y]$ il numero di modi di ottenere somma $Y$. Quante delle pile con somma $Y$ hanno in cima una moneta di valore $c_i$? Esattamente $"conta"[Y - c_i]$.
   Per contare le pile con somma $Y$, quindi, possiamo sommare le pile con somma $Y$ e ultima moneta $c_i$ al variare di $c_i$:
 
   $
@@ -128,13 +127,9 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
 
   Alla fine di ogni iterazione del primo `for`, il vettore `conta` contiene ad ogni posizione $Y$ il numero di modi di ottenere $Y$ con le prime $i$ monete. Nota che è importante l'ordine in cui si itera sugli $Y$: se il `for` fosse stato da $X$ a $c[i]$, avremmo risolto il problema con l'ulteriore restrizione di poter usare ogni moneta al più una volta.
 ]
-
-// book shop (?), cses
-// *Bonus:* più in generale, qual è la risposta se la $i$-esima moneta si può usare un massimo di $m_i$ volte? Si può fare meglio di complessità temporale $cal(O)(N sum_i m_i)$?
-// #footnote[La risposta è... non lo so. Sicuramente se tutti gli $m_i$ sono uno in meno di una potenza di due, la risposta è sì.]
-
+// TODO: Improve explanation of LCS
 #problem("Massima sottosequenza comune", url: "https://cses.fi/problemset/task/3403", lbl: "lcs", tags: ("cses",))[
-  Un'array si dice #emph[sottosequenza] di un altro array se il primo si può ottenere dal secondo eliminando alcuni elementi (possibilmente nessuno) senza cambiare l'ordine degli elementi rimanenti.
+  Un'array si dice _sottosequenza_ di un altro array se il primo si può ottenere dal secondo eliminando alcuni elementi (possibilmente nessuno) senza cambiare l'ordine degli elementi rimanenti.
   Dati due array $a_1, a_2, ..., a_n$ e $b_1, b_2, ..., b_m$ rispettivamente di $n$ e $m$ elementi, si trovi una sottosequenza comune di lunghezza massima.
 ][
   Preoccupiamoci innanzitutto di trovare la lunghezza.
@@ -163,7 +158,7 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
   }
   ```
 
-  Data la matrice $"lcs"$, come ricostruiamo una sottosequenza massimale e non solo la sua lunghezza? In ordine inverso! Manteniamo due indici $i, j$, inizialmente uguali a $n, m$, che indicano i prefissi di cui stiamo calcolando la massima sottosequenza comune. Conoscendo gli array $a_i, b_j$ e i valori di $"lcs"$ possiamo capire la provenienza del valore (ottimo) di $"lcs[i][j]"$ e, nel caso in cui $a_i = b_j$, aggiungere un carattere alla risposta. Una possibile implementazione è la seguente#footnote[quello a riga 16 è un bieco trucco per stampare un a capo a fine output.].
+  Data la matrice $"lcs"$, come ricostruiamo una sottosequenza massimale e non solo la sua lunghezza? In ordine inverso! Manteniamo due indici $i, j$, inizialmente uguali a $n, m$, che indicano i prefissi di cui stiamo calcolando la massima sottosequenza comune. Conoscendo gli array $a_i, b_j$ e i valori di $"lcs"$ possiamo capire la provenienza del valore (ottimo) di $"lcs[i][j]"$ e, nel caso in cui $a_i = b_j$, aggiungere un carattere alla risposta. Una possibile implementazione è la seguente.
 
   ```cpp
   int i = n, j = m;
@@ -181,7 +176,8 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
   }
   reverse(begin(ans), end(ans));
   for (int i = 0; i < lcs[n][m]; i++)
-      cout << ans[i] << " \n"[i == lcs[n][m] - 1];
+      cout << ans[i] << " ";
+  cout << '\n';
   ```
 ]
 

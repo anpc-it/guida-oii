@@ -7,6 +7,7 @@
 #import "../../utils/cetz.typ": canvas
 #import "@preview/cetz:0.4.2": draw
 #import "../../utils/problems.typ": *
+#import "../../utils/exercises.typ": exercise
 
 == Ricerca binaria
 
@@ -158,7 +159,7 @@ Cerchiamo ad esempio l'elemento $9$, come nell'esempio sopra.
     ),
     figure(
       canvas(draw-step(0, 7, 3)),
-      caption: [Passo 2: guardiamo al centro: $A[m] = 5 < 9$, quindi se c'è $9$ è a destra di $m$. Settiamo $l <- m + 1$.]
+      caption: [Passo 2: guardiamo al centro: $A[m] = 5 < 9$, quindi se c'è $9$ è a destra di $m$. Impostiamo $l <- m + 1$.]
     ),
     figure(
       canvas(draw-step(4, 7, none)),
@@ -179,7 +180,7 @@ Cerchiamo ad esempio l'elemento $9$, come nell'esempio sopra.
   )
 ]
 
-Per verificare solamente se è presente un valore si può usare `std::binary_search()` mentre per determinarne la posizione `std::lower_bound()`. Entrambe queste funzioni hanno complessità $cal(O)(log N)$.
+Per verificare solamente se in un vettore è presente un valore si può usare `std::binary_search()` mentre per determinarne la posizione `std::lower_bound()`. Entrambe queste funzioni hanno complessità $cal(O)(log N)$.
 
 ```cpp
 vector<int> A = {1, 2, 3, 5, 6, 9, 11, 24};
@@ -215,9 +216,6 @@ Consideriamo il seguente problema.
 
   Per comodità diciamo $f(t) = sum_(i = 0)^(N - 1)floor(t / S_i)$.
 
-  A questo punto potremmo provare tutti i $t$ da $0$ in poi e fermarci quando il numero di oggetti che si possono produrre è almeno $K$.
-  Notiamo però che se $T$ è il tempo minimo che ci serve per produrre $K$ oggetti, vuol dire che per tutti i tempi $t < T$ potremmo produrre meno di $K$ oggetti, mentre per tutti i $t >= T$ ne produrremo almeno $K$ oggetti.
-
   ```cpp
   ll f(ll t) {
       ll sum = 0;
@@ -229,6 +227,9 @@ Consideriamo il seguente problema.
       return sum;
   }
   ```
+
+  A questo punto potremmo provare tutti i $t$ da $0$ in poi e fermarci quando il numero di oggetti che si possono produrre è almeno $K$.
+  Notiamo però che se $T$ è il tempo minimo che ci serve per produrre $K$ oggetti, vuol dire che per tutti i tempi $t < T$ potremmo produrre meno di $K$ oggetti, mentre per tutti i $t >= T$ ne produrremo almeno $K$ oggetti.
 
   Visto che per i nostri scopi il numero di oggetti potrebbe diventare molto grande restituiamo la somma appena supera il valore massimo di $K$. Ricordiamoci di cominciare con un valore di $r$ adeguatamente alto. Questo cambia da problema a problema.
 
@@ -248,6 +249,8 @@ Consideriamo il seguente problema.
   cout << l << '\n';
 
   ```
+
+  La complessità finale della soluzione passa da $cal(O)(N T)$ a $cal(O)(N log T)$.
 ]
 
 In alcuni problemi, la funzione su cui facciamo ricerca binaria può diventare molto complessa, come nell'esempio che segue.
@@ -313,3 +316,7 @@ La condizione che ci permette di fare ricerca binaria su una funzione è che que
 
   Quando ci viene richiesto di trovare _il massimo o il minimo valore per il quale vale una certa proprietà_ e questa proprietà vale solo per un prefisso o solo per un suffisso, allora è solitamente possibile fare una ricerca binaria sul punto in cui cambia la risposta.
 ]
+=== Problemi consigliati
+
+#exercise("Array Division", "https://cses.fi/alon/task/1085", diff: 2)
+#exercise("Multiplication Table", "https://cses.fi/problemset/task/2422", diff: 3)

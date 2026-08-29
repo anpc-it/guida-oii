@@ -1,6 +1,6 @@
 # Contribuire
 
-Accettiamo contributi esclusivamente tramite segnalazioni e richieste di modifica (solo in inglese o italiano).
+Accettiamo contributi esclusivamente tramite segnalazioni e richieste di modifica.
 
 I contenuti sono scritti in Typst. La versione web viene generata con Shiroa.
 Per compilare e verificare localmente la guida puoi usare `compile.sh`.

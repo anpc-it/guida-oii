@@ -17,6 +17,10 @@ La Standard Template Library (abbr. STL) è una collezione di algoritmi, strumen
 
 Tutte le funzionalità della STL sono racchiuse dal namespace `std`. Per comodità possiamo includere all'inizio del codice tutto il namespace tramite `using namespace std;`, in modo da scrivere, per esempio, `vector<int>` invece di `std::vector<int>`. Inoltre, ogni funzionalità della STL è racchiusa in una libreria che andrà importata all'inizio del file. Ad esempio, `vector` sta nella libreria `<vector>`, `sort` sta in `<algorithm>`, e così via. Anche qui possiamo semplificarci la vita usando la libreria `<bits/stdc++.h>` che include automaticamente _quasi_#footnote("Alcune funzionalità come le PBDS non sono incluse.") tutta la STL. Da ora in avanti, assumeremo che il namespace `std` e `<bits/stdc++.h>` siano stati importati.
 
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+```
 === Struttura dati
 
 Una _Struttura dati_ è un modo intelligente di organizzare informazioni che permetta di supportare determinate operazioni in maniera efficiente. In questo capitolo studiamo come sfruttare al meglio alcune strutture dati già implementate nella libreria standard C++, cioè `vector`, `queue`, `pair`, `set`, `priority_queue`, `map`.
@@ -169,7 +173,7 @@ Consideriamo un altro esempio pratico.
 ][
   Intuitivamente, è ottimale ordinare gli eventi in ordine cronologico, per poi simulare la partenza e l'arrivo di ogni cliente nell'ordine giusto. A questo punto, ogni volta che arriva un cliente, è ottimale assegnargli la stanza libera con numero minimo.
 
-  *Esercizio:* dimostra quest'ultimo fatto. In particolare, supponi di dare a un cliente una stanza con numero non minimo. A quel punto, la stanza con numero minimo o rimane sempre inutilizzata (e quindi non stai usando il numero minimo di stanze), oppure viene utilizzata da altri clienti in seguito (in questo caso, trova un'altra configurazione di stanze che funziona).
+  // *Esercizio:* dimostra quest'ultimo fatto. In particolare, supponi di dare a un cliente una stanza con numero non minimo. A quel punto, la stanza con numero minimo o rimane sempre inutilizzata (e quindi non stai usando il numero minimo di stanze), oppure viene utilizzata da altri clienti in seguito (in questo caso, trova un'altra configurazione di stanze che funziona).
 
   Come trovare la stanza libera con numero minimo? Se controlliamo le stanze una a una, impieghiamo $cal(O)(N)$ per cliente nel caso pessimo (ad esempio, se l'unica stanza libera è l'ultima): serve una struttura dati più veloce. Un `set` è particolarmente adatto perché supporta l'estrazione dell'elemento minimo in tempo $cal(O)(log N)$.
 
@@ -334,7 +338,12 @@ getline(cin, s);
 
 #exercise("Tieni aggiornato il catalogo", "https://training.olinfo.it/task/catalogo", diff: 1)
 #exercise("Soste in autostrada", "https://training.olinfo.it/task/autogrill", diff: 1)
-#exercise("Quantum Brackets", "https://training.olinfo.it/task/ois_brackets", diff: 2)
+#exercise("Quantum Brackets", "https://training.olinfo.it/task/ois_brackets", diff: 1)
+#exercise("Festa Estiva", "https://training.olinfo.it/task/pre-egoi-festaestiva", diff: 2)
+#exercise("Overtakings", "https://training.olinfo.it/task/ois_g1", diff: 2)
+#exercise("Concert Tickets", "https://cses.fi/alon/task/1091", diff: 2)
+#exercise("Traffic Lights", "https://cses.fi/ckvo8q5wh/task/1163", diff: 2)
+#exercise("Mattia e i suoi vasi", "https://training.olinfo.it/task/vasi", diff: 3)
 
 // 
 // Se hai bisogno di _classicismo_, proponiamo la sezione "Sorting and Searching" di #link("cses.fi/problemset"). Proponiamo qui sotto problemi più croccanti e di vari livelli di difficoltà (non minori di algobadge)

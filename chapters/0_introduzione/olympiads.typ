@@ -21,7 +21,7 @@ Le gare di informatica hanno quindi due aspetti distinti:
 === Le Olimpiadi Italiane di Informatica
 
 // TODO: foto OII
-Le OII sono una competizione rivolta agli studenti delle scuole secondarie superiori. Il percorso di selezione comprende diverse fasi, dalla selezione scolastica, alla selezione territoriale, fino alla gara nazionale. Le regole precise, le date e i criteri di selezione possono cambiare di anno in anno: per informazioni aggiornate consultare il #link("https://olimpiadi-informatica.it/")[sito ufficiale delle OII].
+Le OII sono una competizione rivolta agli studenti delle scuole secondarie superiori. Il percorso di selezione comprende diverse fasi, dalla selezione scolastica, alla selezione territoriale, fino alla gara nazionale. Le regole precise, le date e i criteri di selezione possono cambiare di anno in anno: per informazioni aggiornate consultare il sito ufficiale delle OII: #link("https://olimpiadi-informatica.it/").
 
 Dalla fase territoriale in poi l'obiettivo è lo stesso: leggere i dati forniti, elaborare una risposta e stamparla nel formato richiesto. La teoria richiesta per cominciare a partecipare alle olimpiadi di informatica è molto ridotta: basta saper scrivere codice in un linguaggio di programmazione a scelta (preferibilmente C++, ne parleremo nei capitoli futuri). La teoria spiegata in questo libro comprende principalmente strumenti e tecniche che possono essere applicate in molti problemi diversi, e che rendono la soluzione più efficiente o facile da tradurre in codice.
 
