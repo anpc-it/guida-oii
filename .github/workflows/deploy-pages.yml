@@ -24,8 +24,18 @@ jobs:
             | tar xz --strip-components=1
           sudo mv shiroa /usr/local/bin/
 
+      - name: Download fonts
+        run: |
+          mkdir -p assets/fonts
+          curl -fLsS https://raw.githubusercontent.com/google/fonts/main/ofl/crimsontext/CrimsonText-Regular.ttf \
+            -o assets/fonts/CrimsonText-Regular.ttf
+          curl -fLsS https://raw.githubusercontent.com/google/fonts/main/ofl/ebgaramond/EBGaramond%5Bwght%5D.ttf \
+            -o assets/fonts/EBGaramond.ttf
+          curl -fLsS https://raw.githubusercontent.com/stipub/stixfonts/v2.13b171/fonts/static_otf/STIXTwoMath-Regular.otf \
+            -o assets/fonts/STIXTwoMath-Regular.otf
+
       - name: Build website
-        run: shiroa build -d dist --path-to-root /guida-oii/
+        run: shiroa build -d dist --font-path assets/fonts --path-to-root /
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
