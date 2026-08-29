@@ -90,7 +90,7 @@ try { localStorage.setItem("shiroa-theme", "light"); } catch (e) {}
   show math.equation: set text(font: "STIX Two Math") // generic thick math font
 
   show: markup-rules.with(..common, themes: themes, heading-sizes: heading-sizes, list-indent: list-indent, main-size: main-size)
-  show heading: set text(font: "EB Garamond 12")
+  show heading: set text(font: "EB Garamond")
   show heading: it => if is-web-target {
       set text(size: heading-sizes.at(it.level))
       block(
