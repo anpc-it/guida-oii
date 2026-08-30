@@ -11,7 +11,7 @@
 == Programmazione dinamica
 
 In questo capitolo sviluppiamo una tecnica molto potente per affrontare due categorie di problemi che ha senso trattare congiuntamente:
-- problemi di *ottimizzazione*, cioè prendere scelte che portino al massimo guadagno (o, equivalentemente, alla minima spesa) possibile;
+- problemi di *ottimizzazione*, cioè compiere scelte che portino al massimo guadagno (o, equivalentemente, alla minima spesa) possibile;
 - problemi di *conteggio*, cioè contare le soluzioni che rispettano una certa condizione.
 
 Consideriamo il seguente esempio pratico.
@@ -23,9 +23,9 @@ Consideriamo il seguente esempio pratico.
 
   Se la Olinfo Srl ha una barra lunga $L$, e vende un pezzo di lunghezza $i$, questa ricava $p_i + "ricavo"(L - i)$.
 
-  Prendiamoci un attimo per digerire questa formula: quello che stiamo affermando è che se voglio tagliare un pezzo di lunghezza $i$ dalla barra lunga $L$, allora il massimo possibile ricavo da questa scelta è $p_i$, ovvero il guadagno della scelta stessa, sommato a $"ricavo"(L-i)$, ovvero la soluzione ottimale per una barra lunga $L-i$.
+  Prendiamoci un attimo per digerire questa formula: quello che stiamo affermando è che, se voglio tagliare un pezzo di lunghezza $i$ dalla barra lunga $L$, allora il massimo ricavo possibile da questa scelta è $p_i$, ovvero il guadagno della scelta stessa, sommato a $"ricavo"(L-i)$, ovvero la soluzione ottimale per una barra lunga $L-i$.
 
-  A questo punto siamo in grado di definire $"ricavo"(L)$: dato che tagliare un pezzo lungo $i$ genera un ricavo di $p_i + "ricavo"(L-i)$, possiamo provare tutti gli $i <= L$ e tenere quello fa guadagnare di più. Formalmente:
+  A questo punto siamo in grado di definire $"ricavo"(L)$: dato che tagliare un pezzo lungo $i$ genera un ricavo di $p_i + "ricavo"(L-i)$, possiamo provare tutti gli $i <= L$ e tenere quello che fa guadagnare di più. Formalmente:
   $ "ricavo"(L) = max{p_i + "ricavo"(L - i) | i = 1, dots, L}. $
 
   Questa è un'implementazione di questa formula, lenta ma corretta:
@@ -38,11 +38,11 @@ Consideriamo il seguente esempio pratico.
   }
   ```
 
-  La soluzione appena descritta è terribilmente inefficiente: calcoliamo un numero esponenziale in $N$ di volte gli stessi valori. Se una volta ottenuti i valori si memorizzassero, ognuno verrebbe calcolato al più una volta. È quindi naturale salvare le risposte ai sottoproblemi una volta calcolate: questa tecnica è detta #emph[memoizzazione]#footnote[No, non è un errore di battitura. Si chiama _memoizzazione_ non _memorizzazione_.].
+  La soluzione appena descritta è terribilmente inefficiente: calcoliamo i medesimi valori un numero di volte esponenziale in $N$. Se una volta ottenuti i valori si memorizzassero, ognuno verrebbe calcolato al più una volta. È quindi naturale salvare le risposte ai sottoproblemi una volta calcolate: questa tecnica è detta #emph[memoizzazione]#footnote[No, non è un errore di battitura. Si chiama _memoizzazione_, non _memorizzazione_.].
 
   Manteniamo opportuni array o mappe a indicare
-  + se abbiamo già calcolato la risposta per un dato $L$
-  + qual è questa risposta già calcolata #footnote[Le due informazioni si possono accorpare se, a un valore inutilizzato (come $-1$ in questo caso), si dà il significato di "risposta non ancora calcolata".].
+  + se abbiamo già calcolato la risposta per un dato $L$;
+  + qual è questa risposta già calcolata #footnote[Le due informazioni si possono accorpare se a un valore inutilizzato (come $-1$ in questo caso) si assegna il significato di "risposta non ancora calcolata".].
   In pratica modifichiamo leggermente l'implementazione della funzione $"ricavo"$.
   ```cpp
   ll ricavo(int L) {
@@ -66,7 +66,7 @@ Consideriamo il seguente esempio pratico.
   ```
 ]
 
-*Esercizio:* capire perché una chiamata a $"ricavo"(N)$ comporta esattamente $2^(N-1)$ chiamate a $"ricavo(0)"$ e un totale di $2^N$ chiamate a $"ricavo"$.
+*Esercizio:* capire perché una chiamata a $"ricavo"(N)$ comporta esattamente $2^(N-1)$ chiamate a $"ricavo"(0)$ e un totale di $2^N$ chiamate a $"ricavo"$.
 
 Facciamo un passo indietro e generalizziamo: spesso la soluzione di un problema si ricava più o meno facilmente da soluzioni per istanze "più piccole" dello stesso problema... che a loro volta si spezzano in istanze più piccole e così via, finché non rimangono istanze banali dette #emph[casi base]. Dai casi base, in maniera iterativa o ricorsiva, si costruiscono le soluzioni ai sottoproblemi che intendiamo risolvere. Nota l'analogia con l'induzione matematica.
 
@@ -87,7 +87,7 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
 // )
 
 #problem("Coin Combinations I", url: "https://cses.fi/problemset/task/1635", lbl: "coin-comb-I", tags: ("cses",))[
-  Dato un sistema monetario di $N$ monete con valore distinti $c_1, dots, c_N$ e una somma $X$, conta le pile distinte di monete con somma $X$, modulo $10^9 + 7$. Due pile composte dalle stesse monete in ordine diverso si considerano distinte.
+  Dato un sistema monetario di $N$ monete con valori distinti $c_1, dots, c_N$ e una somma $X$, conta le pile distinte di monete con somma $X$, modulo $10^9 + 7$. Due pile composte dalle stesse monete in ordine diverso si considerano distinte.
 ][
   Una ragionevole famiglia di sottoproblemi da risolvere in questo caso è, a sistema monetario fissato, l'insieme delle istanze con somma obiettivo $Y <= X$. Sia allora $"conta"[Y]$ il numero di modi di ottenere somma $Y$. Quante delle pile con somma $Y$ hanno in cima una moneta di valore $c_i$? Esattamente $"conta"[Y - c_i]$.
   Per contare le pile con somma $Y$, quindi, possiamo sommare le pile con somma $Y$ e ultima moneta $c_i$ al variare di $c_i$:
@@ -125,17 +125,17 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
           conta[y] = (conta[y] + conta[y - c[i]]) % mod;
   ```
 
-  Alla fine di ogni iterazione del primo `for`, il vettore `conta` contiene ad ogni posizione $Y$ il numero di modi di ottenere $Y$ con le prime $i$ monete. Nota che è importante l'ordine in cui si itera sugli $Y$: se il `for` fosse stato da $X$ a $c[i]$, avremmo risolto il problema con l'ulteriore restrizione di poter usare ogni moneta al più una volta.
+  Alla fine di ogni iterazione del primo `for`, il vettore `conta` contiene a ogni posizione $Y$ il numero di modi di ottenere $Y$ con le prime $i$ monete. Nota che è importante l'ordine in cui si itera sugli $Y$: se il `for` fosse stato da $X$ a $c[i]$, avremmo risolto il problema con l'ulteriore restrizione di poter usare ogni moneta al più una volta.
 ]
 // TODO: Improve explanation of LCS
 #problem("Massima sottosequenza comune", url: "https://cses.fi/problemset/task/3403", lbl: "lcs", tags: ("cses",))[
-  Un'array si dice _sottosequenza_ di un altro array se il primo si può ottenere dal secondo eliminando alcuni elementi (possibilmente nessuno) senza cambiare l'ordine degli elementi rimanenti.
+  Un array si dice _sottosequenza_ di un altro array se il primo si può ottenere dal secondo eliminando alcuni elementi (possibilmente nessuno) senza cambiare l'ordine degli elementi rimanenti.
   Dati due array $a_1, a_2, ..., a_n$ e $b_1, b_2, ..., b_m$ rispettivamente di $n$ e $m$ elementi, si trovi una sottosequenza comune di lunghezza massima.
 ][
   Preoccupiamoci innanzitutto di trovare la lunghezza.
   Rispondiamo alla domanda per ogni possibile coppia prefisso del primo array e prefisso del secondo array: sia quindi $"lcs"[i][j]$ la lunghezza della massima sottosequenza comune tra i primi $i$ elementi di $a$ e i primi $j$ elementi di $b$.
 
-  Calcoliamo $"lcs"[i][j]$ supponendo di conoscere le risposte ai sottoproblemi più piccoli. Se $a_i = b_j$, non c'è motivo di non includere gli ultimi elementi nella sequenza#footnote[È intuitivo, ma perché? Va dimostrato che per ogni soluzione ottimale, esiste una soluzione almeno altrettanto buona]. Se invece $a_i != b_j$, allora (almeno) uno tra $a_i$ non farà pare della sottosequenza comune, nel cui caso la risposta è una tra $"lcs"[i - 1][j]$ e $"lcs"[i][j - 1]$. In altre parole, vale il seguente:
+  Calcoliamo $"lcs"[i][j]$ supponendo di conoscere le risposte ai sottoproblemi più piccoli. Se $a_i = b_j$, non c'è motivo di non includere gli ultimi elementi nella sequenza#footnote[È intuitivo, ma perché? Va dimostrato che per ogni soluzione ottimale, esiste una soluzione almeno altrettanto buona.]. Se invece $a_i != b_j$, allora (almeno) uno tra $a_i$ non farà parte della sottosequenza comune, nel cui caso la risposta è una tra $"lcs"[i - 1][j]$ e $"lcs"[i][j - 1]$. In altre parole, vale la seguente relazione:
 
   $
   "lcs"[i][j] = cases(
@@ -188,7 +188,7 @@ La programmazione dinamica è un concetto naturale, la sfida è identificare la 
   Carlo parte dalla casella $0$ e giocherà $K$ turni di Monopoli. Ogni turno lancia due dadi a 6 facce e avanza della somma dei due valori,
   poi paga l'imposta della casella su cui atterra. Se i due valori dei dadi sono uguali, dopo aver mosso e pagato, lancia nuovamente i dadi.
   Carlo può muovere al massimo tre volte in un singolo turno, dopodiché il suo turno termina automaticamente (anche se i due valori dei dadi sono uguali).
-  Poiché non accetti di perdere, hai truccato i dati e controlli l'esito di tutti i lanci. Il tuo obiettivo è massimizzare la quantità di denaro che Carlo perde durante il gioco.
+  Poiché non accetti di perdere, hai truccato i dadi e controlli l'esito di tutti i lanci. Il tuo obiettivo è massimizzare la quantità di denaro che Carlo perde durante il gioco.
 ][
   Una valida famiglia di sottoproblemi da risolvere in questo caso è "qual è la risposta per $k$ turni se termino il $k$-esimo turno sulla casella $i$ con $l$ lanci". Alternativamente, il limite di tempo permette una soluzione più lenta ma più semplice i cui stati sono solo le coppie $k$, $i$ con $0 <= k <= K$ e $0 <= i < N$. Un'implementazione del primo approccio si trova su #link("https://github.com/franfill1/training.olinfo.it-solutions/blob/master/src/ois_monopoly.cpp"), una del secondo su #link("https://github.com/lorenzo-ferrari/olinfo/blob/main/src/ois_monopoly.cpp").
 
@@ -206,9 +206,9 @@ Anche _Atcoder_ offre una raccolta di problemi di programmazione dinamica molto 
 #exercise("Pranzo dalla nonna", "https://training.olinfo.it/task/ois_nonna", diff: 1)
 #exercise("Treni", "https://training.olinfo.it/task/preoii_treni", diff: 2)
 #exercise("ZigZag", "https://training.olinfo.it/task/zigzag", diff: 2)
-#exercise("Sushi variegato", "https://training.olinfo.it/task/preoii_yutaka",diff: 2)
+#exercise("Sushi variegato", "https://training.olinfo.it/task/preoii_yutaka", diff: 2)
 #exercise("Corsa Contro il Tempo 2", "https://training.olinfo.it/task/tai_cct2", diff: 3)
-#exercise("Episodio III: la coda per il buffet","https://training.olinfo.it/task/oii_coda", diff: 3)
+#exercise("Episodio III: la coda per il buffet", "https://training.olinfo.it/task/oii_coda", diff: 3)
 #exercise("Tulip Bouquets", "https://training.olinfo.it/task/ois_tulips", diff: 3)
 // - #link("https://training.olinfo.it/task/oii_bastioni")
 // - #link("https://training.olinfo.it/task/oii_orticoltura")

@@ -327,7 +327,7 @@ Prima di procedere, diciamo che un grafo è _*connesso*_ se ogni coppia di nodi 
 
 Ora che sappiamo visitare il grafo, possiamo anche contare il numero di isole su una mappa, come nel problema #crossref(<graph_problems>, "/chapters/4_editorials/graph_problems.typ", [Find the Treasure (ois_islands)]).
 
-Un'altra applicazione delle visite è dire se un grafo contiene o meno dei _cicli_, cioè dei cammini che partono e arrivano allo stesso nodo senza passare due volte per lo stesso arco, o ancora l'ordinamento topologico di un grafo diretto acilico, che tratteremo più avanti.
+Un'altra applicazione delle visite è dire se un grafo contiene o meno dei _cicli_, cioè dei cammini che partono e arrivano allo stesso nodo senza passare due volte per lo stesso arco, o ancora l'ordinamento topologico di un grafo diretto aciclico, che tratteremo più avanti.
 
 === Cammini minimi: L'algoritmo di Dijkstra
 
@@ -350,12 +350,12 @@ Il problema, più in astratto, è: dato un grafo pesato, un nodo sorgente $s$ e 
 In un grafo non pesato, ogni arco ha lo stesso costo (ad esempio $1$) e il problema si risolve facilmente con una BFS. In generale la questione si complica.
 Viene in soccorso l'algoritmo di Dijkstra (pronunciato "Daikstra"), che funziona in modo simile alla BFS, ma invece di usare una coda usa una _coda di priorità_ per processare prima i nodi più vicini alla radice. In questo modo, quando si processa un nodo, si è sicuri di aver trovato il cammino più corto per raggiungerlo.
 
-Ricordiamo che la coda di priorità, per noi `priority_queue` supporta le seguenti operazioni:
+Ricordiamo che la coda di priorità, per noi `priority_queue`, supporta le seguenti operazioni:
 - `push(x)`: inserisce l'elemento $x$ nella coda, complessità $cal(O)(log n)$ con $n$ numero di elementi nella coda;
 - `top()`: restituisce l'elemento massimo, complessità $cal(O)(1)$;
 - `pop()`: rimuove l'elemento massimo, complessità $cal(O)(log n)$.
 
-Normalmente le code a priorità hanno in cima l'elemento massimo, ma noi siamo interessato a quello con chiave (la distanza) minima.
+Normalmente le code a priorità hanno in cima l'elemento massimo, ma noi siamo interessati a quello con chiave (la distanza) minima.
 
 Per ovviare a questo problema possiamo inserire le distanze cambiate di segno (sconsigliato, è facile dimenticarsi dei segni meno in giro) o specificare, quando dichiariamo la coda, come ordinarla.
 
@@ -422,7 +422,7 @@ Immagina di dover progettare la rete elettrica dell'attuale Repubblica Ceca in m
 Dato un grafo $G(V, E)$ connesso e pesato, un albero ricoprente è un sottografo connesso che contiene tutti i nodi di $G$ e non contiene cicli.
 
 
-Questo problema si affronta sostanzialmente in tre modi: l'algoritmo di Prim, l'algoritmo di Kruskal e l'algoritmo di Borùvka. Trattiamo i primi due.
+Questo problema si affronta sostanzialmente in tre modi: l'algoritmo di Prim, l'algoritmo di Kruskal e l'algoritmo di Borůvka. Trattiamo i primi due.
 
 ==== Algoritmo di Prim
 
@@ -478,7 +478,7 @@ Come ti puoi aspettare, questa implementazione dell'algoritmo di Prim ha la stes
     })
   )
 
-  Procediamo passo passo seguendo l'algoritmo di Prim. 
+  Procediamo passo dopo passo seguendo l'algoritmo di Prim. 
   Ogni volta prenderemo l'arco di peso minimo che connette un nodo preso (in rosso) e uno non preso.
   Cominceremo scegliendo arbitrariamente il nodo $0$ come nodo preso.
 
@@ -563,7 +563,7 @@ L'algoritmo di Kruskal si basa sulla seguente proprietà: dato un albero ricopre
 Se la proprietà sopra ti sembra intuitiva, possiamo occuparci dell'algoritmo di Kruskal.
 L'albero ricoprente contiene inizialmente i nodi del grafo, ma non contiene archi. L'algoritmo processa gli archi uno alla volta in ordine crescente di peso, e li aggiunge all'albero se e soltanto se questi non creano un ciclo, cioè se connettono due componenti prima non connesse.
 
-Una domanda naturale è come facciamo a controllare che due nodi siano in componenti diverse ed eventualmente ad unire queste componenti? Viene in soccorso una delle nostre strutture dati preferite: la cosiddetta Union-Find, o DSU.
+Una domanda naturale è come facciamo a controllare che due nodi siano in componenti diverse ed eventualmente a unire queste componenti? Viene in soccorso una delle nostre strutture dati preferite: la cosiddetta Union-Find, o DSU.
 
 #example[][
   Per il momento limitiamoci a vedere un esempio con lo stesso grafo usato in precedenza:
@@ -626,10 +626,10 @@ Una domanda naturale è come facciamo a controllare che due nodi siano in compon
 
   Gli ultimi due archi in ordine di peso non connettono nodi che non siano già connessi fra loro, dunque non prendiamo altri archi.
 
-  Notare che gli archi sono stati aggiunti in ordine di peso e che, a differenza di prim, stavamo connettendo più gruppi di nodi contemporaneamente.
+  Si noti che gli archi sono stati aggiunti in ordine di peso e che, a differenza di Prim, si connettono più gruppi di nodi contemporaneamente.
 ]
 
-L'albero risultante da questo altro algoritmo è lo stesso di Prim ma non è sempre così.
+L'albero risultante da quest'altro algoritmo è lo stesso ottenuto con Prim, ma non è sempre così.
 La garanzia che abbiamo è che entrambi producano un albero ricoprente il cui peso è minimo tra tutti i possibili alberi ricoprenti.
 
 // TODO: === Ordinamento topologico (direi nella sezione OII non terry)

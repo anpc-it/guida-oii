@@ -8,12 +8,12 @@
 
 == Debugging <debugging>
 
-Il _debugging_, o in italiano "_correzione degli errori_", è il processo di rimozione di errori logici o concettuali (in inglese, _bugs_) dal proprio codice. 
-Durante la fase di stesura del codice è molto probabile che vengano inseriti inavvertitamente dei bugs, perciò familiarizzare e padroneggiare le tecniche di debugging è essenziale.
+Il _debugging_, o in italiano "_correzione degli errori_", è il processo di rimozione di errori logici o concettuali (in inglese, _bug_) dal proprio codice. 
+Durante la fase di stesura del codice è molto probabile che vengano inseriti inavvertitamente dei bug; perciò familiarizzare e padroneggiare le tecniche di debugging è essenziale.
 Elenchiamo qui sotto le tecniche e gli strumenti più efficaci per fare _debugging_:
 
 === Usare `std::cout` o `std::cerr`
-Il metodo più banale (ma spesso il più efficace) per scovare bugs è quello di stampare delle informazioni intermedie durante l'esecuzione del codice.
+Il metodo più immediato (ma spesso il più efficace) per scovare i bug è quello di stampare informazioni intermedie durante l'esecuzione del codice.
 
 // TODO: trovare un esempio migliore per debugging std::cout D:
 
@@ -31,7 +31,7 @@ int main() {
     cin >> a >> b;
     int risposta = 1;
 
-    for(int i = 1; i <= b; i++)
+    for (int i = 1; i <= b; i++)
         risposta = risposta * a;
     cout << risposta << endl;
 }
@@ -51,17 +51,17 @@ $81$ è la risposta corretta. Proviamo con un altro input:
 ```output
 -1282129920
 ```
-Qualcosa è andato storto, proviamo a capire meglio cosa inserendo un `std::cout` nel ciclo:
+Qualcosa è andato storto; proviamo a capire meglio cosa inserendo un `std::cout` nel ciclo:
 ```cpp
 #include <iostream>
 using namespace std;
 
 int main() {
-    int a,b;
+    int a, b;
     cin >> a >> b;
     int risposta = 1;
 
-    for(int i = 1; i <= b; i++) {
+    for (int i = 1; i <= b; i++) {
         cout << i << ": " << risposta << endl;
         risposta = risposta * a;
     }
@@ -89,18 +89,18 @@ int main() {
 -1282129920
 ```
 
-Come possiamo vedere, alla decima iterazione del ciclo la risposta diventa negativa. Questo è dovuto ad un _overflow_, ovvero la variabile `risposta` di tipo `int` può contenere numeri fino a $2^31-1 = 2147483647$, ma il numero che stiamo cercando di calcolare è più grande! Per risolvere questo problema, usiamo invece di `int` il tipo `long long`, che contiene numeri fino a $2^63-1 approx 9.22 times 10^18$
+Come possiamo vedere, alla decima iterazione del ciclo la risposta diventa negativa. Questo è dovuto a un _overflow_: la variabile `risposta` di tipo `int` può contenere numeri fino a $2^31 - 1 = 2147483647$, ma il numero che stiamo cercando di calcolare è più grande! Per risolvere questo problema, usiamo il tipo `long long` al posto di `int`, che contiene numeri fino a $2^63 - 1 approx 9.22 times 10^18$.
 
 ```cpp
 #include <iostream>
 using namespace std;
 
 int main() {
-    ll a,b;
+    long long a, b;
     cin >> a >> b;
-    ll risposta = 1;
+    long long risposta = 1;
 
-    for(int i = 1; i <= b; i++) {
+    for (int i = 1; i <= b; i++) {
         risposta = risposta * a;
     }
     cout << risposta << endl;

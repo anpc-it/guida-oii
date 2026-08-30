@@ -12,7 +12,7 @@
 
 Consideriamo il seguente problema.
 #problem("Bit Problem", url: "https://cses.fi/problemset/task/1654", lbl: "bit-problem", tags: ("cses",))[
-  Sono dati $M <= 10^6$ interi a $N = 20$ bit. Ci chiediamo, per ogni elemento $x$, il numero di elementi $y$ tali che $x | y = x$.
+  Sono dati $M <= 10^6$ interi a $N = 20$ bit. Vogliamo determinare, per ogni elemento $x$, il numero di elementi $y$ tali che $x | y = x$.
 ][
   Osserviamo che vale $x | y = x <==> y subset.eq x$, con $x$, $y$ visti come insiemi delle posizioni dei bit $1$.
   Sia allora $a[x]$ la frequenza di $x$ nell'array. Per ogni elemento $x$, la risposta è la _sum over subsets_ $"sos"[x] := sum_(y subset.eq x) a[y]$.
@@ -56,7 +56,7 @@ Consideriamo il seguente problema.
 
   È data una griglia le cui celle contengono degli interi. Per ogni cella $(i,j)$, calcolare la somma dei numeri contenuti nelle celle $(x,y)$ con $x <= i$ e $y <= j$.
 
-  Si procede calcolando le somme prefisse prima per riga, poi per colonna sulla nuova griglia che contiene le somme prefisse di ogni riga. Ci si può convincere che alla fine in ogni cella $(i,j)$ si trova la risposta. Provare per credere, riportiamo un esempio su una griglia $4 times 5$.
+  Si procede calcolando le somme prefisse prima per riga, poi per colonna sulla nuova griglia che contiene le somme prefisse di ogni riga. Ci si può convincere che alla fine in ogni cella $(i,j)$ si trovi la risposta. Riportiamo un esempio su una griglia $4 times 4$.
 
   #local(number-format: none)[
   #grid(
@@ -92,7 +92,7 @@ Consideriamo il seguente problema.
   *Esercizio:* (scollegato) Esprimere la somma di un generico rettangolo di vertici opposti $(i_1,j_1), (i_2, j_2)$ nella griglia iniziale come somma/differenza di elementi della griglia finale.
 
   Lo stesso approccio funziona per un numero arbitrario di dimensioni e -- tenetevi forte -- il problema di partenza si può formulare esattamente in questi termini!
-  Nel nostro caso la griglia è $N$-dimensionale e ogni coordinata è $0$ o $1$. (Equivalentemente, lavoriamo sui vertici dell'ipercubo in $N$ dimensioni.) Ogni elemento di ${0, dots, 2^N - 1}$ corrisponde a una $N$-upla di coordinate binarie, quindi un punto sulla griglia. Vale $y subset.eq x$ se e solo se le coordinate di $y$ sono minori o uguali delle coordinate di $x$ (proprio come nelle somme prefisse bidimensionali).
+  Nel nostro caso la griglia è $N$-dimensionale e ogni coordinata è $0$ o $1$. (Equivalentemente, lavoriamo sui vertici dell'ipercubo in $N$ dimensioni.) Ogni elemento di ${0, dots, 2^N - 1}$ corrisponde a una $N$-upla di coordinate binarie, quindi un punto sulla griglia. Vale $y subset.eq x$ se e solo se le coordinate di $y$ sono minori o uguali alle coordinate di $x$ (proprio come nelle somme prefisse bidimensionali).
 
   #code(
     header: [*Approccio $cal(O)(N dot 2^N)$*],
@@ -107,7 +107,7 @@ Consideriamo il seguente problema.
 
   Allo step $i$-esimo, per ogni cella sommiamo le celle precedenti nella $i$-esima direzione, dunque se l'$i$-esimo bit è $0$ non sommiamo nulla, se è $1$ sommiamo l'elemento precedente sulla riga generalizzata, vale a dire $"sos"["mask" xor 2^i]$.
 
-  *Esercizo:* rispondere anche alle ultime due domande di #link("https://cses.fi/problemset/task/1654")[Bit Problem].
+  *Esercizio:* rispondere anche alle ultime due domande di #link("https://cses.fi/problemset/task/1654")[Bit Problem].
 
   *Problema:* (avanzato) #link("https://oj.uz/problem/view/JOI18_snake_escaping")[JOI18 -- Snake Escaping].
   // facciamo una sezione apposta per gli Hint?
