@@ -45,20 +45,20 @@ int main() {
     return 0;
 }
 ```
-In C++ le varie dichiarazioni delle librerie vanno incluse nella compilazione tramite la keyword `#include`. La maggior parte delle dichiarazioni della _libreria standard_ appartiene principalmente al namespace `std`. L'istruzione `using namespace std;` permette di usarli senza scrivere ogni volta il prefisso `std::`.
+In C++ le varie dichiarazioni delle librerie vanno incluse nella compilazione tramite la keyword `#include`. La maggior parte delle dichiarazioni della _libreria standard_ appartiene al namespace `std`. L'istruzione `using namespace std;` permette di usarle senza dover scrivere ogni volta il prefisso `std::`.
 
 `cout` (abbr. di "character output") scrive sullo stream standard di output. `endl` inserisce un carattere di fine riga e svuota il buffer associato allo stream.
 
 Nota: in futuro useremo spesso `'\n'` al posto di `endl`, perché inserisce una nuova riga senza forzare lo svuotamento del buffer, operazione solitamente molto lenta. Il buffer viene comunque svuotato automaticamente, per esempio quando è pieno o quando lo stream viene chiuso.
 
 Ora che abbiamo scritto il nostro programma, è giunto il momento di compilarlo! Per compilare il sorgente ci sono due modi principali:
-    1. Tramite l'*IDE* in cui stiamo lavorando è spesso possibile compilare ed eseguire il programma premendo un tasto (o una combinazione/sequenza). Ad esempio, su _Visual Studio Code_ `F5`, su _Code::Blocks_ `F9`, su _Dev-C++_ `F11`. 
+    1. Tramite l'*IDE* in cui stiamo lavorando è spesso possibile compilare ed eseguire il programma premendo un tasto (o una combinazione di tasti). Ad esempio, su _Visual Studio Code_ `F5`, su _Code::Blocks_ `F9`, su _Dev-C++_ `F11`. 
     
         Lo staff delle OII ha messo a disposizione un IDE online (#link("https://editor.olinfo.it")) per compilare ed eseguire il codice senza installare nulla sul proprio computer. Per quanto questo IDE sia comodo all'inizio, è consigliabile installare un IDE sul proprio computer per svariate ragioni, tra cui la possibilità di fare _debugging_ in maniera più efficace e il fatto che l'editor online non sarà disponibile durante la finale delle OII.
         
 // TODO: fact check the last sentence
 
-    2. (*Consigliato*) Tramite *terminale* si può avere un controllo più granulare sulla compilazione (che, come vedremo nel #crossref(<debugging>, "/chapters/0_introduzione/debugging.typ", "capitolo sul Debugging"), può tornare molto utile).
+    2. (*Consigliato*) Tramite *terminale* si può avere un controllo più granulare sulla compilazione (che, come vedremo nel #crossref(<debugging>, "/chapters/0_introduzione/debugging.typ", [capitolo sul debugging]), può tornare molto utile).
         - *Windows*: Possiamo installare `g++` tramite #link("https://dev.to/prastha/install-mingw-w64-on-windows-11-2025-november-acg", `MinGW`) o `MSYS2`. Compiliamo il sorgente con \ 
         ```sh 
         g++ ilnomedeltuofile.cpp
@@ -182,11 +182,10 @@ Per ora abbiamo usato solo `int`, ma non è l'unico tipo di variabile. Presentia
   )
 )
 
-Cosa succede quando si provano a salvare dentro un tipo di variabile come `int` valori maggiori a quelli massimi consentiti?
+Cosa succede quando si provano a salvare dentro un tipo di variabile come `int` valori superiori a quelli massimi consentiti?
 Un _overflow_ si verifica quando il risultato di un'operazione supera il valore massimo, o scende sotto il valore minimo (_underflow_), rappresentabile dal tipo scelto. Con gli interi con segno, il comportamento risultante è indefinito, ma solitamente genera valori spazzatura. Con gli interi senza segno (solo positivi), il risultato è quello corretto ma troncato ai bit disponibili.
 
-In molti #footnote([In alcuni problemi, rispettare il limite di memoria è la parte più complicata del problema. Ad esempio, #link("https://training.olinfo.it/task/tai_cct2").])
-problemi la memoria massima consentita è molto generosa, quindi risulta più conveniente usare `long long` ovunque al posto di `int` per evitare questo tipo di errori.
+In molti problemi#footnote([In alcuni problemi, rispettare il limite di memoria è la parte più complicata del problema. Ad esempio, #link("https://training.olinfo.it/task/tai_cct2").]) la memoria massima consentita è molto generosa, quindi risulta più conveniente usare `long long` ovunque al posto di `int` per evitare questo tipo di errori.
 Dato che `long long` è più lungo da scrivere, possiamo definire un _alias_ all'inizio del codice con `using ll = long long;`, così da poter usare la sintassi abbreviata `ll`.
 
 // disclaimer
@@ -194,7 +193,7 @@ Dato che `long long` è più lungo da scrivere, possiamo definire un _alias_ all
 
 === Una nota per la programmazione competitiva
 
-Quando gareggi hai tempo limitato per scrivere le tue soluzioni. Per questo motivo è comune adottare strategie per rendere più fluida la scrittura del codice ed eventualmente ridurre il numero di caratteri necessari a esprimere lo stesso concetto. Considera il seguente esempio.
+Quando gareggi hai un tempo limitato per scrivere le tue soluzioni. Per questo motivo è comune adottare strategie per rendere più fluida la scrittura del codice ed eventualmente ridurre il numero di caratteri necessari a esprimere lo stesso concetto. Considera il seguente esempio.
 ```cpp
 #include <bits/stdc++.h>
 using namespace std;

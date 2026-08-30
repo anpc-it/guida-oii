@@ -13,7 +13,7 @@
 
 === Introduzione
 
-La Standard Template Library (abbr. STL) è una collezione di algoritmi, strumenti e _strutture dati_ pensate per essere facilmente integrate nel codice. Nell'ambiente della programmazione competitiva vengono spesso utilizzate per via della loro semplicità d'uso e velocità nell'implementazione. La documentazione della STL è disponibile su #link("https://www.cppreference.com"), da cui è anche possibile consultare la complessità temporale delle operazioni sulle strutture.
+La Standard Template Library (abbr. STL) è una collezione di algoritmi, strumenti e _strutture dati_ pensate per essere facilmente integrate nel codice. Nell'ambito della programmazione competitiva vengono spesso utilizzate per via della loro semplicità d'uso e velocità di implementazione. La documentazione della STL è disponibile su #link("https://www.cppreference.com"), da cui è anche possibile consultare la complessità temporale delle operazioni sulle strutture.
 
 Tutte le funzionalità della STL sono racchiuse dal namespace `std`. Per comodità possiamo includere all'inizio del codice tutto il namespace tramite `using namespace std;`, in modo da scrivere, per esempio, `vector<int>` invece di `std::vector<int>`. Inoltre, ogni funzionalità della STL è racchiusa in una libreria che andrà importata all'inizio del file. Ad esempio, `vector` sta nella libreria `<vector>`, `sort` sta in `<algorithm>`, e così via. Anche qui possiamo semplificarci la vita usando la libreria `<bits/stdc++.h>` che include automaticamente _quasi_#footnote("Alcune funzionalità come le PBDS non sono incluse.") tutta la STL. Da ora in avanti, assumeremo che il namespace `std` e `<bits/stdc++.h>` siano stati importati.
 
@@ -21,11 +21,11 @@ Tutte le funzionalità della STL sono racchiuse dal namespace `std`. Per comodit
 #include <bits/stdc++.h>
 using namespace std;
 ```
-=== Struttura dati
+=== Strutture dati
 
-Una _Struttura dati_ è un modo intelligente di organizzare informazioni che permetta di supportare determinate operazioni in maniera efficiente. In questo capitolo studiamo come sfruttare al meglio alcune strutture dati già implementate nella libreria standard C++, cioè `vector`, `queue`, `pair`, `set`, `priority_queue`, `map`.
+Una _struttura dati_ è un modo intelligente di organizzare le informazioni per supportare determinate operazioni in maniera efficiente. In questo capitolo studiamo come sfruttare al meglio alcune strutture dati già implementate nella libreria standard C++, cioè `vector`, `queue`, `pair`, `set`, `priority_queue`, `map`.
 
-Alcune strutture dati più complesse non sono implementate nella STL, ed andranno perciò implementate a mano. Ci occuperemo di queste strutture nei capitoli futuri.
+Alcune strutture dati più complesse non sono implementate nella STL, e andranno perciò implementate a mano. Ci occuperemo di queste strutture nei capitoli futuri.
 
 Inoltre, tutte le strutture della STL supportano queste operazioni:
 
@@ -36,7 +36,7 @@ Inoltre, tutte le strutture della STL supportano queste operazioni:
 
 === Iteratori 
 
-Un iteratore è un oggetto che punta ad uno specifico elemento della struttura dati. Sotto molti punti di vista è simile ad un puntatore. Gli iteratori sono molto utili e vengono usati dalle funzioni della STL che operano su strutture della STL. Per accedere all'elemento puntato dall'iteratore precediamo esso con un `*`. Vediamo un esempio:
+Un iteratore è un oggetto che punta a uno specifico elemento della struttura dati. Sotto molti punti di vista è simile a un puntatore. Gli iteratori sono molto utili e vengono usati da molte funzioni della STL. Per accedere all'elemento puntato dall'iteratore, lo precediamo con un `*` (dereferenziazione). Vediamo un esempio:
 
 ```cpp
 vector<int> a = {10, 20, 30};
@@ -46,12 +46,12 @@ it++;                 // it punta a 20
 cout << *it << endl;  // stampa 20
 ```
 
-Possiamo passare all'elemento successivo con `next(it)` (oppure incrementando direttamente l'iteratore con `++it` o `it++`), e a quello precedente con `prev(it)` (oppure `--it`). Inoltre è importante notare che se abbiamo una struttura, ad esempio un vettore `V`, allora `V.begin()` punta al primo elemento del vettore (se esiste), mentre `V.end()` punta all'elemento subito dopo l'ultimo (ovvero a memoria non allocata). Se `V` è vuoto vale `V.begin() == V.end()`.
+Possiamo passare all'elemento successivo con `next(it)` (oppure incrementando direttamente l'iteratore con `++it` o `it++`), e a quello precedente con `prev(it)` (oppure `--it`). Inoltre, è importante notare che se abbiamo una struttura, ad esempio un vettore `V`, allora `V.begin()` punta al primo elemento del vettore (se esiste), mentre `V.end()` punta alla posizione subito dopo l'ultimo elemento (ovvero a memoria non allocata). Se `V` è vuoto, vale `V.begin() == V.end()`.
 
 === `vector`
 inclusa in `<vector>`
 
-`vector` è forse la struttura dati più semplice della STL: può essere pensata come un _array dinamico_, che si ridimensiona automaticamente quando necessario.
+`vector` è forse la struttura dati più semplice della STL: può essere pensato come un _array dinamico_, che si ridimensiona automaticamente quando necessario.
 
 Supporta le seguenti operazioni principali:
 
@@ -67,14 +67,14 @@ Supporta le seguenti operazioni principali:
   op-row([`resize(n)`], [$cal(O)(N)$], [Ridimensiona il vettore in modo che contenga `n` elementi. Se `n` è minore della dimensione attuale, gli elementi in eccesso vengono rimossi; se è maggiore, i nuovi elementi vengono inizializzati con il valore di default (o con il valore passato come secondo argomento opzionale `resize(n, val)`). _Nota bene:_ `resize` non rimuove gli elementi già presenti: se `n` è maggiore della dimensione attuale, gli elementi esistenti rimangono invariati e vengono semplicemente aggiunti nuovi elementi in coda, mentre se `n` è minore, i primi `n` elementi vengono mantenuti e solo quelli in eccesso vengono rimossi.]),
 )
 
-`push_back` è $cal(O)(1)$ _ammortizzata_ perché, quando il vettore esaurisce lo spazio allocato, la sua capacità viene raddoppiata e tutti gli elementi vengono ricopiati in un nuovo blocco di memoria contiguo, il che ha complessità $cal(O)(N)$. Per risparmiare del tempo, se sappiamo in anticipo quanti elementi avrà il nostro vettore (anche una stima per eccesso va bene), possiamo pre-allocare la memoria per $n$ elementi tramite `reserve(n)`. 
+`push_back` è $cal(O)(1)$ _ammortizzata_ perché, quando il vettore esaurisce lo spazio allocato, la sua capacità viene raddoppiata e tutti gli elementi vengono ricopiati in un nuovo blocco di memoria contiguo, il che ha complessità $cal(O)(N)$. Per risparmiare tempo, se sappiamo in anticipo quanti elementi avrà il nostro vettore (anche una stima per eccesso va bene), possiamo preallocare la memoria per $n$ elementi tramite `reserve(n)`. 
 
-*Nota bene:* alcune operazioni, come `push_back`, `insert` o `erase`, possono invalidare gli iteratori esistenti su un `vector` (ad esempio se il vettore viene ricopiato in un nuovo blocco di memoria durante un ridimensionamento). Usare un iteratore invalidato è un comportamento indefinito.
+*Nota bene:* alcune operazioni, come `push_back`, `insert` o `erase`, possono invalidare gli iteratori esistenti su un `vector` (ad esempio se il vettore viene ricopiato in un nuovo blocco di memoria durante un ridimensionamento). Usare un iteratore invalidato genera un comportamento indefinito.
 
 === `queue`
 inclusa in `<queue>`
 
-`queue` è una struttura dati che implementa una coda *FIFO* (_First In, First Out_): l'elemento che viene inserito per primo è anche il primo ad essere rimosso. Permette di eseguire le seguenti operazioni:
+`queue` è una struttura dati che implementa una coda *FIFO* (_First In, First Out_): l'elemento che viene inserito per primo è anche il primo a essere rimosso. Permette di eseguire le seguenti operazioni:
 
 #op-table(
   op-row([`push(x)`], [$cal(O)(1)$], [Inserisce l'elemento `x` in fondo alla coda.]),
@@ -102,14 +102,14 @@ cout << q.front() << endl; // stampa 2
 === `pair`
 inclusa in `<utility>`
 
-`pair` non è propriamente una struttura dati, ma un semplice contenitore che raggruppa due valori (anche di tipo diverso) in un unico oggetto. È molto usato insieme ad altre strutture della STL (ad esempio dentro un `vector<pair<int,int>>`). Membri:
+`pair` non è propriamente una struttura dati, ma un semplice contenitore che raggruppa due valori (anche di tipo diverso) in un unico oggetto. È molto usato insieme ad altre strutture della STL (ad esempio dentro un `vector<pair<int,int>>`). I membri principali sono:
 
 - `first`: Il primo valore della coppia.
 - `second`: Il secondo valore della coppia.
 
 Si può creare con `make_pair(a, b)` oppure direttamente con la sintassi `{a, b}`.
 
-Inoltre, `pair` supporta il confronto (`<`, `==`, ecc.) nel seguente modo: confronta prima `.first`, e solo in caso di parità confronta `.second`. Questo lo rende molto comodo per essere usato dentro un `set` o per l'ordinamento (`sort`) di un `vector` di coppie.
+Inoltre, `pair` supporta il confronto (`<`, `==`, ecc.) nel seguente modo: confronta prima `.first`, e solo in caso di parità confronta `.second`. Questo lo rende molto comodo da usare all'interno di un `set` o per l'ordinamento (`sort`) di un `vector` di coppie.
 
 Vediamo un esempio:
 
@@ -135,13 +135,13 @@ inclusa in `<set>`
 
 #op-table(
   op-row([`insert(x)`], [$cal(O)(log N)$], [Inserisce l'elemento `x` nel set.]),
-  op-row([`erase(x)`], [$cal(O)(log N)$], [Rimuove l'elemento `x` dal set. Se `x` non è presente l'operazione non ha effetto.]),
-  op-row([`find(x)`], [$cal(O)(log N)$], [Trova l'elemento `x` e restituisce un _iteratore_ ad esso. Se `x` non è presente restituisce un iteratore all'elemento subito dopo l'ultimo.]),
+  op-row([`erase(x)`], [$cal(O)(log N)$], [Rimuove l'elemento `x` dal set. Se `x` non è presente, l'operazione non ha effetto.]),
+  op-row([`find(x)`], [$cal(O)(log N)$], [Trova l'elemento `x` e restituisce un _iteratore_ a esso. Se `x` non è presente, restituisce un iteratore all'elemento subito dopo l'ultimo.]),
   op-row([`begin()` / `end()`], [$cal(O)(1)$], [Restituiscono iteratori all'inizio e alla fine del `set`. `begin()` punta al primo elemento, `end()` alla posizione subito dopo l'ultimo.]),
   op-row([`clear()`], [$cal(O)(N)$], [Rimuove tutti gli elementi.]),
 )
 
-*Nota bene:* `set` salva *una sola copia* degli elementi (ovvero non si possono avere elementi duplicati). Una struttura sostanzialmente identica che supporta questa funzionalità è `multiset`.
+*Nota bene:* `set` salva *una sola copia* degli elementi (ovvero non si possono avere elementi duplicati). Una struttura analoga che consente di memorizzare elementi duplicati è `multiset`.
 
 Vediamo come usare un set in un semplice esempio:
 
@@ -167,7 +167,7 @@ cout << s.size() << endl; // stampa 2
 Consideriamo un altro esempio pratico.
 #problem("Room Allocation", url: "https://cses.fi/problemset/task/1164", lbl: "room-allocation", tags: ("cses",))[
     L'Olinfo Hotel vuole ospitare $N$ clienti, l'$i$-esimo dei quali vuole alloggiare in una stanza dal giorno $L_i$ al giorno $R_i$. Una stanza non può essere occupata simultaneamente da più persone (cioè affinché due ospiti possano alloggiare nella stessa stanza, i loro intervalli $[L_i, R_i]$, $[L_j, R_j]$ devono essere disgiunti).
-    Qual è il minimo numero di stanze affinché l'Olinfo Hotel possa ospitare tutti? Se la risposta è $K$, stabilisci per ogni ospite un numero di stanza da $1$ a $K$.
+    Qual è il numero minimo di stanze affinché l'Olinfo Hotel possa ospitare tutti? Se la risposta è $K$, stabilisci per ogni ospite un numero di stanza da $1$ a $K$.
 
     $N <= 2 dot 10^5$, $1 <= L_i <= R_i <= 10^9$.
 ][
@@ -220,7 +220,7 @@ Consideriamo un altro esempio pratico.
 === `priority_queue`
 inclusa in `<queue>`
 
-`priority_queue` è una struttura dati che immagazzina una serie di elementi e permette di accedere rapidamente al *massimo* tra essi (o al minimo, se configurata opportunamente). Nonostante il nome, una `priority_queue` è più simile ad un `multiset` invece di una `queue`. A differenza di `set`, non mantiene gli elementi ordinati internamente in modo accessibile, e non supporta iteratori né la ricerca di un elemento arbitrario, ma supporta elementi duplicati. Permette di eseguire le seguenti operazioni:
+`priority_queue` è una struttura dati che immagazzina una serie di elementi e permette di accedere rapidamente al *massimo* tra essi (o al minimo, se configurata opportunamente). Nonostante il nome, una `priority_queue` è concettualmente più simile a un `multiset` che a una `queue`. A differenza di `set`, non mantiene gli elementi ordinati internamente in modo accessibile, e non supporta iteratori né la ricerca di un elemento arbitrario, ma supporta elementi duplicati. Permette di eseguire le seguenti operazioni:
 
 #op-table(
   op-row([`push(x)`], [$cal(O)(log N)$], [Inserisce l'elemento `x` nella coda.]),
@@ -228,7 +228,7 @@ inclusa in `<queue>`
   op-row([`top()`], [$cal(O)(1)$], [Restituisce (senza rimuoverlo) l'elemento massimo attualmente presente nella coda.]),
 )
 
-Sembrerebbe che una `priority_queue` sia semplicemente un `multiset` più debole, ma ha un grande vantaggio: è (circa) 2-5x volte più veloce per quanto riguarda inserzioni e rimozioni.
+Sebbene una `priority_queue` possa sembrare una versione ridotta di `multiset`, essa presenta un grande vantaggio: è circa 2-5 volte più veloce nelle operazioni di inserimento e rimozione.
 
 Vediamo un esempio:
 
@@ -255,12 +255,12 @@ cout << pq_min.top() << endl; // stampa 1 (il minimo)
 === `map`
 inclusa in `<map>`
 
-`map` è una struttura dati che immagazzina una serie di coppie chiave-valore, mantenute ordinate in base alla chiave. Si può pensare come un `set` in cui ad ogni elemento (la chiave) è associato anche un valore. Permette di eseguire le seguenti operazioni:
+`map` è una struttura dati che immagazzina una serie di coppie chiave-valore, mantenute ordinate in base alla chiave. Può essere vista come un `set` in cui a ogni elemento (la chiave) è associato anche un valore. Permette di eseguire le seguenti operazioni:
 
 #op-table(
   op-row([`insert({k, v})`], [$cal(O)(log N)$], [Inserisce la coppia chiave-valore. Se la chiave `k` è già presente, `insert` non ha effetto, mentre `[k] = v` sovrascrive il valore associato.]),
-  op-row([`erase(k)`], [$cal(O)(log N)$], [Rimuove la coppia con chiave `k`. Se `k` non è presente l'operazione non ha effetto.]),
-  op-row([`find(k)`], [$cal(O)(log N)$], [Trova la chiave `k` e restituisce un _iteratore_ alla coppia corrispondente. Se `k` non è presente restituisce un iteratore all'elemento subito dopo l'ultimo (cioè uguale a `end()`).]),
+  op-row([`erase(k)`], [$cal(O)(log N)$], [Rimuove la coppia con chiave `k`. Se `k` non è presente, l'operazione non ha effetto.]),
+  op-row([`find(k)`], [$cal(O)(log N)$], [Trova la chiave `k` e restituisce un _iteratore_ alla coppia corrispondente. Se `k` non è presente, restituisce un iteratore all'elemento subito dopo l'ultimo (cioè uguale a `end()`).]),
   op-row([`[k]`], [$cal(O)(log N)$], [Restituisce (o crea, se non esiste) un riferimento al valore associato alla chiave `k`. _Attenzione_: accedere con `[k]` a una chiave non presente la _inserisce automaticamente_ nella mappa con un valore di default.]),
   op-row([`begin()` / `end()`], [$cal(O)(1)$], [Restituiscono iteratori all'inizio e alla fine della `map` (in ordine di chiave crescente).]),
   op-row([`clear()`], [$cal(O)(N)$], [Rimuove tutti gli elementi.]),
@@ -327,7 +327,7 @@ if (pos != string::npos)
   cout << pos << endl;         // stampa 7
 ```
 
-Nota bene: usare `cin` per leggere una stringa può causare problemi se essa contiene spazi. In particolare, `cin` legge l'input fino a quando non trova uno spazio o la riga è terminata, quindi la stringa verrebbe "spezzata" ad ogni spazio. Se vogliamo leggere una riga per intero possiamo usare `getline` come illustrato nell'esempio:
+Nota bene: usare `cin` per leggere una stringa può causare problemi se questa contiene spazi. In particolare, `cin` legge l'input fino a quando non trova uno spazio o la riga è terminata, quindi la stringa verrebbe "spezzata" a ogni spazio. Se vogliamo leggere una riga per intero possiamo usare `getline` come illustrato nell'esempio:
 
 ```cpp
 string s;

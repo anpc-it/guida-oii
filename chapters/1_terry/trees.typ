@@ -44,10 +44,10 @@ Un albero è un grafo connesso con esattamente $N - 1$ archi, dove $N$ è il num
 // forse direi "un grafo è un albero se vale una delle seguenti definizioni equivalenti: ..."
 Questo fatto implica diverse proprietà, la più importante delle quali è che gli alberi non contengono cicli#footnote([Si può dimostrare facilmente per induzione.]). 
 Ciò implica a sua volta che tra due nodi dell'albero esiste un solo cammino che li collega. 
-È bene notare che vale anche l'implicazione inversa, cioè se un grafo è connesso e aciclico, allora è un albero ed ha esattamente $N - 1$ archi.
+È bene notare che vale anche l'implicazione inversa, cioè se un grafo è connesso e aciclico, allora è un albero e ha esattamente $N - 1$ archi.
 
 Grazie all'unicità del cammino tra ogni coppia di nodi, spesso un problema su alberi si risolve in maniera più efficiente rispetto allo stesso problema su grafi generici.
-Ad esempio, puoi trovare il cammino più breve (nonché l'unico!) tra due nodi con una _DFS_ o una _BFS_, anche nel caso in cui gli archi hanno un peso.
+Ad esempio, puoi trovare il cammino più breve (nonché l'unico!) tra due nodi con una _DFS_ o una _BFS_, anche nel caso in cui gli archi abbiano un peso.
 
 Quando un nodo ha grado $1$, ovvero ha un solo arco uscente, viene detto _foglia_. Nell'albero in figura, le foglie sono i nodi $2$, $3$ e $5$. 
 Tutti gli alberi con più di un nodo contengono sempre almeno $2$ foglie. 
@@ -56,21 +56,21 @@ Tutti gli alberi con più di un nodo contengono sempre almeno $2$ foglie.
 
 Molti algoritmi su albero prevedono la scelta di un nodo speciale, detto _radice_, per dare un ordine all'albero. Se non viene specificata la radice nel testo del problema, la sua scelta è arbitraria#footnote([Solitamente si usa il nodo $0$ o, in contesti $1$-based, il nodo $1$.]).
 
-La scelta di una radice permette di definire per tutti i nodi a meno della radice un nodo _genitore_ (in inglese _parent node_). Il genitore del nodo $i$ è l'ultimo nodo che si visita muovendosi dalla radice al nodo $i$. 
+La scelta di una radice permette di definire per tutti i nodi, a eccezione della radice, un nodo _genitore_ (in inglese _parent node_). Il genitore del nodo $i$ è l'ultimo nodo che si visita muovendosi dalla radice al nodo $i$. 
 Si dice inoltre che un nodo $j$ è _figlio_ del nodo $i$ se $i$ è il genitore di $j$.
 
 Nell'albero sopra illustrato, prendendo come radice il nodo $0$, si ha per esempio che i nodi $2$ e $3$ sono figli del nodo $1$, mentre il nodo $4$ è il genitore del nodo $5$.
 L'array $P$ tale per cui $P[i]$ contiene il genitore del nodo $i$ (o $-1$ se il nodo $i$ è la radice) è detto _parent array_. 
 Il parent array dell'albero sopra, radicato in $0$, sarebbe $[-1, 0, 1, 1, 0, 4]$.
 
-La profondità di un nodo è il numero di archi che lo separano dalla radice. La profondità della radice è $0$. Nell'esempio sopra, i nodi $1$ e $4$ sono a profondità $1$ mentre i nodi $2, 3$ e $5$ sono a profondità $2$.
+La profondità di un nodo è il numero di archi che lo separano dalla radice. La profondità della radice è $0$. Nell'esempio sopra, i nodi $1$ e $4$ sono a profondità $1$, mentre i nodi $2, 3$ e $5$ sono a profondità $2$.
 I nodi a profondità massima in un albero sono sempre foglie.
 
-Gli _antenati_ di un nodo $i$ sono i nodi sul cammino dalla radice fino al nodo stesso. Gli antenati del nodo $5$ nell'esempio sopra sono i nodi $4$ e $1$. Il più basso antenato comune di due nodi $i$ e $j$, in inglese _lowest common ancestor_ (_LCA_), è il nodo $k$ alla massima profondità che è antenato sia di $i$ che di $j$: diremo $"LCA"(i, j) = k$. 
-Se $i$ è antenato di $j$, l'_LCA_ è $i$. Vice versa se $j$ è antenato di $i$.
+Gli _antenati_ di un nodo $i$ sono i nodi sul cammino dalla radice fino al nodo stesso. Gli antenati del nodo $5$ nell'esempio sopra sono i nodi $4$ e $1$. Il più basso antenato comune di due nodi $i$ e $j$, in inglese _lowest common ancestor_ (_LCA_), è il nodo $k$ alla massima profondità che è antenato sia di $i$ sia di $j$: diremo $"LCA"(i, j) = k$. 
+Se $i$ è antenato di $j$, l'_LCA_ è $i$. Viceversa se $j$ è antenato di $i$.
 Nell'esempio sopra $"LCA"(2, 3) = 1$, $"LCA"(2, 5) = 0$ e $"LCA"(0, 3) = 0$.
 
-Trovare l'_LCA_ tra due nodi è estremamente utile per svolgere numerose query su albero. Vedremo in futuro come calcolarlo in maniera efficiente.
+Trovare l'_LCA_ tra due nodi è estremamente utile per svolgere numerose query su albero. Vedremo in seguito come calcolarlo in maniera efficiente.
 
 Un ultimo concetto utile nell'ambito degli alberi radicati è quello di _sottoalbero_: il sottoalbero di un nodo $i$ è l'insieme di tutti i nodi che hanno $i$ tra gli antenati, $i$ compreso.
 
@@ -131,7 +131,7 @@ Alcuni tipi di albero particolari assumono nomi specifici:
   ],
   [_Linea con $4$ nodi_],
   [_Stella con centro $0$_],
-  [_Abero binario completo con $7$ nodi_],
+  [_Albero binario completo con $7$ nodi_],
 )
 
 //#align(center)[
@@ -144,7 +144,7 @@ Alcuni tipi di albero particolari assumono nomi specifici:
 //]
 
 Le _linee_ sono alberi in cui ogni nodo ha grado $1$ o $2$; questa condizione è sufficiente a verificare che l'albero sia una linea.
-Le _stelle_ hanno un solo nodo con grado maggiore di $1$. Questo nodo è detto _centro_ della stella e tutti gli altri nodi sono adiacenti ad esso. 
+Le _stelle_ hanno un solo nodo con grado maggiore di $1$. Questo nodo è detto _centro_ della stella e tutti gli altri nodi sono adiacenti a esso. 
 Negli _alberi binari_ ogni nodo ha al più due figli. Spesso questo tipo di albero viene utilizzato per strutture dati come _segment tree_ e _alberi binari di ricerca_. 
 
 === Visite su albero
@@ -168,14 +168,14 @@ Vediamo un problema in cui serve visitare ricorsivamente l'albero.
   Ci viene dato l'albero delle gerarchie tra gli $N$ dipendenti di un'azienda e siamo interessati al numero di coppie di dipendenti $(a, b)$ tali che $a$ è antenato di $b$ nella gerarchia.
 ][
 
-  Al posto di provare tutte le coppie, possiamo fissare $a$. 
+  Invece di provare tutte le coppie, possiamo fissare $a$. 
   Per un dato $a$, il numero di coppie che ci interessano è dato dalla dimensione del sottoalbero di $a$ tolto il nodo $a$ stesso. 
   Notiamo che il sottoalbero è ben definito dal momento che l'albero è radicato.
 
   Sia $S_i$ la dimensione del sottoalbero del nodo $i$. 
   Per calcolarla sommiamo gli $S_j$ dove $j$ è un nodo figlio di $i$.
 
-  È chiaro che questo tipo di calcolo vada eseguito ricorsivamente dal momento che per calcolare la dimensione del sottoalbero di un nodo devo aver prima calcolato quella dei figli. 
+  È chiaro che questo tipo di calcolo vada eseguito ricorsivamente, dal momento che per calcolare la dimensione del sottoalbero di un nodo occorre aver prima calcolato quella dei figli. 
 
   ```cpp
   vector<vector<int>> adj;
