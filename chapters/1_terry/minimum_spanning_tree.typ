@@ -1,7 +1,7 @@
 #import "/templates/page.typ": project
 #import "/utils/render.typ": is-web
 
-#let render = if is-web { project.with(title: "Grafi") } else { it => it }
+#let render = if is-web { project.with(title: "Minimo albero ricoprente") } else { it => it }
 #show: render
 
 #import "../../utils/problems.typ": *
@@ -15,6 +15,7 @@
 
 
 === Minimo albero ricoprente
+
 Immagina di dover progettare la rete elettrica dell'attuale Repubblica Ceca in modo tale che ogni luogo di interesse sia collegato, anche non direttamente, a ogni altro luogo di interesse, minimizzando la lunghezza totale dei collegamenti. Puoi convincerti facilmente che questo problema si formula naturalmente come segue in termini di grafi.
 
 Dato un grafo $G(V, E)$ connesso e pesato, un albero ricoprente è un sottografo connesso che contiene tutti i nodi di $G$ e non contiene cicli.
@@ -154,6 +155,8 @@ Come ti puoi aspettare, questa implementazione dell'algoritmo di Prim ha la stes
   Di questo ora sappiamo dire il costo totale (14 in questo caso) e da quali archi è composto. 
 ]
 
+//TODO: spostare MST in OII dopo il capitolo sulla DSU, così si può spiegare Kruskal
+/*
 ==== Algoritmo di Kruskal
 
 L'algoritmo di Kruskal si basa sulla seguente proprietà: dato un albero ricoprente, questo ha peso totale minimo se e soltanto se, per ogni ciclo, gli archi rimasti nell'albero non sono più pesanti di quelli rimossi.
@@ -229,3 +232,5 @@ Una domanda naturale è come facciamo a controllare che due nodi siano in compon
 
 L'albero risultante da quest'altro algoritmo è lo stesso ottenuto con Prim, ma non è sempre così.
 La garanzia che abbiamo è che entrambi producano un albero ricoprente il cui peso è minimo tra tutti i possibili alberi ricoprenti.
+
+*/
