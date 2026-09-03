@@ -6,6 +6,7 @@
 
 #import "../../utils/problems.typ": *
 #import "../../utils/examples.typ": *
+#import "../../utils/exercises.typ": *
 #import "../../utils/draw_graph.typ": *
 #import "../../utils/cetz.typ": canvas
 #import "@preview/cetz:0.4.2": vector
@@ -328,6 +329,80 @@ Prima di procedere, diciamo che un grafo è _*connesso*_ se ogni coppia di nodi 
 Ora che sappiamo visitare il grafo, possiamo anche contare il numero di isole su una mappa, come nel problema #crossref(<graph_problems>, "/chapters/4_editorials/graph_problems.typ", [Find the Treasure (ois_islands)]).
 
 Un'altra applicazione delle visite è dire se un grafo contiene o meno dei _cicli_, cioè dei cammini che partono e arrivano allo stesso nodo senza passare due volte per lo stesso arco, o ancora l'ordinamento topologico di un grafo diretto aciclico, che tratteremo più avanti.
+
+
+==== BFS multi-sorgente
+
+Una variante piuttosto utile della visita in ampiezza è quella con più sorgenti.
+La visita si espande non da una sorgente sola ma da molte di queste. 
+Virtualmente, ciò è equivalente a creare un nodo fittizio $s$ connesso ai nodi che vogliamo rendere sorgenti della BFS, per poi fare una BFS da $s$. 
+Questa osservazione è sufficiente per dire che la BFS multi-sorgente ha la stessa complessità della BFS normale. 
+
+Questo algoritmo ci permette, ad esempio, di vedere come si propaga un incendio appiccato in più nodi di un grafo contemporaneamente, oppure, dati alcuni nodi speciali, di trovare per ogni nodo del grafo il nodo speciale più vicino.
+
+#figure(
+  caption: [Una tipica applicazione della BFS multi-sorgente: trovare la minima distanza da uno dei nodi speciali.]
+)[
+  #let width = 10
+  #let height = 6
+  #let sources = ((1, 2), (8, 1), (4, 4))
+
+  #let dist(x, y) = {
+    let min-d = 1000
+    for (sx, sy) in sources {
+      let d = calc.abs(x - sx) + calc.abs(y - sy)
+      if d < min-d { min-d = d }
+    }
+    min-d
+  }
+
+  #let cells = {
+    for y in range(height) {
+      for x in range(width) {
+        let d = dist(x, y)
+        
+        let fill-color = if d == 0 {
+          red.lighten(40%)
+        } else {
+          blue.lighten(15% + d * 18%)
+        }
+
+        (grid.cell(
+          fill: fill-color,
+          align: center + horizon,
+          if d == 0 { [*S*] } else { str(d) }
+        ),)
+      }
+    }
+  }
+
+  #grid(
+    columns: width * (30pt,),
+    rows: height * (30pt,),
+    stroke: 0.5pt + luma(150),
+    ..cells
+  )
+
+]
+
+L'implementazione è la stessa di una BFS normale ma all'inizio di inseriscono in coda tutte le sorgenti. 
+Se si cerca la distanza occorre assegnare $0$ alla distanza di ciascuna delle sorgenti.
+
+```cpp
+for (int v: sorgenti) {
+    Q.push(v);
+    visitato[v] = true;
+}
+
+// BFS normale
+
+```
+Alcuni esercizi a riguardo:
+
+#exercise("Voci di Corridoio", "https://territoriali.olinfo.it/task/gossip", diff: 1)
+#exercise("Caccia agli Interruttori", "https://territoriali.olinfo.it/task/interruttori", diff: 1)
+#exercise("Monsters", "https://cses.fi/problemset/task/1194", diff: 2)
+#exercise("Espansione del danno", "https://territoriali.olinfo.it/task/espanditutto", diff: 3)
 
 === Cammini minimi: L'algoritmo di Dijkstra
 
