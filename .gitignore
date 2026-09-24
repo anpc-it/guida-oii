@@ -8,3 +8,4 @@ dp.*
 
 # shiroa HTML output
 dist/
+dist-static/

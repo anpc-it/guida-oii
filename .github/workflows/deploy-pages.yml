@@ -3,6 +3,7 @@ name: Deploy website
 on:
   push:
     branches: ["main"]
+  workflow_dispatch:
 
 concurrency:
   group: pages
@@ -11,6 +12,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: read
 
@@ -34,13 +36,29 @@ jobs:
           curl -fLsS https://raw.githubusercontent.com/stipub/stixfonts/v2.13b171/fonts/static_otf/STIXTwoMath-Regular.otf \
             -o assets/fonts/STIXTwoMath-Regular.otf
 
-      - name: Build website
-        run: shiroa build -d dist --font-path assets/fonts --path-to-root /
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-1.63.0-chromium-${{ runner.os }}
+
+      - name: Install Playwright
+        run: |
+          npm install playwright@1.63.0 --no-audit --no-fund
+          npx playwright install --with-deps chromium
+
+      - name: Freeze static site
+        run: node freeze.mjs --font-path assets/fonts --no-compress
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: dist
+          path: dist-static
 
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
