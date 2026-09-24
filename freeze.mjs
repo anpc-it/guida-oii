@@ -237,6 +237,10 @@ function sanitizeHrefs(html) {
   );
 }
 
+function removeEditButtons(html) {
+  return html.replace(/<a\b[^>]*(?:title|aria-label)="Suggest an edit"[^>]*>[\s\S]*?<\/a>/g, "");
+}
+
 function addCsp(html) {
   if (html.includes('http-equiv="Content-Security-Policy"')) return html;
   const csp =
@@ -254,6 +258,7 @@ function freezeHtml(html, scriptAllowed) {
   html = roundNumbers(html);
   html = sanitizeHandlers(html);
   html = sanitizeHrefs(html);
+  html = removeEditButtons(html);
   html = addCsp(html);
   return html;
 }
@@ -277,6 +282,58 @@ function precompress(dir) {
   return { files: files.length, rawTotal, brTotal, gzTotal };
 }
 
+async function ensureAllPagesRendered(page) {
+  await page
+    .waitForFunction(
+      () => {
+        const app = document.querySelector(".typst-app");
+        if (!app) return false;
+        const h = app.scrollHeight;
+        if (window.__fh !== h) {
+          window.__fh = h;
+          window.__fht = Date.now();
+          return false;
+        }
+        return Date.now() - window.__fht > 300;
+      },
+      { timeout: 30000, polling: 100 },
+    )
+    .catch(() => {});
+  const needed = await page.evaluate(
+    () => Math.ceil(document.querySelector(".typst-app")?.scrollHeight || 0) + 200,
+  );
+  const vp = page.viewportSize();
+  if (needed > vp.height) {
+    await page.setViewportSize({ width: vp.width, height: Math.min(needed, 30000) });
+    await page.evaluate(async () => {
+      const h = document.body.scrollHeight;
+      for (let y = 0; y <= h; y += 800) {
+        window.scrollTo(0, y);
+        await new Promise((r) => setTimeout(r, 120));
+      }
+      window.scrollTo(0, 0);
+    });
+  }
+  await page
+    .waitForFunction(
+      () => {
+        const app = document.querySelector(".typst-app");
+        if (!app) return false;
+        const svgs = [...app.querySelectorAll(".typst-svg-page")];
+        if (svgs.length === 0) return false;
+        const key = svgs.map((s) => s.innerHTML.length).join(",");
+        if (window.__freezeKey !== key) {
+          window.__freezeKey = key;
+          window.__freezeAt = Date.now();
+          return false;
+        }
+        return Date.now() - window.__freezeAt > 800;
+      },
+      { timeout: 60000, polling: 150 },
+    )
+    .catch(() => {});
+}
+
 async function renderOne(context, rel, workerId) {
   const url = `http://127.0.0.1:${PORT}/${rel.split("/").map(encodeURIComponent).join("/")}`;
   const scriptAllowed = scriptAllowlist(SRC, rel);
@@ -295,14 +352,7 @@ async function renderOne(context, rel, workerId) {
       log(`worker ${workerId} render ${rel}${attempt > 1 ? ` (attempt ${attempt})` : ""}`);
       await page.goto(url, { waitUntil: "domcontentloaded", timeout: 90000 });
       await page.waitForSelector(".typst-app .typst-svg-page", { state: "attached", timeout: 90000 });
-      await page.waitForFunction(
-        () => {
-          const el = document.querySelector(".typst-app .typst-svg-page");
-          return el !== null && el.getBoundingClientRect().height > 10;
-        },
-        { timeout: 30000 },
-      );
-      await page.waitForTimeout(400);
+      await ensureAllPagesRendered(page);
       const rendered = await page.content();
       const frozen = freezeHtml(rendered, scriptAllowed);
       const target = join(OUT, rel);

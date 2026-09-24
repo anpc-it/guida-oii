@@ -6,11 +6,13 @@
 #let web-theme = if is-html-target(exclude-wrapper: true) { "starlight" } else { "mdbook" }
 #let is-starlight-theme = web-theme == "starlight"
 
-#let page-width = get-page-width()
 #let is-html-target = is-html-target()
 #let is-pdf-target = is-pdf-target()
 #let is-web-target = is-web-target()
 #let sys-is-html-target = ("html" in dictionary(std))
+
+#let web-page-width = 975pt
+#let page-width = if is-web-target { web-page-width } else { get-page-width() }
 
 #let themes = theme-box-styles-from(toml("theme-style.toml"), read: it => read(it))
 #let (
@@ -31,7 +33,8 @@
 #let main-font = ("Crimson Text", "Libertinus Serif")
 #let code-font = "DejaVu Sans Mono"
 
-#let main-size = if is-web-target { 18pt } else { 10.5pt }
+#let web-scale = 1.3
+#let main-size = if is-web-target { 18pt * web-scale } else { 10.5pt }
 #let heading-sizes = if is-web-target {
   (2, 1.5, 1.17, 1, 0.83).map(it => it * main-size)
 } else {
@@ -92,7 +95,7 @@ try { localStorage.setItem("shiroa-theme", "light"); } catch (e) {}
   show: markup-rules.with(..common, themes: themes, heading-sizes: heading-sizes, list-indent: list-indent, main-size: main-size)
   show heading: set text(font: "EB Garamond")
   show heading: it => if is-web-target {
-      set text(size: heading-sizes.at(it.level))
+      set text(size: heading-sizes.at(it.level), weight: "bold")
       block(
         spacing: 0.7em * 1.5 * 1.2,
         below: 0.7em * 1.2,
@@ -103,6 +106,14 @@ try { localStorage.setItem("shiroa-theme", "light"); } catch (e) {}
     }
   show: equation-rules.with(..common, theme-box: theme-box)
   show: code-block-rules.with(..common, themes: themes, code-font: code-font)
+
+  show raw.where(block: false): it => box(
+    fill: luma(94%),
+    inset: (x: 0.25em, y: 0.05em),
+    outset: (y: 0.12em),
+    radius: 0.15em,
+    it,
+  )
 
   set par(justify: true)
 
