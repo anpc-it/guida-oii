@@ -171,6 +171,7 @@ Per ora abbiamo usato solo `int`, ma non è l'unico tipo di variabile. Presentia
   table(
     columns: 3,
     align: (left, right, left),
+    inset: (x: 6pt, y: 10pt),
     [*Tipo*], [*Byte*], [*Dettagli*],
     [`char`], [1], [Un singolo carattere.],
     [`bool`], [1], [Un valore booleano: `true` oppure `false`.],

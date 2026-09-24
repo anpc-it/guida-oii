@@ -59,7 +59,7 @@
            align: (bottom, left + bottom),
           meter,
           [
-            #text(size: 16pt)[#name] #h(5pt) #text(size: 13pt)[(#link(url))]
+            #text(size: 0.89em)[#name] #h(5pt) #text(size: 0.72em)[(#link(url))]
           ],
         )
       ],
