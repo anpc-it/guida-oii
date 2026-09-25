@@ -6,7 +6,7 @@
 
 #import "../../utils/problems.typ": *
 #import "../../utils/cetz.typ": canvas
-
+#import "../../utils/exercises.typ": *
 
 
 == Alberi
@@ -204,3 +204,10 @@ Vediamo un problema in cui serve visitare ricorsivamente l'albero.
   }
   ```
 ]
+
+=== Problemi consigliati
+
+#exercise("Road Reparation", "https://cses.fi/problemset/task/1675", diff: 1)
+#exercise("Noci di cocco", "https://training.olinfo.it/task/preoii_machete", diff: 2)
+#exercise("Codex Botanicus", "https://training.olinfo.it/task/oii_botanicus", diff: 2)
+#exercise("Tour de Treeland", "https://training.olinfo.it/task/iiot_tourdetree", diff: 3)

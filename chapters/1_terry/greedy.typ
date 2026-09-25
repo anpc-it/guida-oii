@@ -119,5 +119,8 @@ I problemi greedy possono apparire semplici, tuttavia in certi casi trovare la s
 
 === Problemi consigliati
 #exercise("Bus Excursion", "https://training.olinfo.it/task/ois_excursion2", diff: 1)
+#exercise("Maximum Subarray Sum", "https://cses.fi/problemset/task/1643", diff: 2)
+#exercise("Episodio I: un acquisto difficile", "https://training.olinfo.it/task/oii_acquisti", diff: 2)
+#exercise("Vetrate colorate", "https://training.olinfo.it/task/oii_artemoderna", diff: 2)
 #exercise("Library of Binaria", "https://training.olinfo.it/task/ois_binaria", diff: 2)
 #exercise("Il pozzo", "https://training.olinfo.it/task/pozzo", diff: 3)

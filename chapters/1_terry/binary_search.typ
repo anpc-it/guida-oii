@@ -318,5 +318,7 @@ La condizione che ci permette di fare ricerca binaria su una funzione è che que
 ]
 === Problemi consigliati
 
+#exercise("Factory Machines", "https://cses.fi/problemset/task/1620", diff: 1)
+#exercise("Filiali bilanciate", "https://training.olinfo.it/task/ois_filiali", diff: 2)
 #exercise("Array Division", "https://cses.fi/alon/task/1085", diff: 2)
 #exercise("Multiplication Table", "https://cses.fi/problemset/task/2422", diff: 3)

@@ -493,3 +493,12 @@ int main() {
 #include "minimum_spanning_tree.typ"
 
 // TODO: === Ordinamento topologico (direi nella sezione OII non terry)
+=== Problemi consigliati
+
+#exercise("Message Route", "https://cses.fi/problemset/task/1667", diff: 1)
+#exercise("Building Roads", "https://cses.fi/problemset/task/1666", diff: 1)
+#exercise("Cammino minimo", "https://training.olinfo.it/task/mincammino", diff: 1)
+#exercise("Counting Roads", "https://cses.fi/problemset/task/1192", diff: 2)
+#exercise("Monsters", "https://cses.fi/problemset/task/1194", diff: 2)
+#exercise("Episodio II: un lungo viaggio", "https://training.olinfo.it/task/oii_bus", diff: 3)
+#exercise("Arte nei corridoi", "https://training.olinfo.it/task/oii_corridoi", diff: 3)
