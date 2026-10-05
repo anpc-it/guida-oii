@@ -237,6 +237,16 @@ function sanitizeHrefs(html) {
   );
 }
 
+function retargetLinks(html) {
+  html = outsideStyleScript(html, (seg) =>
+    seg.replace(/\starget="[^"]*"/gi, ' target="_top"'),
+  );
+  if (!/<base\b[^>]*\btarget=/i.test(html)) {
+    html = html.replace(/<head\b[^>]*>/i, (m) => `${m}\n<base target="_top">`);
+  }
+  return html;
+}
+
 function removeEditButtons(html) {
   return html.replace(/<a\b[^>]*(?:title|aria-label)="Suggest an edit"[^>]*>[\s\S]*?<\/a>/g, "");
 }
@@ -258,6 +268,7 @@ function freezeHtml(html, scriptAllowed) {
   html = roundNumbers(html);
   html = sanitizeHandlers(html);
   html = sanitizeHrefs(html);
+  html = retargetLinks(html);
   html = removeEditButtons(html);
   html = addCsp(html);
   return html;
