@@ -28,6 +28,7 @@
     = Argomenti avanzati
     - #chapter("chapters/2_oii/stl2.typ", section: "3.1")[Altre funzionalità della STL]
     - #chapter("chapters/2_oii/segtree.typ", section: "3.2")[Segment tree]
+    - #chapter("chapters/2_oii/segtree2.typ", section: "3.3")[Segment tree con lazy propagation]
 
     = Extra
     - #chapter("chapters/3_ioi/sos_dp.typ", section: "4.1")[Sum over Subsets DP]
