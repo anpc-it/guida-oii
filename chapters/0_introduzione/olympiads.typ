@@ -100,14 +100,16 @@ Il giudice si aspetta il formato indicato nella sezione Output, quindi bisogna s
 
 Gli esempi servono a capire il formato dell'output richiesto e a testare la tua soluzione, ma il giudice testerà la tua soluzione con *molti altri input nascosti*. 
 
-Nota che questo non è l'unico formato di problemi possibile: esistono anche i problemi _output only_ e i problemi _interattivi_:
+Nota che questo non è l'unico formato di problemi possibile. Esistono anche i problemi _output only_, i problemi _interattivi_ e i problemi _comunicativi_:
 
 - _output only_: Sono problemi in cui l'utente scarica tutti i file di test di input, anche quelli segreti, e li elabora sulla propria macchina. Gli input possono essere _statici_ o _dinamici_: nel primo caso sono uguali per tutti gli utenti e non cambiano nel tempo, nell'altro sono diversi per ogni utente e vengono rigenerati dopo un intervallo di tempo oppure se viene inviata una soluzione. 
   
   Nella *fase territoriale* delle OII il formato dei problemi è *_output only dinamico_*.
 
-- _interattivi_: Un problema interattivo prevede che la soluzione dell'utente comunichi con un'altra soluzione (o con se stessa) tramite specifiche funzioni. Questa classe di problemi è abbastanza rara: compare a volte tra i problemi della fase finale delle OII, oppure in gare internazionali.
-// TODO: fare un capitolo sugli interattivi e linkarlo qua
+- _interattivi_: Un problema interattivo prevede che la soluzione dell'utente comunichi con un programma esterno tramite specifiche funzioni. Pensiamo ad esempio ad un'istanza snake dove l'utente è incaricato di scrivere una strategia vincente tramite funzioni come `move_up()`, `move_left()`, eccetera. Questa classe di problemi è abbastanza rara: compare a volte tra i problemi della fase finale delle OII, oppure in gare internazionali.
+
+- _comunicativi_: Sono problemi dove la soluzione scritta viene eseguita in molteplici istanze che comunicano tra di loro ma non condividono la memoria.
+Questo tipo di problemi sono ancora più rari e non verranno affrontati in questa guida.
 
 === Vincoli di tempo e di memoria
 
