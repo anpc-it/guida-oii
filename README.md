@@ -24,8 +24,8 @@
 - [ ] OII (Argomenti avanzati)
   - [x] Altre cose della STL utili (sort, unordered_set, unordered_map, bitset, ...)
   - [ ] Esempi di problemi interattivi 
-  - [ ] Segment Tree
-    - [ ] Lazy
+  - [x] Segment Tree
+    - [x] Lazy
   - [ ] Fenwick
   - [ ] Min-stack, Min-queue
   - [ ] DSU
