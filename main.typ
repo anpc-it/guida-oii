@@ -17,8 +17,6 @@
 #align(center + horizon)[
   #set par(justify: false)
   #text(size: 32pt, weight: "bold", hyphenate: false)[#context document.title]
-  #v(2em)
-  #text(size: 18pt)[#context document.author.join(", ")]
   #v(1em)
   #text(size: 14pt)[#edition]
 ]

@@ -3,7 +3,6 @@
 #book-meta(
   title: "Guida alle Olimpiadi di Informatica",
   description: "Una guida per chi si avvicina alla programmazione competitiva e alle OII.",
-  authors: ("M. Arcari", "A. Coato", "L. Ferrari", "F. Vercellesi", "L. Versari"),
   language: "it",
   repository: "https://github.com/anpc-it/guida-oii",
   summary: [
