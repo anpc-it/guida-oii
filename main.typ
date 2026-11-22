@@ -92,6 +92,7 @@
 #include "chapters/2_oii/segtree.typ"
 #include "chapters/2_oii/segtree2.typ"
 #include "chapters/2_oii/dsu.typ"
+#include "chapters/2_oii/mst.typ"
 
 
 = Extra //ioi

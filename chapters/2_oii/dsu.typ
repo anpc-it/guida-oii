@@ -247,6 +247,15 @@ struct DSU {
     int component_size(int i) { return size[find(i)]; }
 };
 ```
+
+Una forma alternativa per scrivere la funzione `find` in modo più conciso è la seguente, che fa uso dell'operatore ternario.
+
+```cpp
+int find(int i) {
+    return parent[i] == i ? i : parent[i] = find(parent[i]);
+}
+```
+
 === Applicazioni
 
 La DSU è utile ogni volta che serve mantenere una partizione che cambia solo per unioni:
