@@ -28,8 +28,8 @@
     - [x] Lazy
   - [ ] Fenwick
   - [ ] Min-stack, Min-queue
-  - [ ] DSU
-  - [ ] MST
+  - [x] DSU
+  - [x] MST
   - [ ] Binary lifting
   - [ ] Matematica (Combinatoria, inversi modulari, tdn)
   - [ ] Soluzioni randomizzate e probabilistiche
