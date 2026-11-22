@@ -1,5 +1,6 @@
 #import "/templates/page.typ": project
 #import "/utils/render.typ": is-web
+#import "/utils/draw_array.typ": draw_array
 
 #let render = if is-web { project.with(title: "Ricerca binaria") } else { it => it }
 #show: render
@@ -106,47 +107,11 @@ In questo caso, dal momento che il vettore è ordinato, invece di scorrere tutto
 
 Guardo l'elemento al centro dell'intervallo in cui sto cercando e, se questo è maggiore o uguale, proseguo la ricerca nella metà sinistra, altrimenti nella metà destra. La complessità è $cal(O)(log N)$.
 
-#let arr = (1, 2, 3, 5, 6, 9, 11, 24)
-
-#let draw-step(l, r, m) = {
-  import draw: *
-
-  for i in range(8) {
-    content((i + 0.5, 0.25), text(size: 8pt, fill: black)[#i])
-  }
-
-  for i in range(8) {
-    let box-fill = white
-    let text-fill = black
-    
-    if i < l or i > r {
-      box-fill = luma(245)
-      text-fill = luma(170)
-    } else if i == m {
-      box-fill = rgb("ffeb3b").lighten(50%) 
-    }
-    
-    rect((i, 0), (i + 1, -0.5), fill: box-fill)
-    content((i + 0.5, -0.25), text(fill: text-fill, weight: "bold")[#(arr.at(i))])
-  }
-
-  for i in range(8) {
-    let pointers = ()
-    if i == l { pointers.push([*$l$*]) }
-    if i == r { pointers.push([*$r$*]) }
-    if i == m { pointers.push([*$m$*]) }
-    
-    if pointers.len() > 0 {
-      content(
-        (i + 0.5, -.8), 
-        text(size: 10pt, weight: "bold", fill: rgb("d32f2f"))[#pointers.join(", ")]
-      )
-    }
-  }
-}
 
 Vediamo un'illustrazione passo dopo passo per comprendere meglio come funziona la ricerca binaria per trovare un elemento in un array. 
 Cerchiamo ad esempio l'elemento $9$, come nell'esempio sopra.
+
+#let arr = (1, 2, 3, 5, 6, 9, 11, 24)
 
 #align(center)[
   #set figure(numbering: none)
@@ -154,27 +119,27 @@ Cerchiamo ad esempio l'elemento $9$, come nell'esempio sopra.
     columns: (1fr, 1fr),
     row-gutter: 12pt,
     figure(
-      canvas(draw-step(0, 7, none)),
+      canvas({ draw_array(arr, pointers: ((0, [$ell$]), (7, [$r$])))}),
       caption: [Passo 1: all'inizio lo spazio di ricerca è da $0$ a $7$.]
     ),
     figure(
-      canvas(draw-step(0, 7, 3)),
+      canvas({draw_array(arr, pointers: ((0, [$ell$]), (7, [$r$]), (3, [$m$])))}),
       caption: [Passo 2: guardiamo al centro: $A[m] = 5 < 9$, quindi se c'è $9$ è a destra di $m$. Impostiamo $l <- m + 1$.]
     ),
     figure(
-      canvas(draw-step(4, 7, none)),
+      canvas({draw_array(arr, pointers: ((4, [$ell$]), (7, [$r$])))}),
       caption: [Passo 3: ora lo spazio di ricerca è da $4$ a $7$.]
     ),
     figure(
-      canvas(draw-step(4, 7, 5)),
+      canvas({draw_array(arr, pointers: ((4, [$ell$]), (7, [$r$]), (5, [$m$])))}),
       caption: [Passo 4: $A[m] = 9 >= 9$ quindi $r <- m$.]
     ),
     figure(
-      canvas(draw-step(4, 5, 4)),
+      canvas({draw_array(arr, pointers: ((4, [$ell, m$]), (5, [$r$])))}),
       caption: [Passo 5: $A[m] = 6 < 9$ quindi $l <- m + 1$.]
     ),
     figure(
-      canvas(draw-step(5, 5, none)),
+      canvas({draw_array(arr, pointers: ((5, [$ell, r$]),))}),
       caption: [Passo 6: $l = r$ dunque l'algoritmo termina.]
     ),
   )

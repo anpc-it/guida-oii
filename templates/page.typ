@@ -33,7 +33,7 @@
 #let main-font = ("Crimson Text", "Libertinus Serif")
 #let code-font = "DejaVu Sans Mono"
 
-#let web-scale = 1.3
+#let web-scale = 1.1
 #let main-size = if is-web-target { 18pt * web-scale } else { 10.5pt }
 #let heading-sizes = if is-web-target {
   (2, 1.5, 1.17, 1, 0.83).map(it => it * main-size)

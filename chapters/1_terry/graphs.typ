@@ -8,7 +8,7 @@
 #import "../../utils/examples.typ": *
 #import "../../utils/exercises.typ": *
 #import "../../utils/draw_graph.typ": *
-#import "../../utils/cetz.typ": canvas
+#import "../../utils/cetz.typ": canvas, fit-web
 #import "@preview/cetz:0.4.2": vector
 #import "../../utils/ref.typ": crossref
 
@@ -376,12 +376,12 @@ Questo algoritmo ci permette, ad esempio, di vedere come si propaga un incendio 
     }
   }
 
-  #grid(
+  #fit-web(grid(
     columns: width * (30pt,),
     rows: height * (30pt,),
     stroke: 0.5pt + luma(150),
     ..cells
-  )
+  ))
 
 ]
 

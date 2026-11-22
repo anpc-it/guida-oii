@@ -8,6 +8,7 @@
 #import "../../utils/problems.typ": *
 #import "../../utils/exercises.typ": exercise
 #import "../../utils/ref.typ": crossref
+#import "../../utils/cetz.typ": fit-web
 
 == Ricorsione e ricerca completa
 
@@ -96,7 +97,7 @@ Per rendere più chiaro lo schema delle chiamate ricorsive è possibile farne un
 Per semplicità sono omessi i parametri $n$ e $k$ nelle chiamate successive alla prima. 
 
 #figure(
-  tidy-tree-graph(
+  fit-web(tidy-tree-graph(
     spacing: (10pt, 20pt),
     node-inset: 5pt,
     draw-node: (defocus: 0),
@@ -138,7 +139,7 @@ Per semplicità sono omessi i parametri $n$ e $k$ nelle chiamate successive alla
           + $2$
           - $"rec"([2, 2, 2])$
             - $[2, 2, 2]$
-  ],
+  ]),
   caption: [Lo schema ad albero delle chiamate ricorsive.]
 )
 
