@@ -7,6 +7,7 @@
 #import "../../utils/problems.typ": *
 #import "../../utils/ref.typ": crossref
 #import "../../utils/cetz.typ": canvas
+#import "../../utils/palette.typ": *
 #import "@preview/cetz:0.4.2": draw
 
 #let lazy-yellow = rgb("#ffff66")
@@ -14,7 +15,7 @@
 #let lazy-query = rgb("#ef8b8b")
 #let lazy-green = rgb("#4caf50")
 #let lazy-blue = rgb("#a9c4e4")
-#let lazy-indicator = rgb("#5cb85c")
+#let lazy-indicator = rgb("#8aee8a")
 
 // Nodi del segment tree, dal livello della radice a quello delle foglie.
 #let lazy-pos = (
@@ -46,7 +47,7 @@
     draw.rect(
       (lazy-pos.at(from).at(0) - lazy-node-size.at(0) / 2 - 0.1, -y),
       (lazy-pos.at(to).at(0) + lazy-node-size.at(0) / 2 + 0.1, y),
-      radius: 3pt,
+      radius: 1pt,
       stroke: 1.5pt + lazy-green,
       fill: none,
     )
@@ -70,10 +71,10 @@
     let c = (p.at(0) + lazy-node-size.at(0) / 2, p.at(1) + lazy-node-size.at(1) / 2)
     let indicator = indicators.at(str(i), default: none)
     if indicator == none {
-      draw.circle(c, radius: 0.15cm, fill: lazy-blue, stroke: 0.7pt + black)
+      draw.circle(c, radius: 4pt, fill: lazy-blue, stroke: 0.7pt + black)
     } else {
-      draw.circle(c, radius: 0.24cm, fill: lazy-indicator, stroke: 0.7pt + black)
-      draw.content(c, text(size: 6pt)[#indicator])
+      draw.circle(c, radius: 6pt, fill: lazy-indicator, stroke: 0.7pt + black)
+      draw.content(c, text(size: 8pt)[#indicator])
     }
   }
 
@@ -101,20 +102,20 @@ Possiamo fare di meglio? Ovviamente sì.
 
 L'idea principale è la seguente:
 
-> Un update su range modifica $cal(O)(N)$ nodi, ma abbiamo detto che ogni query ne visita al massimo $cal(O)(log N)$: possiamo quindi pensare di modificare i nodi man mano che questi vengono visitati da una query.
+#box(fill: example_bg, inset: 8pt, radius: 3pt)[Un update su range modifica $cal(O)(N)$ nodi, ma abbiamo detto che ogni query ne visita al massimo $cal(O)(log N)$: possiamo quindi pensare di modificare i nodi man mano che questi vengono visitati da una query.]
 
 Se un range è rappresentato da un insieme di segmenti, allo stesso modo di una query, per un update raggiungiamo i nodi corrispondenti con una DFS e modifichiamo il valore di quel nodo secondo quanto richiesto: se ad esempio stiamo incrementando di 5 e raggiungiamo un nodo corrispondente a un range totalmente incluso nell'intervallo dell'update, possiamo stabilire che il valore di quel nodo dovrà essere incrementato di 5 moltiplicato per la lunghezza del range, visto che ogni elemento viene incrementato di 5.
 
 #figure(canvas({
   draw-lazy-tree((
-    "77", "29", [28+4\*5], "9", [10+2\*5], "15", "13",
+    "77", "29", [28$+$4$times$5], "9", [10$+$2$times$5], "15", "13",
     "3", "6", "8", "2", "5", "10", "7", "6",
   ), fills: (
     "2": lazy-active,
     "4": lazy-active,
   ), indicators: (
-    "2": "+5",
-    "4": "+5",
+    "2": "5",
+    "4": "5",
   ), highlight: (9, 14), bottom: "+5")
 }))
 
@@ -132,15 +133,15 @@ Visitare un nodo implica aver visitato quelli che stanno sopra. Di conseguenza, 
 
 #figure(canvas({
   draw-lazy-tree((
-    "77", "29", "48", "9", "20", [15+2\*5], [13+2\*5],
+    "77", "29", "48", "9", "20", [15$+$2$times$5], [13$+$2$times$5],
     "3", "6", "8", "2", "5", "10", "7", "6",
   ), fills: (
     "1": lazy-query,
     "5": lazy-query,
   ), indicators: (
-    "4": "+5",
-    "5": "+5",
-    "6": "+5",
+    "4": "5",
+    "5": "5",
+    "6": "5",
   ), highlight: (7, 12))
 }))
 

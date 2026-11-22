@@ -5,6 +5,7 @@
 #show: render
 
 #import "../../utils/problems.typ": *
+#import "../../utils/palette.typ": *
 #import "../../utils/cetz.typ": canvas
 #import "@preview/cetz:0.4.2": draw
 
@@ -88,9 +89,9 @@ Un approccio più sofisticato ma comunque inefficiente è precalcolare le somme 
 
 *Approccio 3*
 
-Query $cal(O)(log_2 N)$ e update $cal(O)(log_2 N)$
+Query $cal(O)(log N)$ e update $cal(O)(log N)$
 
-L'approccio migliore per questo tipo di problema è utilizzare il segment tree. Si tratta di una struttura dati molto utilizzata quando si devono eseguire query e update su un array. Le operazioni possono essere eseguite sia su un solo elemento (point update/point query) sia su range di elementi contigui (range update/range query). Ciascuna di queste operazioni, siano esse su range o su singoli elementi, ha complessità $cal(O)(log_2 N)$.
+L'approccio migliore per questo tipo di problema è utilizzare il segment tree. Si tratta di una struttura dati molto utilizzata quando si devono eseguire query e update su un array. Le operazioni possono essere eseguite sia su un solo elemento (point update/point query) sia su range di elementi contigui (range update/range query). Ciascuna di queste operazioni, siano esse su range o su singoli elementi, ha complessità $cal(O)(log N)$.
 Il problema descritto sopra richiede point update e range sum.
 
 === I segment tree
@@ -109,14 +110,14 @@ Il modo migliore di capire come è fatto un segment tree è vederne una rapprese
 Gli elementi in giallo sono quelli dell'array originale e ogni altro nodo contiene la somma dei due nodi sottostanti.
 
 - Se la dimensione dell'array iniziale è $N$, ci serviranno $N + N/2 + N/4 + dots + 1 approx 2N$ nodi.
-- La profondità del percorso dalla radice a ciascuna delle foglie è $cal(O)(log_2 N)$.
+- La profondità del percorso dalla radice a ciascuna delle foglie è $cal(O)(log N)$.
 - Ciascun nodo contiene la somma delle foglie del suo sottoalbero, che corrisponde a un sottoarray di lunghezza $2^k$ dell'array originale.
 
 Vediamo nel dettaglio come avvengono le varie operazioni.
 
 ==== Update
 
-Se vogliamo modificare l'$i$-esimo elemento ci accorgiamo che i nodi del segment tree da aggiornare sono solo quelli del percorso dalla radice all'$i$-esima foglia. Siccome la profondità dell'albero è $log_2 N$, la complessità dell'update sarà per l'appunto $cal(O)(log_2 N)$.
+Se vogliamo modificare l'$i$-esimo elemento ci accorgiamo che i nodi del segment tree da aggiornare sono solo quelli del percorso dalla radice all'$i$-esima foglia. Siccome la profondità dell'albero è $log_2 N$, la complessità dell'update sarà per l'appunto $cal(O)(log N)$.
 
 #figure(canvas({
   draw-segtree((
@@ -134,7 +135,7 @@ I nodi evidenziati in rosa sono quelli interessati dall'update: in questo caso �
 
 ==== Query
 
-Per quanto riguarda la somma di un range, il nostro obiettivo è non dover iterare su tutti gli elementi del range, ma sfruttare i range di cui conosciamo la somma per "comporre" il range interessato. È facilmente dimostrabile (ma non necessario agli scopi di questa introduzione) che il numero di nodi che compone un range è al più $2 log_2 N$.
+Per quanto riguarda la somma di un range, il nostro obiettivo è non dover iterare su tutti gli elementi del range, ma sfruttare i range di cui conosciamo la somma per "comporre" il range interessato. È facilmente dimostrabile (ma non necessario agli scopi di questa introduzione) che il numero di nodi che compone un range è al più $2 log N$.
 
 #figure(canvas({
   draw-segtree((
@@ -150,7 +151,7 @@ Nell'immagine il range della query è composto dagli ultimi 6 elementi nel riqua
 
 === Implementazione
 
-I segment tree sono di fatto alberi binari completi e di profondità $log_2 N$. Di conseguenza è possibile memorizzarli all'interno di un singolo array lungo circa $2N$. Tuttavia, siccome la lunghezza dell'array non è sempre una potenza di due, possiamo utilizzare un array lungo $4N$ ed essere sicuri che vada bene per qualsiasi $N$.
+I segment tree sono di fatto alberi binari completi e di profondità $log N$. Di conseguenza è possibile memorizzarli all'interno di un singolo array lungo circa $2N$. Tuttavia, siccome la lunghezza dell'array non è sempre una potenza di due, possiamo utilizzare un array lungo $4N$ ed essere sicuri che vada bene per qualsiasi $N$.
 
 In questa implementazione il segment tree è 1-based, cioè la radice si trova in posizione 1 dell'array. Prendendo in considerazione il nodo $i$-esimo, il suo figlio sinistro sarà in posizione $2i$ e il destro in posizione $2i + 1$. Il padre del nodo $i$ sarà in posizione $floor(i / 2)$. Inoltre, i range saranno in formato *incluso-escluso* (ovvero $[l, r)$ indica gli elementi $l, l+1, ..., r-1$).
 
@@ -209,7 +210,7 @@ Per dividere un range a metà troviamo il punto medio `mid` facendo la media (ap
 
 ==== `update`
 
-Complessità: $cal(O)(log_2 N)$
+Complessità: $cal(O)(log N)$
 
 Anche l'update avviene con una funzione ricorsiva. Un dettaglio che può semplificare il successivo utilizzo del segment tree è scrivere una procedura che viene chiamata dall'esterno con due soli parametri (posizione e nuovo valore), la quale chiama una procedura omonima interna con tutti i parametri necessari (vedi il codice).
 
@@ -249,11 +250,11 @@ Dopo la chiamata ricorsiva aggiorniamo il valore del nodo facendo la somma dei v
 
 ==== `query`
 
-Complessità: $cal(O)(log_2 N)$
+Complessità: $cal(O)(log N)$
 
 Le query su un range hanno una struttura leggermente diversa ed è meno intuitivo il motivo per cui la complessità rimane logaritmica. Accenno una possibile dimostrazione (non formale) che può benissimo essere ignorata.
 
-> *Dimostrazione (molto informale).* Supponiamo che la funzione ricorra sulle due metà e che nessuna delle due sia un caso base. A questo punto entrambi i range avranno sempre uno dei due estremi inclusi nel range della query e, di conseguenza, da quel momento in poi ad ogni chiamata una delle due metà arriva a un caso base. Se `mid` non è incluso nel range della query, allora una delle due metà avrà intersezione nulla; altrimenti uno dei due range è totalmente incluso. Possiamo concludere che può accadere al più una volta che entrambi i range su cui si ricorre non siano casi base; di conseguenza la complessità è $cal(O)(4 log_2 N)$, che equivale a $cal(O)(log_2 N)$.
+#box(fill: example_bg, inset: 8pt, radius: 3pt)[*Spunto di dimostrazione:* supponiamo che la funzione ricorra sulle due metà e che nessuna delle due sia un caso base. A questo punto entrambi i range avranno sempre uno dei due estremi inclusi nel range della query e, di conseguenza, da quel momento in poi ad ogni chiamata una delle due metà arriva a un caso base. Se `mid` non è incluso nel range della query, allora una delle due metà avrà intersezione nulla; altrimenti uno dei due range è totalmente incluso. Possiamo concludere che può accadere al più una volta che entrambi i range su cui si ricorre non siano casi base; di conseguenza la complessità è $cal(O)(log N)$.]
 
 ```cpp
 // Funzione ricorsiva che restituisce la somma del range [query_left,query_right[
@@ -288,67 +289,6 @@ La funzione `query`, a differenza delle precedenti, ha due casi base:
 
 Nel caso generale ricorriamo sulle due metà senza modificare `query_left` e `query_right`, dato che il range della query rimane sempre lo stesso.
 
-=== Implementazione completa
-
-Ecco l'implementazione completa in C++:
-
-```cpp
-struct segtree {
-    int N;
-    vector<long long> st;
-
-    long long build (int i, int left, int right, vector<long long> &A) {
-        if (right - left == 1) {
-            return st[i] = A[left];
-        }
-        int mid = (left + right) / 2;
-        st[i] = build(2*i, left, mid, A) +
-                build(2*i+1, mid, right, A);
-        return st[i];
-    }
-
-    segtree (vector<long long> &A) {
-        N = A.size();
-        st.resize (4*N);
-        build(1,0,N,A);
-    }
-
-    void update (int i, int left, int right, int pos, long long val) {
-        if (right - left == 1) {
-            st[i] = val;
-            return;
-        }
-        int mid = (left + right) / 2;
-        if (pos < mid) {
-            update (2*i, left, mid, pos, val);
-        } else {
-            update (2*i+1, mid, right, pos, val);
-        }
-        st[i] = st[2*i] + st[2*i+1];
-    }
-
-    void update (int pos, long long val) {
-        update (1, 0, N, pos, val);
-    }
-
-    long long query (int i, int left, int right, int query_left, int query_right) {
-        if (query_left >= right || query_right <= left) {
-            return 0;
-        }
-        if (left >= query_left && right <= query_right) {
-            return st[i];
-        }
-        int mid = (left + right) / 2;
-        return query (2*i, left, mid, query_left, query_right) +
-               query (2*i+1, mid, right, query_left, query_right);
-    }
-
-    long long query (int query_left, int query_right) {
-        return query (1, 0, N, query_left, query_right);
-    }
-};
-```
-
 === Quando si può usare un segment tree
 
 I segment tree sono quasi sempre una buona scelta quando si tratta di fare update e query su range, ma non vanno bene per tutte le operazioni. In particolare funzionano con le operazioni dette *associative* (più formalmente con i _monoidi_), come il minimo/massimo, lo $"XOR"$, il prodotto, il $"GCD"$, eccetera.
@@ -359,8 +299,6 @@ Se per esempio ci interessasse il massimo in un range al posto della somma, al p
 st[i] = max(st[2*i], st[2*i+1]);
 ```
 
-I segment tree permettono anche di eseguire operazioni più complesse, come trovare il sottoarray di somma massima in un range, trovare il $k$-esimo elemento (salvando le frequenze) o trovare il primo elemento $>= k$ in un range.
+I segment tree permettono anche di eseguire operazioni più complesse, come trovare il sottoarray di somma massima in un range, trovare il $k$-esimo elemento (salvando le frequenze) o trovare il primo elemento maggiore o uguale a $k$ in un range.
 
 Versioni più elaborate permettono di eseguire query su versioni precedenti della struttura (*persistenti*) o di memorizzare valori in range più ampi (*segment tree sparsi*). Gli utilizzi sono innumerevoli.
-
-Il tipo di segment tree spiegato in questa introduzione permette di eseguire point update/range query oppure point query/range update; con una tecnica chiamata *lazy propagation* è possibile supportare anche range query/range update.
