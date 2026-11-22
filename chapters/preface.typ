@@ -9,14 +9,14 @@ Questa guida intende essere una risorsa per le persone che si avvicinano al mond
 #v(20pt)
 
 La guida è strutturata nel seguente modo:
-- *Capitolo $1$*: Introduzione alle olimpiadi di informatica, al C++ e ai problemi algoritmici.
-- *Capitolo $2$*: Conoscenze di base. Questo capitolo mira a preparare uno studente ad affrontare la selezione territoriale.
-- *Capitolo $3$*: Conoscenze avanzate. Questo capitolo mira a preparare uno studente ad affrontare la finale nazionale.
-- *Capitolo $4$*: Contenuti extra. Queste conoscenze non sono richieste nelle fasi nazionali, ma possono essere utili per affrontare problemi specifici o gare internazionali.
+- *Parte $1$*: Introduzione alle olimpiadi di informatica, al C++ e ai problemi algoritmici.
+- *Parte $2$*: Conoscenze di base. Questo parte mira a preparare uno studente ad affrontare la selezione territoriale.
+- *Parte $3$*: Conoscenze avanzate. Questo parte mira a preparare uno studente ad affrontare la finale nazionale.
+- *Parte $4$*: Contenuti extra. Queste conoscenze non sono richieste nelle fasi nazionali, ma possono essere utili per affrontare problemi specifici o gare internazionali.
 
 #v(20pt)
 
-Nota che queste indicazioni vanno prese con le pinze: sebbene sia possibile ottenere punteggio pieno alle varie fasi basandosi sulle conoscenze spiegate nei rispettivi capitoli, avere conoscenze extra dei capitoli che seguono può spesso tornare molto utile. Inoltre, queste indicazioni sono relative all'edizione 2025-2026 e precedenti, ma non è detto che rimangano uguali in futuro.
+Nota che queste indicazioni vanno prese con le pinze: sebbene sia possibile ottenere punteggio pieno alle varie fasi basandosi sulle conoscenze spiegate nelle rispettive parti, avere conoscenze extra può spesso tornare molto utile. Inoltre, queste indicazioni sono relative all'edizione 2025-2026 e precedenti, ma non è detto che rimangano uguali in futuro.
 
 === Come contribuire
 
